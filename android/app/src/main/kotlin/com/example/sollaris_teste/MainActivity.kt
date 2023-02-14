@@ -1,4 +1,4 @@
-package com.example.sollaris_mobile
+package com.example.sollaris_teste
 
 import io.flutter.embedding.android.FlutterActivity
 

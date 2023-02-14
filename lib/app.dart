@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sollaris_mobile/src/features/login/view/login_screen.dart';
+import 'package:sollaris_teste/src/features/login/view/login_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
