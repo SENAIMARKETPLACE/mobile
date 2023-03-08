@@ -5,9 +5,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Container(),
+      home: SplashTela(),
+    );
+  }
+}
+
+class SplashTela extends StatefulWidget {
+  const SplashTela({super.key});
+
+  @override
+  State<SplashTela> createState() => _SplashTelaState();
+}
+
+class _SplashTelaState extends State<SplashTela> {
+  @override
+  Widget build(BuildContext context) {
+    return  Stack(
+      children: [
+        Spla
+      ],
     );
   }
 }

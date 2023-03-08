@@ -37,6 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   equatable: ^2.0.5
   dartz: ^0.10.1
+  flutter_native_splash: ^2.2.19
+
+flutter_native_splash:
+  color: "#9ae79a"
+  image: assets\image\logo.png
 
 dev_dependencies:
   flutter_test:
