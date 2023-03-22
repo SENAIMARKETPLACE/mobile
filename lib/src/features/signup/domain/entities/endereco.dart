@@ -28,15 +28,16 @@ class Endereco extends Equatable {
 
   factory Endereco.empty() {
     return const Endereco(
-        id: '',
-        idUsuario: '',
-        idEmpresa: '',
-        cep: '',
-        numero: '',
-        estado: '',
-        bairro: '',
-        cidade: '',
-        logradouro: '');
+      id: '',
+      idUsuario: '',
+      idEmpresa: '',
+      cep: '',
+      numero: '',
+      estado: '',
+      bairro: '',
+      cidade: '',
+      logradouro: '',
+    );
   }
 
   @override
