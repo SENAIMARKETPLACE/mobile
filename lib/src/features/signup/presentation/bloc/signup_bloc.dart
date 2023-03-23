@@ -15,6 +15,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     required this.getCep,
   }) : super(SignUpState.initial()) {
     on<GetCepEvent>(_getCep);
+    on<SetCepEvent>(_setCep);
   }
 
   Future<void> _getCep(
@@ -42,6 +43,26 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             cidade: endereco.cidade,
             logradouro: endereco.logradouro,
           ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _setCep(
+    SetCepEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        status: SignUpStatus.sucess,
+        endereco: Endereco(
+          id: event.endereco.id,
+          cep: event.endereco.cep,
+          numero: event.endereco.numero,
+          estado: event.endereco.estado,
+          bairro: event.endereco.bairro,
+          cidade: event.endereco.cidade,
+          logradouro: event.endereco.logradouro,
         ),
       ),
     );
