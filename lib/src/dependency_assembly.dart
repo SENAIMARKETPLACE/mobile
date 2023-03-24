@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:sollaris_teste/src/core/params/params.dart';
 import 'package:sollaris_teste/src/core/use_case/use_case.dart';
 import 'package:sollaris_teste/src/features/signup/data/datasources/endereco_remote_data_source.dart';
 import 'package:sollaris_teste/src/features/signup/data/repositories/signup_repository_impl.dart';
@@ -10,14 +9,18 @@ import 'package:sollaris_teste/src/features/signup/presentation/bloc/signup_bloc
 
 final dependency = GetIt.instance;
 
-Future<void> init() async{
+Future<void> init() async {
+  _setupSignup();
+}
+
+void _setupSignup() {
   dependency.registerFactory<SignUpBloc>(
     () => SignUpBloc(
       getCep: dependency(),
     ),
   );
 
-  dependency.registerLazySingleton<UseCase<Endereco, Params>>(
+  dependency.registerLazySingleton<UseCase<Endereco, String>>(
     () => GetCepUseCase(dependency()),
   );
 
@@ -29,7 +32,7 @@ Future<void> init() async{
 
   dependency.registerLazySingleton<EnderecoRemoteDataSource>(
     () => EnderecoRemoteDataSourceImpl(
-      client: dependency(),
+      client: dependency(instanceName: 'Get Cep'),
     ),
   );
 }
