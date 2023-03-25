@@ -1,38 +1,42 @@
+import 'package:cep/src/core/use_case/use_case.dart';
+import 'package:cep/src/features/register/data/datasources/address_remote_data_source.dart';
+import 'package:cep/src/features/register/data/repositories/register_company_repository_impl.dart';
+import 'package:cep/src/features/register/domain/repositories/register_company_repository.dart';
+import 'package:cep/src/features/register/domain/usecases/get_cep_use_case.dart';
+import 'package:cep/src/features/register/presentation/bloc/register_company_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sollaris_teste/src/core/use_case/use_case.dart';
-import 'package:sollaris_teste/src/features/signup/data/datasources/endereco_remote_data_source.dart';
-import 'package:sollaris_teste/src/features/signup/data/repositories/signup_repository_impl.dart';
-import 'package:sollaris_teste/src/features/signup/domain/entities/endereco.dart';
-import 'package:sollaris_teste/src/features/signup/domain/repositories/signup_repository.dart';
-import 'package:sollaris_teste/src/features/signup/domain/usecases/get_cep_use_case.dart';
-import 'package:sollaris_teste/src/features/signup/presentation/bloc/signup_bloc.dart';
+import 'package:http/http.dart';
+
+import 'features/register/domain/entities/address.dart';
 
 final dependency = GetIt.instance;
 
 Future<void> init() async {
+  dependency.registerLazySingleton(Client.new);
+
   _setupSignup();
 }
 
 void _setupSignup() {
-  dependency.registerFactory<SignUpBloc>(
-    () => SignUpBloc(
+  dependency.registerFactory<RegisterCompanyBloc>(
+    () => RegisterCompanyBloc(
       getCep: dependency(),
     ),
   );
 
-  dependency.registerLazySingleton<UseCase<Endereco, String>>(
+  dependency.registerLazySingleton<UseCase<Address, String>>(
     () => GetCepUseCase(dependency()),
   );
 
-  dependency.registerLazySingleton<SignUpRepository>(
-    () => SignUpRepositoryImpl(
+  dependency.registerLazySingleton<RegisterCompanyRepository>(
+    () => RegisterCompanyRepositoryImpl(
       remoteDataSource: dependency(),
     ),
   );
 
-  dependency.registerLazySingleton<EnderecoRemoteDataSource>(
-    () => EnderecoRemoteDataSourceImpl(
-      client: dependency(instanceName: 'Get Cep'),
+  dependency.registerLazySingleton<IAddressRemoteDataSource>(
+    () => AddressRemoteDataSourceImpl(
+      client: dependency(),
     ),
   );
 }

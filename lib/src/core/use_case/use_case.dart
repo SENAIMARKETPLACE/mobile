@@ -1,6 +1,6 @@
+import 'package:cep/src/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:sollaris_teste/src/core/error/failure.dart';
 
 abstract class UseCase<Type, Params> {
   Future<Either<Failure, Type>> call(Params params);

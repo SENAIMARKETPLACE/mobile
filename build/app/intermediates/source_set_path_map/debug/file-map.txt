@@ -1,12 +1,12 @@
-com.example.sollaris_teste.app-jetified-window-java-1.0.0-beta04-0 C:\Users\Noite\.gradle\caches\transforms-3\006d93cd422dbc43e89591147c2de572\transformed\jetified-window-java-1.0.0-beta04\res
-com.example.sollaris_teste.app-core-1.6.0-1 C:\Users\Noite\.gradle\caches\transforms-3\4ca28c4a71705f8a687c69dda140a277\transformed\core-1.6.0\res
-com.example.sollaris_teste.app-jetified-annotation-experimental-1.1.0-2 C:\Users\Noite\.gradle\caches\transforms-3\8965c941cf4bee4d72541b965c7c9d39\transformed\jetified-annotation-experimental-1.1.0\res
-com.example.sollaris_teste.app-jetified-window-1.0.0-beta04-3 C:\Users\Noite\.gradle\caches\transforms-3\dee59bb480020f42d53c2ea15e4501f7\transformed\jetified-window-1.0.0-beta04\res
-com.example.sollaris_teste.app-debug-4 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\android\app\src\debug\res
-com.example.sollaris_teste.app-main-5 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\android\app\src\main\res
-com.example.sollaris_teste.app-pngs-6 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\app\generated\res\pngs\debug
-com.example.sollaris_teste.app-resValues-7 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\app\generated\res\resValues\debug
-com.example.sollaris_teste.app-rs-8 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\app\generated\res\rs\debug
-com.example.sollaris_teste.app-mergeDebugResources-9 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.example.sollaris_teste.app-mergeDebugResources-10 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.example.sollaris_teste.app-merged_res-11 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\app\intermediates\merged_res\debug
+com.example.sollaris_teste.app-jetified-window-java-1.0.0-beta04-0 C:\Users\flavi\.gradle\caches\transforms-3\006d93cd422dbc43e89591147c2de572\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.sollaris_teste.app-core-1.6.0-1 C:\Users\flavi\.gradle\caches\transforms-3\4ca28c4a71705f8a687c69dda140a277\transformed\core-1.6.0\res
+com.example.sollaris_teste.app-jetified-annotation-experimental-1.1.0-2 C:\Users\flavi\.gradle\caches\transforms-3\8965c941cf4bee4d72541b965c7c9d39\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.sollaris_teste.app-jetified-window-1.0.0-beta04-3 C:\Users\flavi\.gradle\caches\transforms-3\dee59bb480020f42d53c2ea15e4501f7\transformed\jetified-window-1.0.0-beta04\res
+com.example.sollaris_teste.app-debug-4 C:\Users\flavi\Documents\TCC - SOLLARIS\mobile\android\app\src\debug\res
+com.example.sollaris_teste.app-main-5 C:\Users\flavi\Documents\TCC - SOLLARIS\mobile\android\app\src\main\res
+com.example.sollaris_teste.app-pngs-6 C:\Users\flavi\Documents\TCC - SOLLARIS\mobile\build\app\generated\res\pngs\debug
+com.example.sollaris_teste.app-resValues-7 C:\Users\flavi\Documents\TCC - SOLLARIS\mobile\build\app\generated\res\resValues\debug
+com.example.sollaris_teste.app-rs-8 C:\Users\flavi\Documents\TCC - SOLLARIS\mobile\build\app\generated\res\rs\debug
+com.example.sollaris_teste.app-mergeDebugResources-9 C:\Users\flavi\Documents\TCC - SOLLARIS\mobile\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.sollaris_teste.app-mergeDebugResources-10 C:\Users\flavi\Documents\TCC - SOLLARIS\mobile\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.sollaris_teste.app-merged_res-11 C:\Users\flavi\Documents\TCC - SOLLARIS\mobile\build\app\intermediates\merged_res\debug
