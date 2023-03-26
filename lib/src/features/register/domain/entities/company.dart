@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cep/src/features/register/data/models/address_model.dart';
+import 'package:cep/src/features/register/domain/entities/address.dart';
 import 'package:equatable/equatable.dart';
 
 class Company extends Equatable {
@@ -12,8 +12,8 @@ class Company extends Equatable {
   final String? logo;
   final String email;
   final String senha;
-  final List<AddressModel> endereco;
-  final List<String> produto;
+  final List<Address> endereco;
+  // final List<String> produto;
 
   const Company({
     required this.id,
@@ -26,7 +26,7 @@ class Company extends Equatable {
     required this.email,
     required this.senha,
     required this.endereco,
-    required this.produto,
+    // required this.produto,
   });
 
   factory Company.instance() {
@@ -41,7 +41,7 @@ class Company extends Equatable {
       email: '',
       senha: '',
       endereco: [],
-      produto: [],
+      // produto: [],
     );
   }
 
@@ -57,6 +57,6 @@ class Company extends Equatable {
         email,
         senha,
         endereco,
-        produto,
+        // produto,
       ];
 }
