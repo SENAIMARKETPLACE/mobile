@@ -56,7 +56,7 @@ class AddressModel extends Address {
       bairroModel: map["bairro"],
       localidadeModel: map["localidade"],
       ufModel: map["uf"],
-      numeroModel: map['numero']
+      numeroModel: map['numero'] ?? ''
     );
   }
 

@@ -48,7 +48,7 @@ class CompanyModel extends Company {
       cnpjModel: map['cnpj'],
       nomeProprietarioModel: map['nome_proprietario'],
       razaoSocialModel: map['razao_social'],
-      enderecoModel: (map['endereços'] as List)
+      enderecoModel: (map['enderecos'] as List)
           .map((e) => AddressModel.fromMap(e as Map<String, dynamic>))
           .toList(),
       telefoneModel: map['telefone'],

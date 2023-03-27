@@ -1,0 +1,13 @@
+{
+    "nome_fantasia": "Dev Business",
+    "razao_social": "Minha Empresa LTDA",
+    "cnpj": "12345678000199",
+    "telefone": "11999999999",
+    "foto": "url img",
+    "email": "flavio@gmail.com",
+    "senha": "admin123",
+    "enderecos": [],
+    "produtos": [],
+    "nome_proprietario": "Flávio Romeiro",
+    "id": "8"
+}
