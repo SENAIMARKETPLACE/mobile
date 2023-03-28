@@ -1,4 +1,5 @@
 import 'package:cep/src/core/error/exceptions.dart';
+import 'package:cep/src/core/error/failure.dart';
 import 'package:cep/src/features/register/data/datasources/address_remote_data_source.dart';
 import 'package:cep/src/features/register/data/datasources/company_remote_data_source.dart';
 import 'package:cep/src/features/register/data/models/address_model.dart';
@@ -13,11 +14,11 @@ class MockAddressRemoteDataSource extends Mock
     implements AddressRemoteDataSourceImpl {}
 
 class MockCompanyRemoteDataSource extends Mock
-    implements CompanyRemoteDataSourceImpl {}
+    implements ICompanyRemoteDataSource {}
 
 void main() {
   late AddressRemoteDataSourceImpl mockAddressDataSource;
-  late CompanyRemoteDataSourceImpl mockCompanyDataSource;
+  late ICompanyRemoteDataSource mockCompanyDataSource;
   late RegisterCompanyRepository repository;
 
   setUp(() {
@@ -42,33 +43,6 @@ void main() {
     ufModel: 'SP',
   );
 
-  const company = CompanyModel(
-    logoModel: 'url img',
-    nomeFantasiaModel: 'Dev Business',
-    idModel: '8',
-    cnpjModel: '12345678000199',
-    nomeProprietarioModel: 'Flávio Romeiro',
-    razaoSocialModel: 'Minha Empresa LTDA',
-    enderecoModel: [
-      AddressModel(
-        ibge: '3522505',
-        cepModel: '06693-220',
-        logradouroModel: 'Rua Osvaldo Francisco',
-        complementoModel: '',
-        bairroModel: 'Jardim Dona Elvira',
-        localidadeModel: 'Itapevi',
-        numeroModel: '77',
-        ufModel: 'SP',
-      )
-    ],
-    telefoneModel: '11999999999',
-    emailModel: 'flavio@gmail.com',
-    senhaModel: 'admin123',
-  );
-
-  setUpAll(() {
-    registerFallbackValue(company);
-  });
   group('CEP', () {
     test(
       'Must return a model addresss from the data source',
@@ -93,23 +67,65 @@ void main() {
   });
 
   group('Company', () {
+    const tCompany = CompanyModel(
+      logoModel: 'url img',
+      nomeFantasiaModel: 'Dev Business',
+      idModel: '8',
+      cnpjModel: '12345678000199',
+      nomeProprietarioModel: 'Flávio Romeiro',
+      razaoSocialModel: 'Minha Empresa LTDA',
+      enderecoModel: [
+        AddressModel(
+          ibge: '3522505',
+          cepModel: '06693-220',
+          logradouroModel: 'Rua Osvaldo Francisco',
+          complementoModel: '',
+          bairroModel: 'Jardim Dona Elvira',
+          localidadeModel: 'Itapevi',
+          numeroModel: '77',
+          ufModel: 'SP',
+        )
+      ],
+      telefoneModel: '11999999999',
+      emailModel: 'flavio@gmail.com',
+      senhaModel: 'admin123',
+    );
+
+    setUpAll(() {
+      registerFallbackValue(tCompany);
+    });
+
     test(
       'Must return a Company model from the data source',
       () async {
         when(
           () => mockCompanyDataSource.register(
-            company: company,
+            company: any(named: 'company'),
           ),
         ).thenAnswer((_) async => unit);
 
-        final companyResult = await repository.registerCompany(company);
+        final companyResult = await repository.registerCompany(tCompany);
 
         expect(companyResult, const Right(unit));
-        // verify(
-        //   () => mockCompanyDataSource.registerCompany(company: company)
-        // );
-        // verifyNoMoreInteractions(mockCompanyDataSource);
+        verify(() =>
+                mockCompanyDataSource.register(company: any(named: 'company')))
+            .called(1);
+        verifyNoMoreInteractions(mockCompanyDataSource);
       },
     );
+
+    test('should return an exception when trying to register a company',
+        () async {
+           when(
+          () => mockCompanyDataSource.register(
+            company: any(named: 'company'),
+          ),
+        ).thenThrow(ServerException());
+
+        final companyResult = await repository.registerCompany(tCompany);
+
+        expect(companyResult, const Left(ServerFailure()));
+        
+        });
   });
 }

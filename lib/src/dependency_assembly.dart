@@ -1,6 +1,8 @@
 import 'package:cep/src/core/use_case/use_case.dart';
 import 'package:cep/src/features/register/data/datasources/address_remote_data_source.dart';
+import 'package:cep/src/features/register/data/datasources/company_remote_data_source.dart';
 import 'package:cep/src/features/register/data/repositories/register_company_repository_impl.dart';
+import 'package:cep/src/features/register/domain/entities/company.dart';
 import 'package:cep/src/features/register/domain/repositories/register_company_repository.dart';
 import 'package:cep/src/features/register/domain/usecases/get_cep_use_case.dart';
 import 'package:cep/src/features/register/domain/usecases/register_company_use_case.dart';
@@ -29,8 +31,8 @@ void _setupSignup() {
   dependency.registerLazySingleton<UseCase<Address, String>>(
     () => GetCepUseCase(dependency()),
   );
-  dependency.registerLazySingleton<UseCase<Unit, String>>(
-    () => RegisterCompanyUseCase(dependency()),
+  dependency.registerLazySingleton<UseCase<Unit, Company>>(
+    () => RegisterCompanyUseCase(registerRepository: dependency()),
   );
 
   dependency.registerLazySingleton<RegisterCompanyRepository>(
@@ -44,5 +46,8 @@ void _setupSignup() {
     () => AddressRemoteDataSourceImpl(
       client: dependency(),
     ),
+  );
+  dependency.registerLazySingleton<ICompanyRemoteDataSource>(
+    () => CompanyRemoteDataSourceImpl(client: dependency())
   );
 }
