@@ -29,6 +29,8 @@ void main() {
         ],
       );
       const companyTest = Company(
+        logo: 'url img',
+        nomeFantasia: 'Dev Business',
         id: '2',
         nomeProprietario: 'Flávio George da Silva Romeiro',
         razaoSocial: 'Minha Empresa LTDA',

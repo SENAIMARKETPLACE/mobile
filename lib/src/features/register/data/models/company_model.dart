@@ -42,6 +42,20 @@ class CompanyModel extends Company {
           telefone: telefoneModel,
         );
 
+  factory CompanyModel.fromEntity(Company company) {
+    return CompanyModel(
+        idModel: company.id,
+        cnpjModel: company.cnpj,
+        nomeProprietarioModel: company.nomeProprietario,
+        razaoSocialModel: company.razaoSocial,
+        enderecoModel: const [],
+        telefoneModel: company.telefone,
+        emailModel: company.email,
+        senhaModel: company.senha,
+        logoModel: company.logo,
+        nomeFantasiaModel: company.nomeFantasia);
+  }
+
   factory CompanyModel.fromMap(Map<String, dynamic> map) {
     return CompanyModel(
       idModel: map['id'],

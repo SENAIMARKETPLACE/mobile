@@ -19,7 +19,9 @@ void main() {
     senhaModel: 'admin123',
   );
   const tModelWithAddress = CompanyModel(
-    idModel: '',
+    logoModel: 'url img',
+    nomeFantasiaModel: 'Dev Business',
+    idModel: '8',
     cnpjModel: '12345678000199',
     nomeProprietarioModel: 'Flávio Romeiro',
     razaoSocialModel: 'Minha Empresa LTDA',
@@ -75,6 +77,13 @@ void main() {
       expect(model, tModelWithAddress);
     });
 
-    test('Should return a json from a CompanyModel object', () => null);
+    test('Should return a json from a CompanyModel object', () {
+      final stringJson = tModelWithAddress.toJson();
+
+      expect(
+        stringJson,
+        isA<String>(),
+      );
+    });
   });
 }
