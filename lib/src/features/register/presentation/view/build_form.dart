@@ -116,10 +116,36 @@ class _BuildFormState extends State<BuildForm> {
   }
 
   continued() {
-    if (formKeys[_activeStepIndex].currentState!.validate()) {
-      _activeStepIndex < 2 ? setState(() => _activeStepIndex++) : null;
+    switch (_activeStepIndex) {
+      case 0:
+        if (formKeys[0].currentState!.validate()) {
+          _activeStepIndex < 3 ? setState(() => _activeStepIndex++) : null;
+        }
+        break;
+      case 1:
+        if (formKeys[1].currentState!.validate()) {
+          _activeStepIndex < 3 ? setState(() => _activeStepIndex++) : null;
+        }
+        break;
+      case 2:
+        _activeStepIndex < 3 ? setState(() => _activeStepIndex++) : null;
+        break;
+      case 3:
+        if (formKeys[2].currentState!.validate()) {
+          _activeStepIndex < 3 ? setState(() => _activeStepIndex++) : null;
+        }
+        break;
     }
   }
+  // if (formKeys[2] == 2) {
+
+  // }
+
+  // if (formKeys[_activeStepIndex].currentState!.validate()) {
+  //   _activeStepIndex < 3 ? setState(() => _activeStepIndex++) : null;
+  // } else if (_activeStepIndex == 2) {
+  //   _activeStepIndex < 3 ? setState(() => _activeStepIndex++) : null;
+  // }
 
   cancel() {
     _activeStepIndex > 0 ? setState(() => _activeStepIndex -= 1) : null;
@@ -266,6 +292,93 @@ class _BuildFormState extends State<BuildForm> {
         ),
         isActive: currentStep >= 0,
         state: currentStep >= 2 ? StepState.complete : StepState.disabled,
+      ),
+      Step(
+        title: const Text('Endereço'),
+        content: Form(
+          key: formKeys[2],
+          child: SizedBox(
+            // padding: const EdgeInsets.symmetric(vertical: 6),
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                TextFormField(
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                    hintText: 'Informe o cep',
+                    labelText: 'Cep',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (valuee) {
+                    if (valuee!.isEmpty) {
+                      return 'Campo Inválido. Digite novamente.';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                      hintText: 'Ex.: Rua, Avenida, Viaduto',
+                      labelText: 'Logradouro',
+                      border: OutlineInputBorder(),
+                      fillColor: Colors.black),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Campo Inválido. Digite novamente.';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                      hintText: 'Informe o bairro',
+                      labelText: 'Bairro',
+                      border: OutlineInputBorder(),
+                      fillColor: Colors.black),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Campo Inválido. Digite novamente.';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                      hintText: 'Informe a cidade',
+                      labelText: 'Cidade',
+                      border: OutlineInputBorder(),
+                      fillColor: Colors.black),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Campo Inválido. Digite novamente.';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                      hintText: 'Informe a estado',
+                      labelText: 'Estado',
+                      border: OutlineInputBorder(),
+                      fillColor: Colors.black),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Campo Inválido. Digite novamente.';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        isActive: currentStep >= 0,
+        state: currentStep >= 3 ? StepState.complete : StepState.disabled,
       ),
     ];
   }
