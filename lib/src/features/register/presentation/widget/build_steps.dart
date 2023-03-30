@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cep/src/features/register/presentation/bloc/register_company_state.dart';
+import 'package:cep/src/features/register/presentation/widget/build_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,9 +34,12 @@ class _BuildStepsState extends State<BuildSteps> {
     GlobalKey<FormState>(),
   ];
 
+  final _controllerCnpj = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Stepper(
+      
       type: StepperType.vertical,
       currentStep: _activeStepIndex,
       steps: stepList(_activeStepIndex, widget.entity),
@@ -95,127 +99,121 @@ class _BuildStepsState extends State<BuildSteps> {
     text.text = address.logradouro;
 
     return [
-      // Step(
-      //   title: const Text('CNPJ'),
-      //   content: Form(
-      //     key: formKeys[0],
-      //     child: Column(
-      //       children: [
-      //         Container(
-      //           padding: const EdgeInsets.all(10),
-      //           child: TextFormField(
-      //             autovalidateMode: AutovalidateMode.onUserInteraction,
-      //             decoration: const InputDecoration(
-      //                 hintText: 'Informe o CNPJ',
-      //                 labelText: 'CNPJ',
-      //                 border: OutlineInputBorder(),
-      //                 fillColor: Colors.black),
-      //             validator: (value) {
-      //               if (value!.isEmpty) {
-      //                 return 'Campo Inválido. Digite novamente.';
-      //               }
-      //               return null;
-      //             },
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      //   isActive: currentStep >= 0,
-      //   state: currentStep >= 0 ? StepState.complete : StepState.disabled,
-      // ),
-      // Step(
-      //   title: const Text('Dados de acesso'),
-      //   content: Form(
-      //     key: formKeys[1],
-      //     child: SizedBox(
-      //       // padding: const EdgeInsets.symmetric(vertical: 6),
-      //       height: MediaQuery.of(context).size.height * 0.6,
-      //       child: Column(
-      //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //         children: <Widget>[
-      //           TextFormField(
-      //             autovalidateMode: AutovalidateMode.onUserInteraction,
-      //             decoration: const InputDecoration(
-      //               hintText: 'Informe o e-mail',
-      //               labelText: 'E-mail',
-      //               border: OutlineInputBorder(),
-      //             ),
-      //             validator: (value) {
-      //               if (value!.isEmpty) {
-      //                 return 'Campo Inválido. Digite novamente.';
-      //               }
-      //               return null;
-      //             },
-      //           ),
-      //           TextFormField(
-      //             autovalidateMode: AutovalidateMode.onUserInteraction,
-      //             decoration: const InputDecoration(
-      //                 hintText: 'Informe o senha',
-      //                 labelText: 'Senha',
-      //                 border: OutlineInputBorder(),
-      //                 fillColor: Colors.black),
-      //             validator: (value) {
-      //               if (value!.isEmpty) {
-      //                 return 'Campo Inválido. Digite novamente.';
-      //               }
-      //               return null;
-      //             },
-      //           ),
-      //           TextFormField(
-      //             autovalidateMode: AutovalidateMode.onUserInteraction,
-      //             decoration: const InputDecoration(
-      //                 hintText: 'Informe a senha novamente',
-      //                 labelText: 'Repita a senha',
-      //                 border: OutlineInputBorder(),
-      //                 fillColor: Colors.black),
-      //             validator: (value) {
-      //               if (value!.isEmpty) {
-      //                 return 'Campo Inválido. Digite novamente.';
-      //               }
-      //               return null;
-      //             },
-      //           ),
-      //           TextFormField(
-      //             autovalidateMode: AutovalidateMode.onUserInteraction,
-      //             decoration: const InputDecoration(
-      //                 hintText: 'Informe o telefone',
-      //                 labelText: 'Telefone',
-      //                 border: OutlineInputBorder(),
-      //                 fillColor: Colors.black),
-      //             validator: (value) {
-      //               if (value!.isEmpty) {
-      //                 return 'Campo Inválido. Digite novamente.';
-      //               }
-      //               return null;
-      //             },
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      //   isActive: currentStep >= 0,
-      //   state: currentStep >= 1 ? StepState.complete : StepState.disabled,
-      // ),
-      // Step(
-      //   title: const Text('Foto'),
-      //   content: GestureDetector(
-      //     onTap: widget.galeria,
-      //     child: Container(
-      //       height: 100,
-      //       width: 100,
-      //       decoration: BoxDecoration(
-      //         border: Border.all(color: Colors.blue),
-      //         borderRadius: const BorderRadius.all(
-      //           Radius.circular(100),
-      //         ),
-      //         image: DecorationImage(image: widget.foto),
-      //       ),
-      //     ),
-      //   ),
-      //   isActive: currentStep >= 0,
-      //   state: currentStep >= 2 ? StepState.complete : StepState.disabled,
-      // ),
+      Step(
+        title: const Text('CNPJ'),
+        label: const Icon(Icons.apartment),
+
+        content: Form(
+          key: formKeys[0],
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: BuildField(
+                  keyboard: TextInputType.number,
+                  controller: _controllerCnpj,
+                  hintText: 'Ex.: Rua, Avenida, Viaduto',
+                  labelText: 'Digite o CNPJ',
+                ),
+              ),
+            ],
+          ),
+        ),
+        isActive: currentStep >= 0,
+        state: currentStep > 0 ? StepState.complete : StepState.disabled,
+      ),
+      Step(
+        title: const Text('Dados de acesso'),
+        content: Form(
+          key: formKeys[1],
+          child: SizedBox(
+            // padding: const EdgeInsets.symmetric(vertical: 6),
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                    hintText: 'Informe o e-mail',
+                    labelText: 'E-mail',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Campo Inválido. Digite novamente.';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                      hintText: 'Informe o senha',
+                      labelText: 'Senha',
+                      border: OutlineInputBorder(),
+                      fillColor: Colors.black),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Campo Inválido. Digite novamente.';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                      hintText: 'Informe a senha novamente',
+                      labelText: 'Repita a senha',
+                      border: OutlineInputBorder(),
+                      fillColor: Colors.black),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Campo Inválido. Digite novamente.';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                      hintText: 'Informe o telefone',
+                      labelText: 'Telefone',
+                      border: OutlineInputBorder(),
+                      fillColor: Colors.black),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Campo Inválido. Digite novamente.';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        isActive: currentStep >= 0,
+        state: currentStep >= 1 ? StepState.complete : StepState.disabled,
+      ),
+      Step(
+        title: const Text('Foto'),
+        content: GestureDetector(
+          onTap: widget.galeria,
+          child: Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(100),
+              ),
+              image: DecorationImage(image: widget.foto),
+            ),
+          ),
+        ),
+        isActive: currentStep >= 0,
+        state: currentStep >= 2 ? StepState.complete : StepState.disabled,
+      ),
       Step(
         title: const Text('Endereço'),
         content: BlocBuilder<RegisterCompanyBloc, RegisterCompanyState>(
