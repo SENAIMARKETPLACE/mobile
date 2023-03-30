@@ -20,8 +20,6 @@ class RegisterCompanyBloc
     GetCepEvent event,
     Emitter<RegisterCompanyState> emit,
   ) async {
-    emit(state.copyWith(status: RegisterCompanyStatus.loading));
-
     final getCepResult = await getCep(event.cep);
 
     getCepResult.fold(
@@ -34,7 +32,6 @@ class RegisterCompanyBloc
       (address) => emit(
         state.copyWith(
           status: RegisterCompanyStatus.sucess,
-          isloading: false,
           endereco: Address(
             id: address.id,
             cep: address.cep,
@@ -49,4 +46,3 @@ class RegisterCompanyBloc
     );
   }
 }
-
