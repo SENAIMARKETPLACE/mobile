@@ -1,19 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cep/src/dependency_assembly.dart';
-import 'package:cep/src/features/register/presentation/bloc/register_company_bloc.dart';
-import 'package:cep/src/features/register/presentation/bloc/register_company_event.dart';
 import 'package:cep/src/features/register/presentation/bloc/register_company_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:cep/src/features/register/domain/entities/address.dart';
+import 'package:cep/src/features/register/presentation/bloc/register_company_bloc.dart';
+import 'package:cep/src/features/register/presentation/bloc/register_company_event.dart';
 
 class BuildSteps extends StatefulWidget {
   const BuildSteps({
     Key? key,
     required this.galeria,
     required this.foto,
+    required this.entity,
   }) : super(key: key);
 
   final Function() galeria;
   final ImageProvider foto;
+  final Address entity;
 
   @override
   State<BuildSteps> createState() => _BuildStepsState();
@@ -21,7 +25,7 @@ class BuildSteps extends StatefulWidget {
 
 class _BuildStepsState extends State<BuildSteps> {
   int _activeStepIndex = 0;
-  final bloc = dependency<RegisterCompanyBloc>();
+  // final bloc = di.dependency<RegisterCompanyBloc>();
 
   List<GlobalKey<FormState>> formKeys = [
     GlobalKey<FormState>(),
@@ -34,7 +38,7 @@ class _BuildStepsState extends State<BuildSteps> {
     return Stepper(
       type: StepperType.vertical,
       currentStep: _activeStepIndex,
-      steps: stepList(_activeStepIndex),
+      steps: stepList(_activeStepIndex, widget.entity),
       onStepTapped: (value) => tapped(value),
       onStepContinue: continued,
       onStepCancel: cancel,
@@ -86,7 +90,10 @@ class _BuildStepsState extends State<BuildSteps> {
     _activeStepIndex > 0 ? setState(() => _activeStepIndex -= 1) : null;
   }
 
-  List<Step> stepList(int currentStep) {
+  List<Step> stepList(int currentStep, Address address) {
+    final text = TextEditingController();
+    text.text = address.logradouro;
+
     return [
       // Step(
       //   title: const Text('CNPJ'),
@@ -211,106 +218,105 @@ class _BuildStepsState extends State<BuildSteps> {
       // ),
       Step(
         title: const Text('Endereço'),
-        content: Form(
-          key: formKeys[2],
-          child: SizedBox(
-            // padding: const EdgeInsets.symmetric(vertical: 6),
-            height: MediaQuery.of(context).size.height * 0.6,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                TextFormField(
-                  // autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: () => _getCepBuild('06693220'),
-                      icon: const Icon(Icons.search),
+        content: BlocBuilder<RegisterCompanyBloc, RegisterCompanyState>(
+          builder: (context, state) {
+            return Form(
+              key: formKeys[2],
+              child: SizedBox(
+                // padding: const EdgeInsets.symmetric(vertical: 6),
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text(state.endereco.logradouro),
+                    TextFormField(
+                      // autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () async {
+                            context
+                                .read<RegisterCompanyBloc>()
+                                .add(const GetCepEvent(cep: '06693220'));
+                          },
+                          icon: const Icon(Icons.search),
+                        ),
+                        hintText: 'Informe o cep',
+                        labelText: 'Cep',
+                        border: const OutlineInputBorder(),
+                      ),
+                      validator: (valuee) {
+                        if (valuee!.isEmpty) {
+                          return 'Campo Inválido. Digite novamente.';
+                        }
+                        return null;
+                      },
                     ),
-                    hintText: 'Informe o cep',
-                    labelText: 'Cep',
-                    border: const OutlineInputBorder(),
-                  ),
-                  validator: (valuee) {
-                    if (valuee!.isEmpty) {
-                      return 'Campo Inválido. Digite novamente.';
-                    }
-                    return null;
-                  },
+                    TextFormField(
+                      controller: text,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: const InputDecoration(
+                          hintText: 'Ex.: Rua, Avenida, Viaduto',
+                          labelText: 'Logradouro',
+                          border: OutlineInputBorder(),
+                          fillColor: Colors.black),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Campo Inválido. Digite novamente.';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: const InputDecoration(
+                          hintText: 'Informe o bairro',
+                          labelText: 'Bairro',
+                          border: OutlineInputBorder(),
+                          fillColor: Colors.black),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Campo Inválido. Digite novamente.';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: const InputDecoration(
+                          hintText: 'Informe a cidade',
+                          labelText: 'Cidade',
+                          border: OutlineInputBorder(),
+                          fillColor: Colors.black),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Campo Inválido. Digite novamente.';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: const InputDecoration(
+                          hintText: 'Informe a estado',
+                          labelText: 'Estado',
+                          border: OutlineInputBorder(),
+                          fillColor: Colors.black),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Campo Inválido. Digite novamente.';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
                 ),
-                TextFormField(
-                  // initialValue: state.endereco.logradouro,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: const InputDecoration(
-                      hintText: 'Ex.: Rua, Avenida, Viaduto',
-                      labelText: 'Logradouro',
-                      border: OutlineInputBorder(),
-                      fillColor: Colors.black),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Campo Inválido. Digite novamente.';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: const InputDecoration(
-                      hintText: 'Informe o bairro',
-                      labelText: 'Bairro',
-                      border: OutlineInputBorder(),
-                      fillColor: Colors.black),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Campo Inválido. Digite novamente.';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: const InputDecoration(
-                      hintText: 'Informe a cidade',
-                      labelText: 'Cidade',
-                      border: OutlineInputBorder(),
-                      fillColor: Colors.black),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Campo Inválido. Digite novamente.';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: const InputDecoration(
-                      hintText: 'Informe a estado',
-                      labelText: 'Estado',
-                      border: OutlineInputBorder(),
-                      fillColor: Colors.black),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Campo Inválido. Digite novamente.';
-                    }
-                    return null;
-                  },
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         ),
         isActive: currentStep >= 0,
         state: currentStep >= 3 ? StepState.complete : StepState.disabled,
       ),
     ];
-  }
-
-  void _getCepBuild(String value) {
-    if (bloc.state.status == RegisterCompanyStatus.sucess) {
-      bloc.add(
-        GetCepEvent(cep: value),
-      );
-    } else if (bloc.state.status == RegisterCompanyStatus.error) {
-      print('Deu ruim mano');
-    }
   }
 }

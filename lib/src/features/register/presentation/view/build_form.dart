@@ -1,8 +1,12 @@
 import 'dart:io';
 
+import 'package:cep/src/features/register/presentation/bloc/register_company_bloc.dart';
+import 'package:cep/src/features/register/presentation/bloc/register_company_state.dart';
 import 'package:cep/src/features/register/presentation/widget/build_steps.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cep/src/dependency_assembly.dart' as di;
 
 class BuildForm extends StatefulWidget {
   const BuildForm({super.key});
@@ -23,9 +27,17 @@ class _BuildFormState extends State<BuildForm> {
         title: const Text('Register Company'),
         centerTitle: true,
       ),
-      body: BuildSteps(
-        galeria: _onGallery,
-        foto: imageSelected,
+      body: BlocProvider(
+        create: (context) => di.dependency<RegisterCompanyBloc>(),
+        child: BlocBuilder<RegisterCompanyBloc, RegisterCompanyState>(
+          builder: (context, state) {
+            return BuildSteps(
+              galeria: _onGallery,
+              foto: imageSelected,
+              entity: state.endereco,
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 import 'package:cep/src/features/register/domain/entities/address.dart';
@@ -9,19 +8,16 @@ class RegisterCompanyState extends Equatable {
   final RegisterCompanyStatus status;
   final String message;
   final Address endereco;
-  final bool isLoading;
 
   const RegisterCompanyState({
     required this.status,
     required this.message,
     required this.endereco,
-    required this.isLoading,
   });
 
   factory RegisterCompanyState.initial() => const RegisterCompanyState(
         status: RegisterCompanyStatus.initial,
         message: '',
-        isLoading: false,
         endereco: Address(
           id: '',
           cep: '',
@@ -37,13 +33,12 @@ class RegisterCompanyState extends Equatable {
     RegisterCompanyStatus? status,
     String? message,
     Address? endereco,
-    bool? isloading,
   }) {
     return RegisterCompanyState(
-        status: status ?? this.status,
-        message: message ?? this.message,
-        endereco: endereco ?? this.endereco,
-        isLoading: false);
+      status: status ?? this.status,
+      message: message ?? this.message,
+      endereco: endereco ?? this.endereco,
+    );
   }
 
   @override
@@ -51,6 +46,5 @@ class RegisterCompanyState extends Equatable {
         status,
         message,
         endereco,
-        isLoading,
       ];
 }
