@@ -25,6 +25,8 @@ void _setupSignup() {
   dependency.registerFactory<RegisterCompanyBloc>(
     () => RegisterCompanyBloc(
       getCep: dependency(),
+      setCompany: dependency()
+
     ),
   );
 

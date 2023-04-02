@@ -22,21 +22,24 @@ class _BuildFormState extends State<BuildForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register Company'),
-        centerTitle: true,
-      ),
-      body: BlocProvider(
-        create: (context) => di.dependency<RegisterCompanyBloc>(),
-        child: BlocBuilder<RegisterCompanyBloc, RegisterCompanyState>(
-          builder: (context, state) {
-            return BuildSteps(
-              galeria: _onGallery,
-              foto: imageSelected,
-              entity: state.endereco,
-            );
-          },
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Register Company'),
+          centerTitle: true,
+        ),
+        body: BlocProvider(
+          create: (context) => di.dependency<RegisterCompanyBloc>(),
+          child: BlocBuilder<RegisterCompanyBloc, RegisterCompanyState>(
+            builder: (context, state) {
+              return BuildSteps(
+                galeria: _onGallery,
+                foto: imageSelected,
+                entity: state.endereco,
+              );
+            },
+          ),
         ),
       ),
     );

@@ -43,17 +43,27 @@ class CompanyModel extends Company {
         );
 
   factory CompanyModel.fromEntity(Company company) {
+    List<AddressModel> listAddress = [];
+
+    if (company.endereco.isNotEmpty) {
+      for (final e in company.endereco) {
+        final t = AddressModel.fromEntity(e);
+        listAddress.add(t);
+      }
+    }
+
     return CompanyModel(
-        idModel: company.id,
-        cnpjModel: company.cnpj,
-        nomeProprietarioModel: company.nomeProprietario,
-        razaoSocialModel: company.razaoSocial,
-        enderecoModel: const [],
-        telefoneModel: company.telefone,
-        emailModel: company.email,
-        senhaModel: company.senha,
-        logoModel: company.logo,
-        nomeFantasiaModel: company.nomeFantasia);
+      idModel: company.id,
+      cnpjModel: company.cnpj,
+      nomeProprietarioModel: company.nomeProprietario,
+      razaoSocialModel: company.razaoSocial,
+      enderecoModel: listAddress,
+      telefoneModel: company.telefone,
+      emailModel: company.email,
+      senhaModel: company.senha,
+      logoModel: company.logo,
+      nomeFantasiaModel: company.nomeFantasia,
+    );
   }
 
   factory CompanyModel.fromMap(Map<String, dynamic> map) {
@@ -86,8 +96,10 @@ class CompanyModel extends Company {
       'foto': logoModel,
       'email': emailModel,
       'senha': senhaModel,
-      'enderecos': enderecoModel,
+      'enderecos': enderecoModel.map((item) => item.toMap()).toList(),
+      'produtos': [],
       'nome_proprietario': nomeProprietarioModel,
+      'id': idModel,
     };
   }
 

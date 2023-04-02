@@ -22,9 +22,11 @@ class CompanyRemoteDataSourceImpl implements ICompanyRemoteDataSource {
     final response = await client.post(
       Uri.parse(url),
       body: requestBody,
+      headers: {'content-type':'application/json'}
     );
 
-    if (response.statusCode == 200) {
+
+    if (response.statusCode == 201) {
       return Future.value(unit);
     } else {
       throw ServerException();
