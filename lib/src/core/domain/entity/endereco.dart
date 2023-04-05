@@ -9,5 +9,15 @@ class IEndereco {
   final String complemento;
   final String cep;
 
-  IEndereco(this.id, this.idCliente, this.logadrouro, this.numero, this.bairro, this.cidade, this.estado, this.complemento, this.cep,);
+  IEndereco(
+    this.id,
+    this.idCliente,
+    this.logadrouro,
+    this.numero,
+    this.bairro,
+    this.cidade,
+    this.estado,
+    this.complemento,
+    this.cep,
+  );
 }

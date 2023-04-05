@@ -1,4 +1,10 @@
+import 'package:cep/app.dart';
 import 'package:flutter/material.dart';
-import 'package:sollaris_teste/app.dart';
+import 'package:cep/src/dependency_assembly.dart' as di;
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+  await di.init();
+  runApp(
+     const MyApp(),
+  );
+}
