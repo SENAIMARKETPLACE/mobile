@@ -5,39 +5,33 @@ import 'package:cep/src/features/register/domain/entities/company.dart';
 
 class CompanyModel extends Company {
   final String idModel;
-  final String nomeProprietarioModel;
-  final String? nomeFantasiaModel;
+  final String nomeFantasiaModel;
   final String razaoSocialModel;
   final String cnpjModel;
   final String telefoneModel;
-  final String? logoModel;
   final String emailModel;
   final String senhaModel;
   final List<AddressModel> enderecoModel;
+  // final String? logoModel;
+  // final String nomeProprietarioModel;
   // final List<String> produtoModel;
 
   const CompanyModel({
     required this.idModel,
-    required this.cnpjModel,
-    required this.nomeProprietarioModel,
+    required this.nomeFantasiaModel,
     required this.razaoSocialModel,
-    this.nomeFantasiaModel,
+    required this.cnpjModel,
     required this.enderecoModel,
     required this.telefoneModel,
-    // required this.produtoModel,
-    this.logoModel,
     required this.emailModel,
     required this.senhaModel,
   }) : super(
           id: idModel,
-          cnpj: cnpjModel,
-          email: emailModel,
-          endereco: enderecoModel,
-          logo: logoModel,
           nomeFantasia: nomeFantasiaModel,
-          nomeProprietario: nomeProprietarioModel,
-          // produto: produtoModel,
           razaoSocial: razaoSocialModel,
+          email: emailModel,
+          cnpj: cnpjModel,
+          endereco: enderecoModel,
           senha: senhaModel,
           telefone: telefoneModel,
         );
@@ -55,31 +49,35 @@ class CompanyModel extends Company {
     return CompanyModel(
       idModel: company.id,
       cnpjModel: company.cnpj,
-      nomeProprietarioModel: company.nomeProprietario,
       razaoSocialModel: company.razaoSocial,
       enderecoModel: listAddress,
       telefoneModel: company.telefone,
       emailModel: company.email,
       senhaModel: company.senha,
-      logoModel: company.logo,
       nomeFantasiaModel: company.nomeFantasia,
     );
   }
 
   factory CompanyModel.fromMap(Map<String, dynamic> map) {
+    var listAddress = <AddressModel>[];
+
+    if (map['enderecos'] != null) {
+      listAddress = (map['enderecos'] as List)
+          .map((e) => AddressModel.fromMap(e as Map<String, dynamic>))
+          .toList();
+    } else {
+      listAddress = [];
+    }
+
     return CompanyModel(
       idModel: map['id'],
       cnpjModel: map['cnpj'],
-      nomeProprietarioModel: map['nome_proprietario'],
-      razaoSocialModel: map['razao_social'],
-      enderecoModel: (map['enderecos'] as List)
-          .map((e) => AddressModel.fromMap(e as Map<String, dynamic>))
-          .toList(),
+      razaoSocialModel: map['razao_social'] ?? '',
       telefoneModel: map['telefone'],
-      emailModel: map['email'],
-      senhaModel: map['senha'],
-      logoModel: map['foto'] ?? '',
+      emailModel: map['email'] ?? '',
+      senhaModel: map['senha'] ?? '',
       nomeFantasiaModel: map['nome_fantasia'],
+      enderecoModel: listAddress
     );
   }
 
@@ -89,17 +87,14 @@ class CompanyModel extends Company {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': idModel,
       'nome_fantasia': nomeFantasiaModel,
       'razao_social': razaoSocialModel,
       'cnpj': cnpjModel,
       'telefone': telefoneModel,
-      'foto': logoModel,
       'email': emailModel,
       'senha': senhaModel,
       'enderecos': enderecoModel.map((item) => item.toMap()).toList(),
-      'produtos': [],
-      'nome_proprietario': nomeProprietarioModel,
-      'id': idModel,
     };
   }
 
@@ -108,12 +103,10 @@ class CompanyModel extends Company {
   @override
   List<Object?> get props => [
         idModel,
-        nomeProprietarioModel,
         nomeFantasiaModel,
         razaoSocialModel,
         cnpjModel,
         telefoneModel,
-        logoModel,
         emailModel,
         senhaModel,
         enderecoModel,

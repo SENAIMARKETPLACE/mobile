@@ -19,17 +19,14 @@ class CompanyRemoteDataSourceImpl implements ICompanyRemoteDataSource {
   Future<Unit> register({required CompanyModel company}) async {
     const url = 'https://63e0f981dd7041cafb3dc894.mockapi.io/Company';
     final requestBody = company.toJson();
-    final response = await client.post(
-      Uri.parse(url),
-      body: requestBody,
-      headers: {'content-type':'application/json'}
-    );
-
-
-    if (response.statusCode == 201) {
-      return Future.value(unit);
-    } else {
-      throw ServerException();
-    }
+    final response =
+        await client.post(Uri.parse(url), body: requestBody, headers: {
+      'content-type': 'application/json',
+    }).then((value) {
+      if (value.statusCode == 201) {
+        return Future.value(unit);
+      } 
+    });
+        throw ServerException();
   }
 }
