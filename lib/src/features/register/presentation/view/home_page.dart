@@ -1,26 +1,42 @@
-import 'package:cep/src/features/register/presentation/widget/build_form.dart';
+import 'package:cep/src/utils/widget_text_button.dart';
+import 'package:cep/src/utils/widget_text_field_register.dart';
+import 'package:cep/src/utils/widget_title.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ScreenCnpj extends StatelessWidget {
+  const ScreenCnpj({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Register Company'),
-        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: const Icon(
+          Icons.arrow_back_ios,
+          color: Color(0XFF14C871),
+        ),
       ),
-      body: Center(
-        child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => const BuildForm(),
-                ),
-              );
-            },
-            child: const Text('Cadastrar')),
+      body: Container(
+        width: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+        child: Column(
+          children: [
+            const WidgetTitle(
+              title: 'Informe o CNPJ de sua empresa',
+            ),
+            const SizedBox(height: 20),
+            const WidgetTextFieldRegister(
+              label: 'CNPJ',
+              hint: 'Informe o CNPJ',
+            ),
+            Expanded(
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: WidgetTextButton(action: () {})),
+            ),
+          ],
+        ),
       ),
     );
   }

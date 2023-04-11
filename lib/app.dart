@@ -6,17 +6,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(
-            color: Colors.purple,
-          ),
-        ),
-      ),
+    return const MaterialApp(
+      // theme: ThemeData(
+      //   primarySwatch: Colors.purple,
+      //   textTheme: const TextTheme(
+      //     bodyMedium: TextStyle(
+      //       color: Colors.purple,
+      //     ),
+      //   ),
+      // ),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: ScreenCnpj(),
     );
   }
 }
