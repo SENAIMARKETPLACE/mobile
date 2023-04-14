@@ -14,16 +14,18 @@ class WidgetTextFieldRegister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(fontSize: 13),
-        ),
-        const SizedBox(height: 7),
-        Form(
-          child: TextFormField(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontSize: 13),
+          ),
+          const SizedBox(height: 7),
+          TextFormField(
             inputFormatters: [
               CnpjInputFormatter(),
               FilteringTextInputFormatter.digitsOnly
@@ -38,8 +40,8 @@ class WidgetTextFieldRegister extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

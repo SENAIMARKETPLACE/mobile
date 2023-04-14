@@ -4,7 +4,6 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:cep/src/features/register/domain/entities/company.dart';
 import 'package:cep/src/features/register/presentation/bloc/register_company_event.dart';
 import 'package:cep/src/features/register/presentation/bloc/register_company_state.dart';
-import 'package:cep/src/features/register/presentation/view/sucess.dart';
 import 'package:cep/src/features/register/presentation/widget/build_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -465,11 +464,11 @@ class _BuildStepsState extends State<BuildSteps> {
                                           ),
                                         ]),
                                   ));
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) {
-                                  return const Sucess();
-                                },
-                              ));
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //   builder: (_) {
+                              //     // return const Sucess();
+                              //   },
+                              // ));
                             }
                           }
                         },
