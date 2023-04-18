@@ -126,7 +126,7 @@ class _BuildStepsState extends State<BuildSteps> {
   }
 
   List<Step> stepList(int currentStep, Address address) {
-    final text = TextEditingController();
+    // final text = TextEditingController();
     _controllerLog.text = address.logradouro;
     _controllerBairro.text = address.bairro;
     _controllerCid.text = address.cidade;

@@ -8,8 +8,6 @@ class ScreenInitialInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -19,39 +17,30 @@ class ScreenInitialInfo extends StatelessWidget {
           color: Color(0XFF14C871),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 7, left: 10, right: 10),
-        child: Form(
-          child: SingleChildScrollView(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.85,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const WidgetTitle(title: "Informações Iniciais"),
-                    Container(
-                      child: Column(
-                        children: const [
-                          WidgetTextFieldRegister(
-                            label: "Nome Fantasia",
-                            hint: "Digite o nome fantasia da empresa",
-                          ),
-                          WidgetTextFieldRegister(
-                            label: "Razão Social",
-                            hint: "Digite a Razão Social da empresa",
-                          ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                        alignment: Alignment.bottomCenter,
-                        child: WidgetTextButton(
-                          action: () {},
-                        )),
-                  ]),
+      body: Container(
+        width: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const WidgetTitle(
+              title: 'Informações Iniciais',
             ),
-          ),
+            const SizedBox(height: 20),
+            const WidgetTextFieldRegister(
+              label: 'Nome fantasia',
+              hint: 'Digite o nome fantasia da empresa',
+            ),
+            const WidgetTextFieldRegister(
+              label: 'Razão social',
+              hint: 'Digite a razão social da empresa',
+            ),
+            Expanded(
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: WidgetTextButton(action: () {})),
+            ),
+          ],
         ),
       ),
     );
