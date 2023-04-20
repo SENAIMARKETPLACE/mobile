@@ -1,4 +1,4 @@
-import 'package:cep/src/features/register/presentation/view/screen_register.dart';
+import 'package:cep/src/features/register/presentation/view/home_page.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       //   ),
       // ),
       debugShowCheckedModeBanner: false,
-      home: ScreenRegister(),
+      home: ScreenCnpj(),
     );
   }
 }

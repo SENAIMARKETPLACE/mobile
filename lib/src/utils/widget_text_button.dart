@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
-class WidgetTextButton extends StatelessWidget {
-  const WidgetTextButton({super.key, required this.action});
+class WidgetTextButton extends StatefulWidget {
+  const WidgetTextButton({super.key, required this.keyButton});
 
-  final void Function() action;
+  final GlobalKey<FormState> keyButton;
 
+  @override
+  State<WidgetTextButton> createState() => _WidgetTextButtonState();
+}
+
+class _WidgetTextButtonState extends State<WidgetTextButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -19,7 +24,13 @@ class WidgetTextButton extends StatelessWidget {
             right: 125,
           ),
         ),
-        onPressed: action,
+        onPressed: () {
+          if (widget.keyButton.currentState!.validate()) {
+            print('Passou');
+          } else {
+            print('Não passou');
+          }
+        },
         child: const Text(
           'Próximo',
           style: TextStyle(color: Colors.white),
