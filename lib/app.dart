@@ -1,4 +1,4 @@
-import 'package:cep/src/features/register/presentation/view/home_page.dart';
+import 'package:cep/src/features/register/presentation/view/screen_cnpj.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {

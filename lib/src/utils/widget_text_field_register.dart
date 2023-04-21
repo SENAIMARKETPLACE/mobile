@@ -1,61 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class WidgetTextFieldRegister extends StatefulWidget {
+class WidgetTextFieldRegister extends StatelessWidget {
   WidgetTextFieldRegister({
     super.key,
     required this.label,
     required this.hint,
-    required this.validator,
     this.inputFormatter,
-    required this.controller, required this.keyButton,
+    this.typeKey,
+    required this.validator,
+    required this.controller,
   });
 
   final String label;
   final String hint;
+  final TextEditingController controller;
+  TextInputType? typeKey;
   List<TextInputFormatter>? inputFormatter;
   String? Function(String?) validator;
-  final TextEditingController controller;
-  final GlobalKey<FormState> keyButton;
 
-  @override
-  State<WidgetTextFieldRegister> createState() =>
-      _WidgetTextFieldRegisterState();
-}
-
-class _WidgetTextFieldRegisterState extends State<WidgetTextFieldRegister> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Form(
-        key: widget.keyButton,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              widget.label,
-              style: const TextStyle(fontSize: 13),
-            ),
-            const SizedBox(height: 7),
-            TextFormField(
-              controller: widget.controller,
-              keyboardType: TextInputType.number,
-              inputFormatters: widget.inputFormatter,
-              validator: widget.validator,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: const Color.fromARGB(54, 158, 158, 158),
-                hintText: widget.hint,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontSize: 13),
+          ),
+          const SizedBox(height: 7),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            controller: controller,
+            keyboardType: typeKey,
+            inputFormatters: inputFormatter,
+            validator: validator,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: const Color.fromARGB(54, 158, 158, 158),
+              hintText: hint,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

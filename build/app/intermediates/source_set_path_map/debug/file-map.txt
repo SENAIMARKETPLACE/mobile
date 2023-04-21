@@ -19,3 +19,4 @@ com.example.sollaris_teste.app-mergeDebugResources-17 C:\Users\noite\Desktop\TCC
 com.example.sollaris_teste.app-merged_res-18 C:\Users\noite\Desktop\TCC - SOLLARIS\mobile\build\app\intermediates\merged_res\debug
 com.example.sollaris_teste.app-packaged_res-19 C:\Users\noite\Desktop\TCC - SOLLARIS\mobile\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\debug
 com.example.sollaris_teste.app-packaged_res-20 C:\Users\noite\Desktop\TCC - SOLLARIS\mobile\build\image_picker_android\intermediates\packaged_res\debug
+com.example.sollaris_teste.app-packaged_res-21 C:\Users\noite\Desktop\TCC - SOLLARIS\mobile\build\shared_preferences_android\intermediates\packaged_res\debug
