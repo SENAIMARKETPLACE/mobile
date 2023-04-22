@@ -22,6 +22,14 @@ class RegisterCompanyRepositoryImpl implements RegisterCompanyRepository {
   Future<Either<Failure, Address>> getCep(String cep) async {
     try {
       final address = await addressRemoteDataSource.getAddress(cep: cep);
+
+      // LocalDataSource().saveLocalization(LocalDataSource().mapController(
+      //   rua: address.logradouroModel,
+      //   bairro: address.bairroModel,
+      //   cidade: address.localidadeModel,
+      //   estado: address.ufModel,
+      //   compto: address.complementoModel,
+      // ));
       return Right(address);
     } on ServerException {
       return const Left(ServerFailure());

@@ -10,7 +10,7 @@ class WidgetTitle extends StatelessWidget {
     return Text(
       title,
       style: const TextStyle(
-        fontSize: 23,
+        fontSize: 27,
         fontWeight: FontWeight.bold,
       ),
     );

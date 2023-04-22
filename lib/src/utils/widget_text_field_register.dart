@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// ignore: must_be_immutable
 class WidgetTextFieldRegister extends StatelessWidget {
   WidgetTextFieldRegister({
     super.key,
@@ -10,6 +11,8 @@ class WidgetTextFieldRegister extends StatelessWidget {
     this.typeKey,
     required this.validator,
     required this.controller,
+    this.suffixIcon,
+    this.isExibPassword = false,
   });
 
   final String label;
@@ -18,6 +21,8 @@ class WidgetTextFieldRegister extends StatelessWidget {
   TextInputType? typeKey;
   List<TextInputFormatter>? inputFormatter;
   String? Function(String?) validator;
+  Widget? suffixIcon;
+  bool isExibPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +38,14 @@ class WidgetTextFieldRegister extends StatelessWidget {
           ),
           const SizedBox(height: 7),
           TextFormField(
+            obscureText: isExibPassword,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: controller,
             keyboardType: typeKey,
             inputFormatters: inputFormatter,
             validator: validator,
             decoration: InputDecoration(
+              suffixIcon: suffixIcon,
               filled: true,
               fillColor: const Color.fromARGB(54, 158, 158, 158),
               hintText: hint,

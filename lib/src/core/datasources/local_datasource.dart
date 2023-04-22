@@ -3,54 +3,93 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LocalDataSource {
   final Future<SharedPreferences> pref = SharedPreferences.getInstance();
 
-  Future setString(String value) async {
+  Map<String, String> mapController({
+    String? cnpj,
+    String? email,
+    String? senha,
+    String? telefone,
+    String? nomeFantasia,
+    String? razaoSocial,
+    String? cep,
+    String? rua,
+    String? numero,
+    String? estado,
+    String? bairro,
+    String? cidade,
+    String? compto,
+  }) {
+    return {
+      'cnpj': cnpj ?? '',
+      'email': email ?? '',
+      'senha': senha ?? '',
+      'telefone': telefone ?? '',
+      'nomeFantasia': nomeFantasia ?? '',
+      'razaoSocial': razaoSocial ?? '',
+      'cep': cep ?? '',
+      'rua': rua ?? '',
+      'numero': numero ?? '',
+      'estado': estado ?? '',
+      'bairro': bairro ?? '',
+      'cidade': cidade ?? '',
+      'compto': compto ?? '',
+    };
+  }
+
+  Future setCnpj(Map<String, String> map) async {
     final prefs = await pref;
-    return prefs.setString('setCnpj', value);
+    return prefs.setString('setCnpj', map['cnpj']!);
   }
 
-  static Future<void> saveDataAccess({
-    required String email,
-    required String senha,
-    required String telefone,
-  }) async {
+  Future<void> saveDataAccess(Map<String, String> map) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString('setEmail', email);
-    await prefs.setString('setSenha', senha);
-    await prefs.setString('setTelefone', telefone);
+    await prefs.setString('setEmail', map['email']!);
+    await prefs.setString('setSenha', map['senha']!);
+    await prefs.setString('setTelefone', map['telefone']!);
   }
 
-  Future<void> saveInfoInitial({
-    required String nomeFantasia,
-    required String razaoSocial,
-  }) async {
+  Future<void> saveInfoInitial(Map<String, String> map) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString('setNomeFantasia', nomeFantasia);
-    await prefs.setString('setRazaoSocial', razaoSocial);
+    await prefs.setString('setNomeFantasia', map['nomeFantasia']!);
+    await prefs.setString('setRazaoSocial', map['razaoSocial']!);
   }
 
-  Future<void> saveCep({
-    required String cep,
-  }) async {
+  Future<void> saveCep(Map<String, String> map) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString('setCep', cep);
+    await prefs.setString('setCep', map['cep']!);
   }
 
-  Future<void> saveLocalization({
-    required String estado,
-    required String bairro,
-    required String rua,
-    required String numero,
-    required String complemento,
-  }) async {
+  Future<void> saveLocalization(Map<String, String> map) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString('setEstado', estado);
-    await prefs.setString('setBairro', bairro);
-    await prefs.setString('setRua', rua);
-    await prefs.setString('setNumero', numero);
-    await prefs.setString('setCompleto', complemento);
+    await prefs.setString('setEstado', map['estado']!);
+    await prefs.setString('setBairro', map['bairro']!);
+    await prefs.setString('setRua', map['rua']!);
+    await prefs.setString('setNumero', map['numero']!);
+    await prefs.setString('setCompleto', map['complemento']!);
+    await prefs.setString('setCidade', map['cidade']!);
+  }
+
+  Future<Map<String, String>> loadDate() async {
+    final SharedPreferences p = await SharedPreferences.getInstance();
+
+
+    return {
+      'cnpj': p.getString('setCnpj') ?? '',
+      'email': p.getString('setEmail') ?? '',
+      'senha': p.getString('setSenha') ?? '',
+      'telefone': p.getString('setTelefone') ?? '',
+      'nomeFantasia': p.getString('setNomeFantasia') ?? '',
+      'razaoSocial': p.getString('setRazaoSocial') ?? '',
+      'cep': p.getString('setCep') ?? '',
+      'rua': p.getString('setRua') ?? '',
+      'numero': p.getString('setNumero') ?? '',
+      'estado': p.getString('setEstado') ?? '',
+      'bairro': p.getString('setBairro') ?? '',
+      'cidade': p.getString('setCidade') ?? '',
+      'compto': p.getString('setCompleto') ?? '',
+    };
   }
 }

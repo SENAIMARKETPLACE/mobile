@@ -1,43 +1,145 @@
-// import 'package:cep/src/utils/widget_text_button.dart';
-// import 'package:cep/src/utils/widget_text_field_register.dart';
-// import 'package:cep/src/utils/widget_title.dart';
-// import 'package:flutter/material.dart';
+import 'dart:developer';
 
-// class ScreenCep extends StatelessWidget {
-//   const ScreenCep({super.key});
+import 'package:brasil_fields/brasil_fields.dart';
+import 'package:cep/src/features/register/presentation/bloc/register_company_bloc.dart';
+import 'package:cep/src/features/register/presentation/bloc/register_company_event.dart';
+import 'package:cep/src/features/register/presentation/bloc/register_company_state.dart';
+import 'package:cep/src/features/register/presentation/view/screen_endereco.dart';
+import 'package:cep/src/utils/widget_text_field_register.dart';
+import 'package:cep/src/utils/widget_title.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cep/src/dependency_assembly.dart' as di;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.transparent,
-//         elevation: 0,
-//         leading: const Icon(
-//           Icons.arrow_back_ios,
-//           color: Color(0XFF14C871),
-//         ),
-//       ),
-//       body: Container(
-//         width: MediaQuery.of(context).size.height,
-//         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-//         child: Column(
-//           children: [
-//             const WidgetTitle(
-//               title: 'Onde a empresa está localizada',
-//             ),
-//             const SizedBox(height: 20),
-//             const WidgetTextFieldRegister(
-//               label: 'CEP',
-//               hint: 'Informe o CEP',
-//             ),
-//             Expanded(
-//               child: Align(
-//                   alignment: Alignment.bottomCenter,
-//                   child: WidgetTextButton(action: () {})),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+class ScreenCep extends StatefulWidget {
+  const ScreenCep({super.key});
+
+  @override
+  State<ScreenCep> createState() => _ScreenCepState();
+}
+
+class _ScreenCepState extends State<ScreenCep> {
+  final controllerCep = TextEditingController();
+  final chave4 = GlobalKey<FormState>();
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => di.dependency<RegisterCompanyBloc>(),
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Color(0XFF14C871),
+              ),
+            ),
+          ),
+          body: BlocConsumer<RegisterCompanyBloc, RegisterCompanyState>(
+            listener: (context, state) {
+              if (state.status == RegisterCompanyStatus.sucess) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ScreenEndereco(address: state.endereco),
+                    ));
+              } else if (state.status == RegisterCompanyStatus.error) {
+                log('Erro');
+              }
+            },
+            builder: (context, state) {
+              if (state.status == RegisterCompanyStatus.error) {
+                log('Erro');
+              }
+              return Container(
+                width: MediaQuery.of(context).size.height,
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                child: Form(
+                  key: chave4,
+                  child: Column(
+                    children: [
+                      const WidgetTitle(
+                        title: 'Onde a empresa está localizada',
+                      ),
+                      const SizedBox(height: 20),
+                      WidgetTextFieldRegister(
+                        label: 'CEP',
+                        hint: 'Informe o CEP',
+                        controller: controllerCep,
+                        validator: (p0) {
+                          if (p0!.isEmpty || controllerCep.text.length < 8) {
+                            return 'Cep inválido. Digite novamente';
+                          }
+                          return null;
+                        },
+                        typeKey: TextInputType.number,
+                        inputFormatter: [
+                          CepInputFormatter(),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            context.read<RegisterCompanyBloc>().add(
+                                  GetCepEvent(
+                                    cep: controllerCep.text,
+                                  ),
+                                );
+                          },
+                          icon: const Icon(Icons.search),
+                        ),
+                      ),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 45,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                backgroundColor: const Color(0xff14C871),
+                                padding: const EdgeInsets.only(
+                                  left: 125,
+                                  right: 125,
+                                ),
+                              ),
+                              onPressed: () {
+                                if (chave4.currentState!.validate()) {
+                                  context.read<RegisterCompanyBloc>().add(
+                                        GetCepEvent(
+                                          cep: controllerCep.text,
+                                        ),
+                                      );
+                                }
+                              },
+                              child: const Text(
+                                'Próximo',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}

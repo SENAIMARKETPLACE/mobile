@@ -1,5 +1,8 @@
+import 'package:cep/src/features/register/presentation/view/screen_cep.dart';
 import 'package:cep/src/features/register/presentation/view/screen_cnpj.dart';
 import 'package:flutter/material.dart';
+
+import 'src/features/register/presentation/view/screen_endereco.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

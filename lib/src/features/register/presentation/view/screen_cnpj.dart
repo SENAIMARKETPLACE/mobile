@@ -1,4 +1,5 @@
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:cep/src/core/datasources/local_datasource.dart';
 import 'package:cep/src/features/register/presentation/view/screen_data_access.dart';
 import 'package:cep/src/utils/widget_text_button.dart';
 import 'package:cep/src/utils/widget_text_field_register.dart';
@@ -14,7 +15,7 @@ class ScreenCnpj extends StatefulWidget {
 }
 
 class _ScreenCnpjState extends State<ScreenCnpj> {
-  final chave = GlobalKey<FormState>();
+  final chave1 = GlobalKey<FormState>();
   final TextEditingController controllerCNPJ = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -35,14 +36,16 @@ class _ScreenCnpjState extends State<ScreenCnpj> {
           width: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const WidgetTitle(
                 title: 'Informe o CNPJ de sua empresa',
               ),
               const SizedBox(height: 20),
               Form(
-                key: chave,
+                key: chave1,
                 child: WidgetTextFieldRegister(
+                  typeKey: TextInputType.number,
                   controller: controllerCNPJ,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -62,8 +65,10 @@ class _ScreenCnpjState extends State<ScreenCnpj> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: WidgetTextButton(
-                    keyButton: chave,
-                    controller: controllerCNPJ.text,
+                    tipoSave: 1,
+                    keyButton: chave1,
+                    mapControllers: LocalDataSource()
+                        .mapController(cnpj: controllerCNPJ.text),
                     widget: const ScreenDataAcess(),
                   ),
                 ),

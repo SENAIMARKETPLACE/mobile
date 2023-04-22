@@ -1,4 +1,4 @@
-#Thu Apr 20 22:13:39 BRT 2023
-base.0=C\:\\Users\\noite\\Desktop\\TCC - SOLLARIS\\mobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Sat Apr 22 12:17:47 BRT 2023
+base.0=C\:\\Sollaris\\Mobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
