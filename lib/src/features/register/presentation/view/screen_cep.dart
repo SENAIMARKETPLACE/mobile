@@ -1,12 +1,13 @@
 import 'dart:developer';
 
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:cep/src/core/datasources/local_datasource.dart';
 import 'package:cep/src/features/register/presentation/bloc/register_company_bloc.dart';
 import 'package:cep/src/features/register/presentation/bloc/register_company_event.dart';
 import 'package:cep/src/features/register/presentation/bloc/register_company_state.dart';
 import 'package:cep/src/features/register/presentation/view/screen_endereco.dart';
-import 'package:cep/src/utils/widget_text_field_register.dart';
-import 'package:cep/src/utils/widget_title.dart';
+import 'package:cep/src/core/utils/sollaris_text_field.dart';
+import 'package:cep/src/core/utils/sollaris_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,14 +68,17 @@ class _ScreenCepState extends State<ScreenCep> {
                   key: chave4,
                   child: Column(
                     children: [
-                      const WidgetTitle(
+                      const SollarisTitle(
                         title: 'Onde a empresa está localizada',
                       ),
                       const SizedBox(height: 20),
-                      WidgetTextFieldRegister(
+                      SollarisTextField(
                         label: 'CEP',
                         hint: 'Informe o CEP',
                         controller: controllerCep,
+                        onSaved: (value) => value != null
+                            ? LocalDataSource().saveCep(value)
+                            : null,
                         validator: (p0) {
                           if (p0!.isEmpty || controllerCep.text.length < 8) {
                             return 'Cep inválido. Digite novamente';
@@ -115,6 +119,7 @@ class _ScreenCepState extends State<ScreenCep> {
                               ),
                               onPressed: () {
                                 if (chave4.currentState!.validate()) {
+                                  chave4.currentState!.save();
                                   context.read<RegisterCompanyBloc>().add(
                                         GetCepEvent(
                                           cep: controllerCep.text,

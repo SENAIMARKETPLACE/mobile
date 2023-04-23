@@ -35,46 +35,72 @@ class LocalDataSource {
     };
   }
 
-  Future setCnpj(Map<String, String> map) async {
+  Future setCnpj(String cnpj) async {
     final prefs = await pref;
-    return prefs.setString('setCnpj', map['cnpj']!);
+    return prefs.setString('setCnpj', cnpj);
   }
 
-  Future<void> saveDataAccess(Map<String, String> map) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    await prefs.setString('setEmail', map['email']!);
-    await prefs.setString('setSenha', map['senha']!);
-    await prefs.setString('setTelefone', map['telefone']!);
+  Future setEmail(String email) async {
+    final prefs = await pref;
+    return prefs.setString('setEmail', email);
   }
 
-  Future<void> saveInfoInitial(Map<String, String> map) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    await prefs.setString('setNomeFantasia', map['nomeFantasia']!);
-    await prefs.setString('setRazaoSocial', map['razaoSocial']!);
+  Future setSenha(String senha) async {
+    final prefs = await pref;
+    return prefs.setString('setSenha', senha);
   }
 
-  Future<void> saveCep(Map<String, String> map) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    await prefs.setString('setCep', map['cep']!);
+  Future setTelefone(String telefone) async {
+    final prefs = await pref;
+    return prefs.setString('setTelefone', telefone);
   }
 
-  Future<void> saveLocalization(Map<String, String> map) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future setNomeFantasia(String nomeFant) async {
+    final prefs = await pref;
+    return prefs.setString('setNomeFantasia', nomeFant);
+  }
 
-    await prefs.setString('setEstado', map['estado']!);
-    await prefs.setString('setBairro', map['bairro']!);
-    await prefs.setString('setRua', map['rua']!);
-    await prefs.setString('setNumero', map['numero']!);
-    await prefs.setString('setCompleto', map['complemento']!);
-    await prefs.setString('setCidade', map['cidade']!);
+  Future setRazaoSocial(String razao) async {
+    final prefs = await pref;
+    return prefs.setString('setRazaoSocial', razao);
+  }
+
+  Future saveCep(String cep) async {
+    final prefs = await pref;
+    prefs.setString('setCep', cep);
+  }
+
+  Future saveRua(String rua) async {
+    final prefs = await pref;
+    prefs.setString('setRua', rua);
+  }
+
+  Future saveBairro(String bairro) async {
+    final prefs = await pref;
+    prefs.setString('setBairro', bairro);
+  }
+
+  Future saveCidade(String cidade) async {
+    final prefs = await pref;
+    prefs.setString('setCidade', cidade);
+  }
+  Future saveEstado(String estado) async {
+    final prefs = await pref;
+    prefs.setString('setEstado', estado);
+  }
+
+  Future saveNumero(String numero) async {
+    final prefs = await pref;
+    prefs.setString('setNumero', numero);
+  }
+
+  Future saveComplemento(String compl) async {
+    final prefs = await pref;
+    prefs.setString('setCompl', compl);
   }
 
   Future<Map<String, String>> loadDate() async {
     final SharedPreferences p = await SharedPreferences.getInstance();
-
 
     return {
       'cnpj': p.getString('setCnpj') ?? '',
@@ -89,7 +115,7 @@ class LocalDataSource {
       'estado': p.getString('setEstado') ?? '',
       'bairro': p.getString('setBairro') ?? '',
       'cidade': p.getString('setCidade') ?? '',
-      'compto': p.getString('setCompleto') ?? '',
+      'compto': p.getString('setCompl') ?? '',
     };
   }
 }
