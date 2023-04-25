@@ -43,13 +43,14 @@ class AddressModel extends Address {
 
   factory AddressModel.fromMap(Map<String, dynamic> map) {
     return AddressModel(
-        cepModel: map["cep"] ?? '',
-        logradouroModel: map["logradouro"] ?? '',
-        complementoModel: map["complemento"] ?? '',
-        bairroModel: map["bairro"] ?? '',
-        localidadeModel: map["localidade"] ?? '',
-        ufModel: map["uf"] ?? '',
-        numeroModel: map['numero'] ?? '');
+      cepModel: map["cep"] ?? '',
+      logradouroModel: map["logradouro"] ?? '',
+      complementoModel: map["complemento"] ?? '',
+      bairroModel: map["bairro"] ?? '',
+      localidadeModel: map["localidade"] ?? '',
+      ufModel: map["uf"] ?? '',
+      numeroModel: map['numero'] ?? '',
+    );
   }
 
   factory AddressModel.fromJson(String source) {
