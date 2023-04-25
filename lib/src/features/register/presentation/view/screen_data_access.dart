@@ -112,7 +112,6 @@ class _ScreenDataAcessState extends State<ScreenDataAcess> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: BuildTextButton(
-                tipoSave: 2,
                 keyButton: chave2,
                 widget: const ScreenInitialInfo(),
               ),

@@ -51,7 +51,7 @@ class _ScreenCepState extends State<ScreenCep> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => ScreenEndereco(address: state.endereco),
+                      builder: (_) => ScreenEndereco(address: state.address),
                     ));
               } else if (state.status == RegisterCompanyStatus.error) {
                 log('Erro');

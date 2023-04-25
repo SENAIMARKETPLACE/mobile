@@ -7,13 +7,11 @@ class BuildTextButton extends StatefulWidget {
     Key? key,
     required this.keyButton,
     required this.widget,
-    required this.tipoSave,
     this.textButton = 'Próximo',
   }) : super(key: key);
 
   final GlobalKey<FormState> keyButton;
   final Widget widget;
-  final int tipoSave;
   final String textButton;
 
   @override

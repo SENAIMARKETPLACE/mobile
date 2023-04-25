@@ -48,7 +48,6 @@ class ScreenCnpj extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: BuildTextButton(
-                tipoSave: 1,
                 keyButton: chave1,
                 widget: const ScreenDataAcess(),
               ),

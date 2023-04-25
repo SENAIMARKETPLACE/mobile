@@ -64,7 +64,7 @@ class _ScreenEnderecoState extends State<ScreenEndereco> {
             child: Form(
               key: chave5,
               child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.88,
+                height: MediaQuery.of(context).size.height,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -119,7 +119,9 @@ class _ScreenEnderecoState extends State<ScreenEndereco> {
                           label: "Complemento",
                           hint: "Digite o complemento",
                           controller: controllerCompl,
-                          onSaved: (value) => value != null ? LocalDataSource().saveComplemento(value) : null,
+                          onSaved: (value) => value != null
+                              ? LocalDataSource().saveComplemento(value)
+                              : null,
                           validator: (_) {
                             return null;
                           },
@@ -128,7 +130,9 @@ class _ScreenEnderecoState extends State<ScreenEndereco> {
                           label: "Cidade",
                           hint: "Digite a cidade",
                           controller: controllerCidade,
-                          onSaved: (value) => value != null ? LocalDataSource().saveCidade(value) : null,
+                          onSaved: (value) => value != null
+                              ? LocalDataSource().saveCidade(value)
+                              : null,
                           validator: (p0) {
                             if (p0!.isEmpty) {
                               return 'Cidade inválido. Digite novamente';
@@ -140,7 +144,9 @@ class _ScreenEnderecoState extends State<ScreenEndereco> {
                           label: "Estado",
                           hint: "Digite o estado",
                           controller: controllerEstado,
-                          onSaved: (value) => value != null ? LocalDataSource().saveEstado(value) : null,
+                          onSaved: (value) => value != null
+                              ? LocalDataSource().saveEstado(value)
+                              : null,
                           validator: (p0) {
                             if (p0!.isEmpty) {
                               return 'Cidade inválido. Digite novamente';
@@ -154,10 +160,9 @@ class _ScreenEnderecoState extends State<ScreenEndereco> {
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: BuildTextButton(
-                          tipoSave: 5,
                           keyButton: chave5,
                           widget: const ScreenConfirm(),
-                          textButton: 'Cadastrar',
+                          textButton: 'Próximo',
                         ),
                       ),
                     ),

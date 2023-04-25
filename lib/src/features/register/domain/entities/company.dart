@@ -1,32 +1,29 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cep/src/features/register/domain/entities/address.dart';
 import 'package:equatable/equatable.dart';
 
 class Company extends Equatable {
   final String id;
-  final String nomeProprietario;
-  final String? nomeFantasia;
-  final String razaoSocial;
   final String cnpj;
-  final String telefone;
-  final String? logo;
   final String email;
+  final String telefone;
   final String senha;
-  final List<Address> endereco;
-  // final List<String> produto;
+  final String nomeFantasia;
+  final String razaoSocial;
+  final Address endereco;
+  final String logo;
+  final String? nomeProprietario;
 
   const Company({
     required this.id,
-    required this.nomeProprietario,
-    this.nomeFantasia,
-    required this.razaoSocial,
     required this.cnpj,
-    required this.telefone,
-    this.logo,
     required this.email,
+    required this.telefone,
     required this.senha,
+    required this.razaoSocial,
+    required this.nomeFantasia,
     required this.endereco,
-    // required this.produto,
+    required this.logo,
+    this.nomeProprietario,
   });
 
   factory Company.instance() {
@@ -40,23 +37,28 @@ class Company extends Equatable {
       logo: '',
       email: '',
       senha: '',
-      endereco: [],
-      // produto: [],
+      endereco: Address(
+        cep: '',
+        numero: '',
+        estado: '',
+        bairro: '',
+        cidade: '',
+        logradouro: '',
+      ),
     );
   }
 
   @override
   List<Object?> get props => [
         id,
-        nomeProprietario,
+        cnpj,
+        email,
+        telefone,
+        senha,
         nomeFantasia,
         razaoSocial,
-        cnpj,
-        telefone,
-        logo,
-        email,
-        senha,
         endereco,
-        // produto,
+        logo,
+        nomeProprietario,
       ];
 }

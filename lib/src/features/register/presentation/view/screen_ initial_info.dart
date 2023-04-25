@@ -59,7 +59,6 @@ class _ScreenInitialInfoState extends State<ScreenInitialInfo> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: BuildTextButton(
-                tipoSave: 3,
                 keyButton: chave3,
                 widget: const ScreenCep(),
               ),

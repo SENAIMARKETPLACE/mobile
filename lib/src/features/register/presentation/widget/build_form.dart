@@ -36,7 +36,7 @@ class BuildForm extends StatelessWidget {
             child: Form(
               key: formKey,
               child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.88,
+                height: MediaQuery.of(context).size.height * 0.85,
                 child: inputs,
               ),
             ),
