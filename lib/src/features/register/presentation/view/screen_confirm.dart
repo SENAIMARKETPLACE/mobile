@@ -138,22 +138,23 @@ class _ScreenConfirmState extends State<ScreenConfirm> {
                               ),
                               onPressed: () {
                                 final company = Company(
-                                    id: '',
-                                    cnpj: map['cnpj'],
-                                    email: map['email'],
-                                    telefone: map['telefone'],
-                                    senha: map['senha'],
-                                    razaoSocial: map['razaoSocial'],
-                                    nomeFantasia: map['nomeFantasia'],
-                                    endereco: Address(
-                                      cep: map['cep'],
-                                      numero: map['numero'],
-                                      estado: map['estado'],
-                                      bairro: map['bairro'],
-                                      cidade: map['cidade'],
-                                      logradouro: map['rua'],
-                                    ),
-                                    logo: 'Minha Imagem');
+                                  id: '',
+                                  cnpj: map['cnpj'],
+                                  email: map['email'],
+                                  telefone: map['telefone'],
+                                  senha: map['senha'],
+                                  razaoSocial: map['razaoSocial'],
+                                  nomeFantasia: map['nomeFantasia'],
+                                  endereco: Address(
+                                    cep: map['cep'],
+                                    numero: map['numero'],
+                                    estado: map['estado'],
+                                    bairro: map['bairro'],
+                                    cidade: map['cidade'],
+                                    logradouro: map['rua'],
+                                  ),
+                                  logo: 'Minha Imagem',
+                                );
 
                                 final state =
                                     context.read<RegisterCompanyBloc>().state;
