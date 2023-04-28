@@ -21,7 +21,7 @@ class GetCepEvent extends IRegisterCompanyEvent {
 class SetCompanyEvent extends IRegisterCompanyEvent {
   final Company company;
 
-  SetCompanyEvent({
+  const SetCompanyEvent({
     required this.company,
   });
   

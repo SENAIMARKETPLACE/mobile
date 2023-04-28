@@ -1,63 +1,48 @@
-import 'dart:io';
-
-import 'package:cep/src/features/register/presentation/bloc/register_company_bloc.dart';
-import 'package:cep/src/features/register/presentation/bloc/register_company_state.dart';
-import 'package:cep/src/features/register/presentation/widget/build_steps.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:cep/src/dependency_assembly.dart' as di;
 
-class BuildForm extends StatefulWidget {
-  const BuildForm({super.key});
+class BuildForm extends StatelessWidget {
+  const BuildForm({
+    Key? key,
+    required this.formKey,
+    required this.inputs,
+  }) : super(key: key);
 
-  @override
-  State<BuildForm> createState() => _BuildFormState();
-}
-
-class _BuildFormState extends State<BuildForm> {
-  ImageProvider imageSelected = const AssetImage('assets/image/man.png');
-
-  File? imageSele;
+  final GlobalKey<FormState> formKey;
+  final Widget inputs;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Register Company'),
-          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Color(0XFF14C871),
+            ),
+          ),
         ),
-        body: BlocProvider(
-          create: (context) => di.dependency<RegisterCompanyBloc>(),
-          child: BlocBuilder<RegisterCompanyBloc, RegisterCompanyState>(
-            builder: (context, state) {
-              return BuildSteps(
-                galeria: _onGallery,
-                foto: imageSelected,
-                entity: state.endereco,
-              );
-            },
+        body: Container(
+          width: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+          child: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.85,
+                child: inputs,
+              ),
+            ),
           ),
         ),
       ),
     );
-  }
-
-  Future<void> _onGallery() async {
-    final ImagePicker picker = ImagePicker();
-
-    final image = await picker.pickImage(
-      source: ImageSource.gallery,
-      maxHeight: 1800,
-      maxWidth: 1800,
-    );
-
-    if (image != null) {
-      setState(() {
-        imageSelected = FileImage(File(image.path));
-      });
-    }
   }
 }

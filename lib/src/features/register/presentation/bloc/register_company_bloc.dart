@@ -41,8 +41,7 @@ class RegisterCompanyBloc
       (address) => emit(
         state.copyWith(
           status: RegisterCompanyStatus.sucess,
-          endereco: Address(
-            id: address.id,
+          address: Address(
             cep: address.cep,
             numero: address.numero,
             estado: address.estado,
