@@ -445,14 +445,15 @@ class _BuildStepsState extends State<BuildSteps> {
                                   .add(SetCompanyEvent(
                                     company: Company(
                                         id: '',
-                                        nomeProprietario: _controllerProp.text,
+
+                                        // nomeProprietario: _controllerProp.text,
                                         razaoSocial: _controllerRaz.text,
                                         cnpj: _controllerCnpj.text,
                                         telefone: _controllerTelefone.text,
                                         email: _controllerEmail.text,
                                         senha: _controllerSenha.text,
                                         nomeFantasia: _controllerFant.text,
-                                        logo: widget.foto.toString(),
+                                        // logo: widget.foto.toString(),
                                         endereco: [
                                           Address(
                                             id: '',
