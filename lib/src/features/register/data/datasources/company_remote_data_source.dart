@@ -21,17 +21,6 @@ class CompanyRemoteDataSourceImpl implements ICompanyRemoteDataSource {
   Future<Unit> register({required CompanyModel company}) async {
     const url = 'http://192.168.208.1:8000/api/business';
     final requestBody = company.toJson();
-<<<<<<< HEAD
-    final response =
-        await client.post(Uri.parse(url), body: requestBody, headers: {
-      'content-type': 'application/json',
-    }).then((value) {
-      if (value.statusCode == 201) {
-        return Future.value(unit);
-      } 
-    });
-        throw ServerException();
-=======
     final response = await client.post(
       Uri.parse(url),
       body: requestBody,
@@ -45,6 +34,5 @@ class CompanyRemoteDataSourceImpl implements ICompanyRemoteDataSource {
     } else {
       throw ServerException();
     }
->>>>>>> front_cadastro
   }
 }

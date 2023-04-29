@@ -3,30 +3,10 @@ import 'package:equatable/equatable.dart';
 
 class Company extends Equatable {
   final String id;
-<<<<<<< HEAD
-  final String nomeFantasia;
-  final String razaoSocial;
   final String cnpj;
-  final String telefone;
-=======
-  final String cnpj;
->>>>>>> front_cadastro
   final String email;
   final String telefone;
   final String senha;
-<<<<<<< HEAD
-  final List<Address> endereco;
-  // final String nomeProprietario;
-  // final String? logo;
-  // final List<String> produto;
-
-  const Company({
-    required this.id,
-    required this.nomeFantasia,
-    required this.razaoSocial,
-    required this.cnpj,
-    required this.telefone,
-=======
   final String nomeFantasia;
   final String razaoSocial;
   final Address endereco;
@@ -36,18 +16,14 @@ class Company extends Equatable {
   const Company({
     required this.id,
     required this.cnpj,
->>>>>>> front_cadastro
     required this.email,
     required this.telefone,
     required this.senha,
     required this.razaoSocial,
     required this.nomeFantasia,
     required this.endereco,
-<<<<<<< HEAD
-=======
     required this.logo,
     this.nomeProprietario,
->>>>>>> front_cadastro
   });
 
   factory Company.instance() {
@@ -59,6 +35,8 @@ class Company extends Equatable {
       telefone: '',
       email: '',
       senha: '',
+      logo: '',
+      nomeProprietario: '',
       endereco: Address(
         cep: '',
         numero: '',
@@ -73,15 +51,6 @@ class Company extends Equatable {
   @override
   List<Object?> get props => [
         id,
-<<<<<<< HEAD
-        nomeFantasia,
-        razaoSocial,
-        cnpj,
-        telefone,
-        email,
-        senha,
-        endereco,
-=======
         cnpj,
         email,
         telefone,
@@ -91,6 +60,5 @@ class Company extends Equatable {
         endereco,
         logo,
         nomeProprietario,
->>>>>>> front_cadastro
       ];
 }
