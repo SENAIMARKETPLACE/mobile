@@ -38,6 +38,7 @@ class RegisterCompanyState extends Equatable {
           senha: '',
           razaoSocial: '',
           nomeFantasia: '',
+          nomeProprietario: '',
           endereco: Address(
             cep: '',
             numero: '',

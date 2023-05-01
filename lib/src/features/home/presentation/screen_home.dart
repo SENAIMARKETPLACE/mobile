@@ -25,8 +25,22 @@ class _ScreenHomeState extends State<ScreenHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Bem vindo, ${pref.nome}'),
+      body: FutureBuilder(
+        future: getPreferences(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+            case ConnectionState.active:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case ConnectionState.done:
+              return Center(
+                child: Text('Bem vindo, ${pref.nome}'),
+              );
+          }
+        },
       ),
     );
   }

@@ -21,7 +21,7 @@ class _ScreenDataAcessState extends State<ScreenDataAcess> {
   final controllerPassoword = TextEditingController();
   final controllerRepeatPassword = TextEditingController();
   final controllerTelefone = TextEditingController();
-  bool isExibe = false;
+  bool isExibe = true;
 
   @override
   Widget build(BuildContext context) {

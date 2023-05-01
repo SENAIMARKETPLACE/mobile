@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:cep/src/features/cadastro/data/models/address_model.dart';
-import 'package:cep/src/features/cadastro/domain/entities/address.dart';
 import 'package:cep/src/features/cadastro/domain/entities/company.dart';
 
 class CompanyModel extends Company {
@@ -14,7 +13,7 @@ class CompanyModel extends Company {
   final String nomeFantasiaModel;
   final AddressModel enderecoModel;
   final String logoModel;
-  final String? nomeProprietarioModel;
+  final String nomeProprietarioModel;
 
   const CompanyModel({
     required this.idModel,
@@ -26,7 +25,7 @@ class CompanyModel extends Company {
     required this.razaoSocialModel,
     required this.enderecoModel,
     required this.logoModel,
-    this.nomeProprietarioModel,
+    required this.nomeProprietarioModel,
   }) : super(
           id: idModel,
           cnpj: cnpjModel,
@@ -42,8 +41,8 @@ class CompanyModel extends Company {
 
   factory CompanyModel.fromEntity(Company company) {
     return CompanyModel(
-      logoModel: '',
-      nomeProprietarioModel: '',
+      logoModel: company.logo,
+      nomeProprietarioModel: company.nomeProprietario,
       idModel: company.id,
       cnpjModel: company.cnpj,
       razaoSocialModel: company.razaoSocial,
@@ -91,12 +90,11 @@ class CompanyModel extends Company {
       'razao_social': razaoSocialModel,
       'cnpj': cnpjModel,
       'telefone': telefoneModel,
-      'url_logo': logoModel,
+      'url_logo': 'Minha Imagem',
       'email': emailModel,
       'senha': senhaModel,
-      'endereco': enderecoModel,
-      // 'nome_proprietario': nomeProprietarioModel,
-      // 'id': idModel,
+      'endereco': enderecoModel.toMap(),
+      'nome_proprietario': nomeProprietarioModel,
     };
   }
 
@@ -112,6 +110,5 @@ class CompanyModel extends Company {
         emailModel,
         senhaModel,
         enderecoModel,
-        // produtoModel,
       ];
 }

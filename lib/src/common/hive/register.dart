@@ -10,6 +10,7 @@ class Register {
     String? telefone,
     String? nomeFantasia,
     String? razaoSocial,
+    String? responsavel,
     String? cep,
     String? rua,
     String? numero,
@@ -25,6 +26,7 @@ class Register {
       'telefone': telefone ?? '',
       'nomeFantasia': nomeFantasia ?? '',
       'razaoSocial': razaoSocial ?? '',
+      'responsavel': responsavel ?? '',
       'cep': cep ?? '',
       'rua': rua ?? '',
       'numero': numero ?? '',
@@ -63,6 +65,10 @@ class Register {
   Future setRazaoSocial(String razao) async {
     final prefs = await pref;
     return prefs.setString('setRazaoSocial', razao);
+  }
+  Future setResponsavel(String responsavel) async {
+    final prefs = await pref;
+    return prefs.setString('setResponsavel', responsavel);
   }
 
   Future saveCep(String cep) async {
@@ -110,6 +116,7 @@ class Register {
       'telefone': p.getString('setTelefone') ?? '',
       'nomeFantasia': p.getString('setNomeFantasia') ?? '',
       'razaoSocial': p.getString('setRazaoSocial') ?? '',
+      'responsavel': p.getString('setResponsavel') ?? '',
       'cep': p.getString('setCep') ?? '',
       'rua': p.getString('setRua') ?? '',
       'numero': p.getString('setNumero') ?? '',

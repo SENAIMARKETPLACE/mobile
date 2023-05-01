@@ -11,7 +11,7 @@ class Company extends Equatable {
   final String razaoSocial;
   final Address endereco;
   final String logo;
-  final String? nomeProprietario;
+  final String nomeProprietario;
 
   const Company({
     required this.id,
@@ -23,7 +23,7 @@ class Company extends Equatable {
     required this.nomeFantasia,
     required this.endereco,
     required this.logo,
-    this.nomeProprietario,
+    required this.nomeProprietario,
   });
 
   factory Company.instance() {

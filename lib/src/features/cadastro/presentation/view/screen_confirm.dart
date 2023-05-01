@@ -4,6 +4,8 @@ import 'package:cep/src/features/cadastro/domain/entities/address.dart';
 import 'package:cep/src/features/cadastro/domain/entities/company.dart';
 import 'package:cep/src/features/cadastro/presentation/bloc/register_company_bloc.dart';
 import 'package:cep/src/features/cadastro/presentation/bloc/register_company_event.dart';
+import 'package:cep/src/features/cadastro/presentation/bloc/register_company_state.dart';
+import 'package:cep/src/features/login/presentation/pages/screen_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cep/src/dependency_assembly.dart' as di;
@@ -18,6 +20,32 @@ class ScreenConfirm extends StatefulWidget {
 class _ScreenConfirmState extends State<ScreenConfirm> {
   List<String> data = [];
   int count = 0;
+  var snackbarSucess = const SnackBar(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+    ),
+    content: Text(
+      'Cadastro realizado com sucesso',
+      style: TextStyle(
+        fontSize: 15,
+      ),
+    ),
+    backgroundColor: Colors.green,
+  );
+  var snackbarError = const SnackBar(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+    ),
+    content: Text(
+      'Erro ao cadastrar. Tente novamente mais tarde.',
+      style: TextStyle(
+        fontSize: 15,
+      ),
+    ),
+    backgroundColor: Colors.red,
+  );
 
   Future<Map<String, String>> loadData() async {
     return await Register().loadDate();
@@ -59,12 +87,12 @@ class _ScreenConfirmState extends State<ScreenConfirm> {
           future: loadData(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
+              case ConnectionState.active:
               case ConnectionState.none:
               case ConnectionState.waiting:
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              case ConnectionState.active:
               case ConnectionState.done:
                 Map map = snapshot.data ?? {};
                 return Container(
@@ -90,6 +118,7 @@ class _ScreenConfirmState extends State<ScreenConfirm> {
                               Text(map['cnpj']),
                               Text(map['nomeFantasia']),
                               Text(map['razaoSocial']),
+                              Text(map['responsavel']),
                               Text(map['email']),
                               Text(map['telefone']),
                             ],
@@ -144,6 +173,7 @@ class _ScreenConfirmState extends State<ScreenConfirm> {
                                   telefone: map['telefone'],
                                   senha: map['senha'],
                                   razaoSocial: map['razaoSocial'],
+                                  nomeProprietario: map['responsavel'],
                                   nomeFantasia: map['nomeFantasia'],
                                   endereco: Address(
                                     cep: map['cep'],
@@ -162,6 +192,19 @@ class _ScreenConfirmState extends State<ScreenConfirm> {
                                 context
                                     .read<RegisterCompanyBloc>()
                                     .add(SetCompanyEvent(company: company));
+
+                                if (state.status ==
+                                    RegisterCompanyStatus.sucess) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackbarSucess);
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ScreenLogin()));
+                                } else if (state.status ==
+                                    RegisterCompanyStatus.error) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackbarError);
+                                }
                               },
                               child: const Text(
                                 'Registrar',

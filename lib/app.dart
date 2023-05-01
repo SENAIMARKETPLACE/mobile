@@ -1,6 +1,5 @@
+import 'package:cep/src/features/login/presentation/pages/screen_login.dart';
 import 'package:flutter/material.dart';
-
-import 'src/features/login/presentation/pages/screen_login.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

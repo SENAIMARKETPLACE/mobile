@@ -53,10 +53,17 @@ class _SollarisTextFieldState extends State<SollarisTextField> {
             validator: widget.validator,
             decoration: InputDecoration(
               errorBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  borderSide: BorderSide(color: Colors.red)),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                borderSide: BorderSide(color: Colors.red),
+              ),
+              focusedErrorBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                borderSide: BorderSide(color: Colors.red),
+              ),
               suffixIcon: widget.suffixIcon,
               filled: true,
               fillColor: const Color.fromARGB(54, 158, 158, 158),

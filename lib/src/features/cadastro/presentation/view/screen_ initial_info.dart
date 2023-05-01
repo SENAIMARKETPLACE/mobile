@@ -17,6 +17,7 @@ class _ScreenInitialInfoState extends State<ScreenInitialInfo> {
   final chave3 = GlobalKey<FormState>();
   final controllerNomeFan = TextEditingController();
   final controllerRazaoSocial = TextEditingController();
+  final controllerResponsavel = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,19 @@ class _ScreenInitialInfoState extends State<ScreenInitialInfo> {
             title: 'Informações Iniciais',
           ),
           const SizedBox(height: 20),
+          SollarisTextField(
+            label: 'Razão social',
+            hint: 'Digite a razão social da empresa',
+            controller: controllerRazaoSocial,
+            onSaved: (value) =>
+                value != null ? Register().setRazaoSocial(value) : null,
+            validator: (p0) {
+              if (p0!.isEmpty) {
+                return 'Nome fantasia inválido';
+              }
+              return null;
+            },
+          ),
           SollarisTextField(
             label: 'Nome fantasia',
             hint: 'Digite o nome fantasia da empresa',
@@ -43,14 +57,14 @@ class _ScreenInitialInfoState extends State<ScreenInitialInfo> {
             },
           ),
           SollarisTextField(
-            label: 'Razão social',
-            hint: 'Digite a razão social da empresa',
-            controller: controllerRazaoSocial,
+            label: 'Nome Responsável',
+            hint: 'Digite o nome do responsável',
+            controller: controllerResponsavel,
             onSaved: (value) =>
-                value != null ? Register().setRazaoSocial(value) : null,
+                value != null ? Register().setResponsavel(value) : null,
             validator: (p0) {
               if (p0!.isEmpty) {
-                return 'Nome fantasia inválido';
+                return 'Nome do Responsável inválido';
               }
               return null;
             },
