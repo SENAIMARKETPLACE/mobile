@@ -16,6 +16,12 @@ abstract class Failure extends Equatable {
 class ServerFailure extends Failure {
   const ServerFailure()
       : super(
-          message: 'Erro no Servidor',
+          message: 'Erro no Servidor. Tente novamente mais tarde.',
+        );
+}
+class NotFoundFailure extends Failure {
+  const NotFoundFailure()
+      : super(
+          message: 'E-mail e Senha inválido',
         );
 }

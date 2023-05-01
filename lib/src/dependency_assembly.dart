@@ -1,17 +1,23 @@
 import 'package:cep/src/core/use_case/use_case.dart';
-import 'package:cep/src/features/register/data/datasources/address_remote_data_source.dart';
-import 'package:cep/src/features/register/data/datasources/company_remote_data_source.dart';
-import 'package:cep/src/features/register/data/repositories/register_company_repository_impl.dart';
-import 'package:cep/src/features/register/domain/entities/company.dart';
-import 'package:cep/src/features/register/domain/repositories/register_company_repository.dart';
-import 'package:cep/src/features/register/domain/usecases/get_cep_use_case.dart';
-import 'package:cep/src/features/register/domain/usecases/register_company_use_case.dart';
-import 'package:cep/src/features/register/presentation/bloc/register_company_bloc.dart';
+import 'package:cep/src/features/cadastro/data/datasources/address_remote_data_source.dart';
+import 'package:cep/src/features/cadastro/data/datasources/company_remote_data_source.dart';
+import 'package:cep/src/features/cadastro/data/repositories/register_company_repository_impl.dart';
+import 'package:cep/src/features/cadastro/domain/entities/company.dart';
+import 'package:cep/src/features/cadastro/domain/repositories/register_company_repository.dart';
+import 'package:cep/src/features/cadastro/domain/usecases/get_cep_use_case.dart';
+import 'package:cep/src/features/cadastro/domain/usecases/register_company_use_case.dart';
+import 'package:cep/src/features/cadastro/presentation/bloc/register_company_bloc.dart';
+import 'package:cep/src/features/login/data/datasources/login_remote_data_source.dart';
+import 'package:cep/src/features/login/data/repositories/login_repository_impl.dart';
+import 'package:cep/src/features/login/domain/entities/login.dart';
+import 'package:cep/src/features/login/domain/repositories/login_repository.dart';
+import 'package:cep/src/features/login/domain/usecases/logar_use_case.dart';
+import 'package:cep/src/features/login/presentation/bloc/login_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 
-import 'features/register/domain/entities/address.dart';
+import 'features/cadastro/domain/entities/address.dart';
 
 final dependency = GetIt.instance;
 
@@ -19,15 +25,12 @@ Future<void> init() async {
   dependency.registerLazySingleton(Client.new);
 
   _setupSignup();
+  _setupLogin();
 }
 
 void _setupSignup() {
   dependency.registerFactory<RegisterCompanyBloc>(
-    () => RegisterCompanyBloc(
-      getCep: dependency(),
-      setCompany: dependency()
-
-    ),
+    () => RegisterCompanyBloc(getCep: dependency(), setCompany: dependency()),
   );
 
   dependency.registerLazySingleton<UseCase<Address, String>>(
@@ -50,6 +53,26 @@ void _setupSignup() {
     ),
   );
   dependency.registerLazySingleton<ICompanyRemoteDataSource>(
-    () => CompanyRemoteDataSourceImpl(client: dependency())
+      () => CompanyRemoteDataSourceImpl(client: dependency()));
+}
+
+void _setupLogin() {
+  dependency.registerFactory<LoginBloc>(
+    () => LoginBloc(
+      getLogin: dependency(),
+    ),
   );
+
+  dependency.registerLazySingleton<UseCase<Unit, Login>>(
+    () => LogarUseCase(loginRepository: dependency()),
+  );
+
+  dependency.registerLazySingleton<LoginRepository>(
+    () => LoginRepositoryImpl(
+      loginRemoteDataSource: dependency(),
+    ),
+  );
+
+  dependency.registerLazySingleton<ILoginRemoteDataSource>(
+      () => LoginRemoteDataSourceImpl(client: dependency()));
 }
