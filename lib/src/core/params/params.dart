@@ -2,12 +2,13 @@
 import 'package:equatable/equatable.dart';
 
 class Params extends Equatable {
-  final String cep;
+  final String params;
+  
 
   const Params({
-    required this.cep,
+    required this.params,
   });
 
   @override
-  List<Object?> get props => [cep];
+  List<Object?> get props => [params];
 }
