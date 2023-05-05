@@ -19,7 +19,7 @@ class CompanyRemoteDataSourceImpl implements ICompanyRemoteDataSource {
 
   @override
   Future<Unit> register({required CompanyModel company}) async {
-    var url = 'http://192.168.1.41:8000/api/business';
+    var url = 'http://172.27.160.1:8000/api/business';
     final requestBody = company.toJson();
     final response = await client.post(
       Uri.parse(url),

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cep/src/core/utils/sollaris_text_field.dart';
 import 'package:cep/src/core/utils/sollaris_title.dart';
+import 'package:cep/src/features/cadastro/presentation/view/screen_cnpj.dart';
 import 'package:cep/src/features/home/presentation/screen_home.dart';
 import 'package:cep/src/features/login/domain/entities/login.dart';
 import 'package:cep/src/features/login/presentation/bloc/login_bloc.dart';
@@ -32,10 +33,8 @@ class _ScreenLoginState extends State<ScreenLogin> {
         listener: (context, state) {
           if (state.status == LoginStatus.success) {
             Navigator.push(
-              
               context,
               MaterialPageRoute(
-
                 builder: (context) => const ScreenHome(),
               ),
             );
@@ -103,6 +102,18 @@ class _ScreenLoginState extends State<ScreenLogin> {
                   ),
                   const SizedBox(
                     width: 25,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ScreenCnpj()));
+                      },
+                      child: const Text('Cadastrar'),
+                    ),
                   ),
                 ])
               ],

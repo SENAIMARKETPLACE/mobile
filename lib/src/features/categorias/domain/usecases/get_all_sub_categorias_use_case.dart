@@ -7,7 +7,7 @@ import 'package:cep/src/features/categorias/domain/repositories/categoria_reposi
 import 'package:dartz/dartz.dart';
 
 class GetAllSubCategoriasUseCase
-    implements UseCase<List<SubCategoria>, NoParams> {
+    implements UseCase<List<SubCategoria>, Params> {
   final CategoriaRepository repository;
 
   GetAllSubCategoriasUseCase({
@@ -15,7 +15,7 @@ class GetAllSubCategoriasUseCase
   });
 
   @override
-  Future<Either<Failure, List<SubCategoria>>> call(NoParams params) async {
-    return await repository.getAllSubCategorias();
+  Future<Either<Failure, List<SubCategoria>>> call(Params params) async {
+    return await repository.getAllSubCategorias(id: params.params);
   }
 }
