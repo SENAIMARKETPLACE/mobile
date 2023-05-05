@@ -1,3 +1,4 @@
+import 'package:cep/src/core/params/params.dart';
 import 'package:cep/src/core/use_case/use_case.dart';
 import 'package:cep/src/features/cadastro/data/datasources/address_remote_data_source.dart';
 import 'package:cep/src/features/cadastro/data/datasources/company_remote_data_source.dart';
@@ -7,6 +8,14 @@ import 'package:cep/src/features/cadastro/domain/repositories/register_company_r
 import 'package:cep/src/features/cadastro/domain/usecases/get_cep_use_case.dart';
 import 'package:cep/src/features/cadastro/domain/usecases/register_company_use_case.dart';
 import 'package:cep/src/features/cadastro/presentation/bloc/register_company_bloc.dart';
+import 'package:cep/src/features/categorias/data/datasources/categorias_remote_data_source.dart';
+import 'package:cep/src/features/categorias/data/repositories/categoria_repository_impl.dart';
+import 'package:cep/src/features/categorias/domain/entities/categoria.dart';
+import 'package:cep/src/features/categorias/domain/entities/sub_categoria.dart';
+import 'package:cep/src/features/categorias/domain/repositories/categoria_repository.dart';
+import 'package:cep/src/features/categorias/domain/usecases/get_all_categorias_use_case.dart';
+import 'package:cep/src/features/categorias/domain/usecases/get_all_sub_categorias_use_case.dart';
+import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/login/data/datasources/login_remote_data_source.dart';
 import 'package:cep/src/features/login/data/repositories/login_repository_impl.dart';
 import 'package:cep/src/features/login/domain/entities/login.dart';
@@ -26,6 +35,7 @@ Future<void> init() async {
 
   _setupSignup();
   _setupLogin();
+  _setUpCategoria();
 }
 
 void _setupSignup() {
@@ -49,11 +59,14 @@ void _setupSignup() {
 
   dependency.registerLazySingleton<IAddressRemoteDataSource>(
     () => AddressRemoteDataSourceImpl(
-      client: dependency(),
-    ),
+        client: dependency(), network: dependency()),
   );
   dependency.registerLazySingleton<ICompanyRemoteDataSource>(
-      () => CompanyRemoteDataSourceImpl(client: dependency()));
+    () => CompanyRemoteDataSourceImpl(
+      client: dependency(),
+      network: dependency(),
+    ),
+  );
 }
 
 void _setupLogin() {
@@ -74,5 +87,39 @@ void _setupLogin() {
   );
 
   dependency.registerLazySingleton<ILoginRemoteDataSource>(
-      () => LoginRemoteDataSourceImpl(client: dependency()));
+      () => LoginRemoteDataSourceImpl(
+            client: dependency(),
+            network: dependency(),
+          ));
+}
+
+void _setUpCategoria() {
+  dependency
+    ..registerFactory<CategoriaBloc>(
+      () => CategoriaBloc(
+        getCategorias: dependency(),
+        getSubCategorias: dependency(),
+      ),
+    )
+    ..registerLazySingleton<UseCase<List<Categoria>, NoParams>>(
+      () => GetAllCategoriasUseCase(
+        repository: dependency(),
+      ),
+    )
+    ..registerLazySingleton<UseCase<List<SubCategoria>, Params>>(
+      () => GetAllSubCategoriasUseCase(
+        repository: dependency(),
+      ),
+    )
+    ..registerLazySingleton<CategoriaRepository>(
+      () => CategoriaRepositoryImpl(
+        categoriaRemoteDataSource: dependency(),
+      ),
+    )
+    ..registerLazySingleton<ICategoriaRemoteDataSource>(
+      () => CategoriaRemoteDataSourceImpl(
+        client: dependency(),
+        network: dependency(),
+      ),
+    );
 }

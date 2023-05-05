@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:cep/src/common/hive/access.dart';
 import 'package:cep/src/common/hive/preferences_actions.dart';
 import 'package:cep/src/core/error/exceptions.dart';
+import 'package:cep/src/core/network/network_info.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,8 +16,10 @@ abstract class ILoginRemoteDataSource {
 
 class LoginRemoteDataSourceImpl implements ILoginRemoteDataSource {
   final http.Client client;
+  final NetworkInfo network;
 
   LoginRemoteDataSourceImpl({
+    required this.network,
     required this.client,
   });
 
@@ -24,22 +27,27 @@ class LoginRemoteDataSourceImpl implements ILoginRemoteDataSource {
   Future<Unit> logar({required LoginModel login}) async {
     var url = 'http://172.27.160.1:8000/api/business/login';
     final requestBody = login.toJson();
+    final isConnected = await network.isConnected;
     final response = await client.post(
       Uri.parse(url),
       body: requestBody,
       headers: {'content-type': 'application/json'},
     );
 
-    if (response.statusCode == 200) {
-      final data =
-          Access.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    if (isConnected) {
+      switch (response.statusCode) {
+        case 200:
+          final data = Access.fromJson(
+              jsonDecode(response.body) as Map<String, dynamic>);
+          PreferencesActions.save(data);
 
-      PreferencesActions.save(data);
-
-      return Future.value(unit);
-    } else if (response.statusCode == 404) {
-      return throw NotFoundCompany();
+          return Future.value(unit);
+        case 404:
+          return throw NotFoundCompany();
+        default:
+          throw ServerException();
+      }
     }
-    throw ServerException();
+    throw ConnectionOffline();
   }
 }

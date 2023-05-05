@@ -24,6 +24,8 @@ class LoginRepositoryImpl implements LoginRepository {
       return const Right(unit);
     } on NotFoundCompany {
       return const Left(NotFoundFailure());
+    } on ConnectionOffline {
+      return const Left(ConnectionOfflineFailure());
     }
   }
 }

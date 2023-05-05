@@ -7,7 +7,7 @@ import 'package:dartz/dartz.dart';
 class GetAllCategoriasUseCase implements UseCase<List<Categoria>, NoParams> {
   final CategoriaRepository repository;
 
-  GetAllCategoriasUseCase(this.repository);
+  GetAllCategoriasUseCase({required this.repository});
 
   @override
   Future<Either<Failure, List<Categoria>>> call(NoParams params) async {

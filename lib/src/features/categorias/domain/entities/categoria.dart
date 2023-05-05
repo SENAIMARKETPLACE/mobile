@@ -5,19 +5,16 @@ import 'package:equatable/equatable.dart';
 class Categoria extends Equatable {
   final String id;
   final String nome;
-  final List<SubCategoria> subCategorias;
 
   const Categoria({
     required this.id,
     required this.nome,
-    required this.subCategorias,
   });
 
   factory Categoria.instance() {
     return const Categoria(
       id: '',
       nome: '',
-      subCategorias: [],
     );
   }
 
@@ -25,6 +22,5 @@ class Categoria extends Equatable {
   List<Object?> get props => [
         id,
         nome,
-        subCategorias,
       ];
 }
