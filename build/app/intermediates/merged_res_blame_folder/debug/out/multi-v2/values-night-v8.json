@@ -4,7 +4,7 @@
             "outputFile": "com.example.sollaris_teste.app-mergeDebugResources-16:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Noite\\Desktop\\TCC - SOLLARIS\\mobile\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\isabe\\Documents\\Flutter\\TCC - Sollaris\\mobile\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
