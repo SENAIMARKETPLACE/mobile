@@ -17,6 +17,7 @@ com.example.sollaris_teste.app-rs-15 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobil
 com.example.sollaris_teste.app-mergeDebugResources-16 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
 com.example.sollaris_teste.app-mergeDebugResources-17 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
 com.example.sollaris_teste.app-merged_res-18 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\app\intermediates\merged_res\debug
-com.example.sollaris_teste.app-packaged_res-19 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\debug
-com.example.sollaris_teste.app-packaged_res-20 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\image_picker_android\intermediates\packaged_res\debug
-com.example.sollaris_teste.app-packaged_res-21 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\shared_preferences_android\intermediates\packaged_res\debug
+com.example.sollaris_teste.app-packaged_res-19 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\connectivity_plus\intermediates\packaged_res\debug
+com.example.sollaris_teste.app-packaged_res-20 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\debug
+com.example.sollaris_teste.app-packaged_res-21 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\image_picker_android\intermediates\packaged_res\debug
+com.example.sollaris_teste.app-packaged_res-22 C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\shared_preferences_android\intermediates\packaged_res\debug

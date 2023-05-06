@@ -22,6 +22,7 @@ MERGED from C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\android\app\src\main\An
 MERGED from [:shared_preferences_android] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:image_picker_android] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:connectivity_plus] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Noite\.gradle\caches\transforms-3\9354257804af8250f2ffb7c22e2892d5\transformed\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.6.1] C:\Users\Noite\.gradle\caches\transforms-3\2d6c9b034c7ce74e94b0e64e13eab90c\transformed\jetified-activity-1.6.1\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\Noite\.gradle\caches\transforms-3\cf24d35e50a727536c7357721dc007c5\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -69,6 +70,8 @@ MERGED from [:image_picker_android] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile
 MERGED from [:image_picker_android] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:connectivity_plus] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:connectivity_plus] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Noite\.gradle\caches\transforms-3\9354257804af8250f2ffb7c22e2892d5\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Noite\.gradle\caches\transforms-3\9354257804af8250f2ffb7c22e2892d5\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.6.1] C:\Users\Noite\.gradle\caches\transforms-3\2d6c9b034c7ce74e94b0e64e13eab90c\transformed\jetified-activity-1.6.1\AndroidManifest.xml:20:5-44
@@ -137,6 +140,10 @@ ADDED from [:image_picker_android] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\
 		ADDED from [:image_picker_android] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
 	android:name
 		ADDED from [:image_picker_android] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:connectivity_plus] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
+	android:name
+		ADDED from [:connectivity_plus] C:\Users\Noite\Desktop\TCC - SOLLARIS\mobile\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
 uses-library#androidx.window.extensions
 ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Noite\.gradle\caches\transforms-3\dee59bb480020f42d53c2ea15e4501f7\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
 	android:required

@@ -1,3 +1,4 @@
+import 'package:cep/src/core/network/network_info.dart';
 import 'package:cep/src/core/params/params.dart';
 import 'package:cep/src/core/use_case/use_case.dart';
 import 'package:cep/src/features/cadastro/data/datasources/address_remote_data_source.dart';
@@ -32,6 +33,9 @@ final dependency = GetIt.instance;
 
 Future<void> init() async {
   dependency.registerLazySingleton(Client.new);
+  dependency.registerLazySingleton<NetworkInfo>(
+    NetworkInfoImpl.new,
+  );
 
   _setupSignup();
   _setupLogin();

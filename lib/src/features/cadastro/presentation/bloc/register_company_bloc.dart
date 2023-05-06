@@ -64,7 +64,7 @@ class RegisterCompanyBloc
 
     result.fold(
       (failure) => emit(state.copyWith(
-        status: RegisterCompanyStatus.error,
+        status: RegisterCompanyStatus.error, 
         message: 'Erro ao cadastrar empresa',
       )),
       (_) => emit(

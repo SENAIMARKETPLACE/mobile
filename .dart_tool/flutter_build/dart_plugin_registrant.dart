@@ -10,6 +10,7 @@ import 'package:image_picker_android/image_picker_android.dart';
 import 'package:shared_preferences_android/shared_preferences_android.dart';
 import 'package:image_picker_ios/image_picker_ios.dart';
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:shared_preferences_linux/shared_preferences_linux.dart';
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart';
 import 'package:shared_preferences_windows/shared_preferences_windows.dart';
@@ -62,6 +63,16 @@ class _PluginRegistrant {
       }
 
     } else if (Platform.isLinux) {
+      try {
+        ConnectivityPlusLinuxPlugin.registerWith();
+      } catch (err) {
+        print(
+          '`connectivity_plus` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+        rethrow;
+      }
+
       try {
         SharedPreferencesLinux.registerWith();
       } catch (err) {
