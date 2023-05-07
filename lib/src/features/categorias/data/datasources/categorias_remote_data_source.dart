@@ -1,6 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
+import 'package:cep/src/core/network/base_data_source_info.dart';
 import 'package:http/http.dart' as http;
 
+import 'dart:convert';
 import 'package:cep/src/core/error/exceptions.dart';
 import 'package:cep/src/core/network/network_info.dart';
 import 'package:cep/src/features/categorias/data/models/categoria_model.dart';
@@ -22,16 +25,26 @@ class CategoriaRemoteDataSourceImpl implements ICategoriaRemoteDataSource {
 
   @override
   Future<List<CategoriaModel>> getAllCategorias() async {
-    var url = 'http://localhost:8100/api/categories';
-    final response = await client.get(Uri.parse(url));
+    var url = '${baseUrl}api/categories';
+    final response = await client.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
     final isConnected = await network.isConnected;
+    final list = <CategoriaModel>[];
 
     if (isConnected) {
       if (response.statusCode == 200) {
-        final List<CategoriaModel> list = [];
-        list.addAll((response.body as List)
-            .map((categoria) => CategoriaModel.fromJson(categoria))
-            .toList());
+        final json = jsonDecode(const Utf8Decoder().convert(response.bodyBytes))
+            as Map<String, dynamic>;
+
+        list.addAll((json['content'] as List).map(
+          (categoria) {
+            return CategoriaModel.fromMap(categoria as Map<String, dynamic>);
+          },
+        ));
 
         return Future.value(list);
       }
@@ -43,17 +56,29 @@ class CategoriaRemoteDataSourceImpl implements ICategoriaRemoteDataSource {
   @override
   Future<List<SubCategoriaModel>> getAllSubCategorias(
       {required String id}) async {
-    var url = '';
+    var url = '${baseUrl}api/sub_categories/categories/$id';
     final isConnected = await network.isConnected;
-    final response = await client.get(Uri.parse(url));
+    final response = await client.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    final List<SubCategoriaModel> list = [];
 
     if (isConnected) {
       if (response.statusCode == 200) {
-        final List<SubCategoriaModel> list = [];
-        list.addAll((response.body as List)
-            .map((subcategoria) => SubCategoriaModel.fromJson(subcategoria))
-            .toList());
+        final json = jsonDecode(const Utf8Decoder().convert(response.bodyBytes))
+            as Map<String, dynamic>;
 
+        list.addAll((json['content'] as List).map(
+          (categoria) {
+            return SubCategoriaModel.fromMap(categoria as Map<String, dynamic>);
+          },
+        ));
+
+        return Future.value(list);
+      } else if (response.statusCode == 404) {
         return Future.value(list);
       }
       throw ServerException();

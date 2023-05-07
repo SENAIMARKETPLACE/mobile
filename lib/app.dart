@@ -1,12 +1,21 @@
+import 'package:cep/src/core/utils/app_routes.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
-import 'package:cep/src/features/login/presentation/pages/screen_login.dart';
+import 'package:cep/src/features/home/presentation/screen_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cep/src/dependency_assembly.dart' as di;
 
-class MyApp extends StatelessWidget {
+import 'src/features/categorias/presentation/view/screen_categoria.dart';
+import 'src/features/login/presentation/pages/screen_login.dart';
+
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -15,9 +24,14 @@ class MyApp extends StatelessWidget {
           create: (context) => di.dependency<CategoriaBloc>(),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ScreenLogin(),
+        home: const ScreenLogin(),
+        routes: {
+          AppRoutes.login: (context) => const ScreenLogin(),
+          AppRoutes.home: (context) => const ScreenHome(),
+          AppRoutes.categorias: (context) => const ScreenCategoria(),
+        },
       ),
     );
   }

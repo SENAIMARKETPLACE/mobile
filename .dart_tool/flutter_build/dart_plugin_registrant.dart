@@ -11,8 +11,10 @@ import 'package:shared_preferences_android/shared_preferences_android.dart';
 import 'package:image_picker_ios/image_picker_ios.dart';
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:path_provider_linux/path_provider_linux.dart';
 import 'package:shared_preferences_linux/shared_preferences_linux.dart';
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart';
+import 'package:path_provider_windows/path_provider_windows.dart';
 import 'package:shared_preferences_windows/shared_preferences_windows.dart';
 
 @pragma('vm:entry-point')
@@ -28,7 +30,6 @@ class _PluginRegistrant {
           '`image_picker_android` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-        rethrow;
       }
 
       try {
@@ -38,7 +39,6 @@ class _PluginRegistrant {
           '`shared_preferences_android` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-        rethrow;
       }
 
     } else if (Platform.isIOS) {
@@ -49,7 +49,6 @@ class _PluginRegistrant {
           '`image_picker_ios` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-        rethrow;
       }
 
       try {
@@ -59,7 +58,6 @@ class _PluginRegistrant {
           '`shared_preferences_foundation` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-        rethrow;
       }
 
     } else if (Platform.isLinux) {
@@ -70,7 +68,15 @@ class _PluginRegistrant {
           '`connectivity_plus` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-        rethrow;
+      }
+
+      try {
+        PathProviderLinux.registerWith();
+      } catch (err) {
+        print(
+          '`path_provider_linux` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
       }
 
       try {
@@ -80,7 +86,6 @@ class _PluginRegistrant {
           '`shared_preferences_linux` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-        rethrow;
       }
 
     } else if (Platform.isMacOS) {
@@ -91,10 +96,18 @@ class _PluginRegistrant {
           '`shared_preferences_foundation` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-        rethrow;
       }
 
     } else if (Platform.isWindows) {
+      try {
+        PathProviderWindows.registerWith();
+      } catch (err) {
+        print(
+          '`path_provider_windows` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
       try {
         SharedPreferencesWindows.registerWith();
       } catch (err) {
@@ -102,7 +115,6 @@ class _PluginRegistrant {
           '`shared_preferences_windows` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-        rethrow;
       }
 
     }

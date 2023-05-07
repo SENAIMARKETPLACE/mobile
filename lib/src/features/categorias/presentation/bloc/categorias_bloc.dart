@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cep/src/core/params/params.dart';
 
 import 'package:cep/src/core/use_case/use_case.dart';
 import 'package:cep/src/features/categorias/domain/entities/categoria.dart';
@@ -10,7 +11,7 @@ import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.d
 
 class CategoriaBloc extends Bloc<CategoriaEvent, CategoriaState> {
   final UseCase<List<Categoria>, NoParams> getCategorias;
-  final UseCase<List<SubCategoria>, String> getSubCategorias;
+  final UseCase<List<SubCategoria>, Params> getSubCategorias;
 
   CategoriaBloc({
     required this.getCategorias,
@@ -20,6 +21,8 @@ class CategoriaBloc extends Bloc<CategoriaEvent, CategoriaState> {
         ) {
     on<GetCategoriasEvent>(_getAllCategorias);
     on<GetSubCategoriasEvent>(_getAllSubCategorias);
+    on<FiltroCategoriaEvent>(_getCategoriasFiltro);
+    on<FiltroSubCategoriaEvent>(_getSubCategoriasFiltro);
   }
 
   Future<void> _getAllCategorias(
@@ -41,6 +44,7 @@ class CategoriaBloc extends Bloc<CategoriaEvent, CategoriaState> {
         state.copyWith(
           status: CategoriaStatus.success,
           categorias: categorias,
+          categoriasFiltro: categorias,
         ),
       ),
     );
@@ -52,7 +56,7 @@ class CategoriaBloc extends Bloc<CategoriaEvent, CategoriaState> {
   ) async {
     emit(state.copyWith(status: CategoriaStatus.loading));
 
-    final getResult = await getSubCategorias(event.id);
+    final getResult = await getSubCategorias(Params(params: event.id));
 
     getResult.fold(
       (failure) => emit(
@@ -63,9 +67,43 @@ class CategoriaBloc extends Bloc<CategoriaEvent, CategoriaState> {
       ),
       (subCategorias) => emit(
         state.copyWith(
-          status: CategoriaStatus.success,
-          subCategorias: subCategorias,
-        ),
+            status: CategoriaStatus.success,
+            subCategorias: subCategorias,
+            subCategoriasFiltro: subCategorias),
+      ),
+    );
+  }
+
+  Future<void> _getCategoriasFiltro(
+    FiltroCategoriaEvent event,
+    Emitter<CategoriaState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        categoriasFiltro: state.categorias
+            .where(
+              (categoria) => categoria.nome.toLowerCase().contains(
+                    event.value.toLowerCase(),
+                  ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  Future<void> _getSubCategoriasFiltro(
+    FiltroSubCategoriaEvent event,
+    Emitter<CategoriaState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        subCategoriasFiltro: state.subCategorias
+            .where(
+              (subCategoria) => subCategoria.nome.toLowerCase().contains(
+                    event.value.toLowerCase(),
+                  ),
+            )
+            .toList(),
       ),
     );
   }

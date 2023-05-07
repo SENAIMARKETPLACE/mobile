@@ -15,10 +15,10 @@ class SubCategoriaModel extends SubCategoria {
     );
   }
 
-  factory SubCategoriaModel.fromMap(Map<String, String> map) {
+  factory SubCategoriaModel.fromMap(Map<String, dynamic> map) {
     return SubCategoriaModel(
-      id: map['id'] ?? '',
-      nome: map['nome'] ?? '',
+      id: map['id'] != null ? map['id'].toString() : '',
+      nome: map['nome'] != null ? map['nome'].toString() : '',
     );
   }
 

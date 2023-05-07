@@ -1,9 +1,7 @@
-import 'dart:developer';
-
+import 'package:cep/src/core/utils/app_routes.dart';
 import 'package:cep/src/core/utils/sollaris_text_field.dart';
 import 'package:cep/src/core/utils/sollaris_title.dart';
 import 'package:cep/src/features/cadastro/presentation/view/screen_cnpj.dart';
-import 'package:cep/src/features/home/presentation/screen_home.dart';
 import 'package:cep/src/features/login/domain/entities/login.dart';
 import 'package:cep/src/features/login/presentation/bloc/login_bloc.dart';
 import 'package:cep/src/features/login/presentation/bloc/login_event.dart';
@@ -32,12 +30,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
       child: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.status == LoginStatus.success) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ScreenHome(),
-              ),
-            );
+            Navigator.of(context).pushReplacementNamed(AppRoutes.home);
           } else if (state.status == LoginStatus.failure) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));
@@ -91,13 +84,8 @@ class _ScreenLoginState extends State<ScreenLogin> {
                                 ),
                               ),
                             );
-
-                        isLoading = !isLoading;
-                        log('$isLoading');
                       },
-                      child: isLoading
-                          ? const CircularProgressIndicator()
-                          : const Text('Login'),
+                      child: const Text('Login'),
                     ),
                   ),
                   const SizedBox(

@@ -17,8 +17,8 @@ class CategoriaModel extends Categoria {
 
   factory CategoriaModel.fromMap(Map<String, dynamic> map) {
     return CategoriaModel(
-      id: map['id'] ?? '',
-      nome: map['nome'] ?? '',
+      id: map['id'] != null ? map['id'].toString(): '',
+      nome: map['nome'] != null ? map['nome'].toString() : '',
     );
   }
 

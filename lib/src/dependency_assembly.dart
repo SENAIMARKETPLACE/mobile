@@ -99,12 +99,16 @@ void _setupLogin() {
 
 void _setUpCategoria() {
   dependency
+
+    // Bloc
     ..registerFactory<CategoriaBloc>(
       () => CategoriaBloc(
         getCategorias: dependency(),
         getSubCategorias: dependency(),
       ),
     )
+
+    // Use Case
     ..registerLazySingleton<UseCase<List<Categoria>, NoParams>>(
       () => GetAllCategoriasUseCase(
         repository: dependency(),
@@ -115,11 +119,15 @@ void _setUpCategoria() {
         repository: dependency(),
       ),
     )
+
+    // Repository
     ..registerLazySingleton<CategoriaRepository>(
       () => CategoriaRepositoryImpl(
         categoriaRemoteDataSource: dependency(),
       ),
     )
+
+    // Data Source
     ..registerLazySingleton<ICategoriaRemoteDataSource>(
       () => CategoriaRemoteDataSourceImpl(
         client: dependency(),

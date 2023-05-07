@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:cep/src/common/hive/access.dart';
 import 'package:cep/src/common/hive/preferences_actions.dart';
 import 'package:cep/src/core/error/exceptions.dart';
+import 'package:cep/src/core/network/base_data_source_info.dart';
 import 'package:cep/src/core/network/network_info.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -25,7 +26,7 @@ class LoginRemoteDataSourceImpl implements ILoginRemoteDataSource {
 
   @override
   Future<Unit> logar({required LoginModel login}) async {
-    var url = 'http://172.27.160.1:8000/api/business/login';
+    var url = '${baseUrlLogin}api/business/login';
     final requestBody = login.toJson();
     final isConnected = await network.isConnected;
     final response = await client.post(
