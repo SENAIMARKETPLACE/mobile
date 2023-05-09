@@ -1,4 +1,4 @@
-#Sat May 06 15:29:23 BRT 2023
-base.0=C\:\\Users\\isabe\\Documents\\Flutter\\TCC - Sollaris\\mobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
+#Mon May 08 21:27:52 BRT 2023
+base.0=C\:\\Users\\noite\\Desktop\\TCC - SOLLARIS\\mobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
+path.0=classes.dex
