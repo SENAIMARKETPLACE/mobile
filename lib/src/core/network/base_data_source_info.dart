@@ -1,4 +1,7 @@
 ///url base para acesso aos serviços do app
 
-const baseUrl = 'http://192.168.1.41:8100/';
-const baseUrlLogin = 'http://192.168.1.41:8000/';
+const baseUrl = 'http://172.29.240.1:8100/';
+
+// ----- LOGIN --------
+
+const baseUrlLogin = 'http://172.29.240.1:8000/';
