@@ -16,6 +16,7 @@ abstract class IProdutoRemoteDataSource {
 class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
   final http.Client client;
   final NetworkInfo network;
+
   ProdutoRemoteDataSourceImpl({
     required this.client,
     required this.network,

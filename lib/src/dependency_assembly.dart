@@ -23,9 +23,16 @@ import 'package:cep/src/features/login/domain/entities/login.dart';
 import 'package:cep/src/features/login/domain/repositories/login_repository.dart';
 import 'package:cep/src/features/login/domain/usecases/logar_use_case.dart';
 import 'package:cep/src/features/login/presentation/bloc/login_bloc.dart';
+import 'package:cep/src/features/produtos/data/datasources/produto_remote_data_source.dart';
+import 'package:cep/src/features/produtos/data/repositories/produto_repository_impl.dart';
+import 'package:cep/src/features/produtos/domain/entities/produto.dart';
+import 'package:cep/src/features/produtos/domain/repositories/produto_repository.dart';
+import 'package:cep/src/features/produtos/domain/usecases/get_all_produto_use_case.dart';
+import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/cadastro/domain/entities/address.dart';
 
@@ -37,9 +44,11 @@ Future<void> init() async {
     NetworkInfoImpl.new,
   );
 
+
   _setupSignup();
   _setupLogin();
   _setUpCategoria();
+  _setUpProdutos();
 }
 
 void _setupSignup() {
@@ -130,6 +139,37 @@ void _setUpCategoria() {
     // Data Source
     ..registerLazySingleton<ICategoriaRemoteDataSource>(
       () => CategoriaRemoteDataSourceImpl(
+        client: dependency(),
+        network: dependency(),
+      ),
+    );
+}
+
+void _setUpProdutos() {
+  dependency
+
+    // Bloc
+    ..registerFactory<ProdutoBloc>(() => ProdutoBloc(
+          getProdutos: dependency(),
+        ))
+
+    // Use Case
+    ..registerLazySingleton<UseCase<List<Produto>, Params>>(
+      () => GetAllProdutoUseCase(
+        repository: dependency(),
+      ),
+    )
+
+    // Repository
+    ..registerLazySingleton<ProdutoRepository>(
+      () => ProdutoRepositoryImpl(
+        produtoRemoteDataSource: dependency(),
+      ),
+    )
+
+    // Data Source
+    ..registerLazySingleton<IProdutoRemoteDataSource>(
+      () => ProdutoRemoteDataSourceImpl(
         client: dependency(),
         network: dependency(),
       ),

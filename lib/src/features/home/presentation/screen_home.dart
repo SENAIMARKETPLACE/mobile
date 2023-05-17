@@ -1,6 +1,7 @@
 import 'package:cep/src/common/hive/access.dart';
 import 'package:cep/src/common/hive/preferences_actions.dart';
 import 'package:cep/src/core/utils/app_routes.dart';
+import 'package:cep/src/features/produtos/presentation/pages/screen_produto.dart';
 import 'package:flutter/material.dart';
 
 class ScreenHome extends StatefulWidget {
@@ -15,6 +16,8 @@ class _ScreenHomeState extends State<ScreenHome> {
   final int _selectedIndex = 0;
 
   Future<Access> getPreferences() async {
+    await Future.delayed(const Duration(seconds: 2));
+
     return pref = await PreferencesActions.load();
   }
 
@@ -54,6 +57,13 @@ class _ScreenHomeState extends State<ScreenHome> {
               Navigator.of(context).pushNamed(AppRoutes.categorias);
               break;
             case 2:
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) {
+                    return ScreenProduto(id: pref.id);
+                  },
+                ),
+              );
               break;
             default:
           }
