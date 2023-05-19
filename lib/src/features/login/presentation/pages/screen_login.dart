@@ -1,14 +1,11 @@
 import 'package:cep/src/core/utils/app_routes.dart';
 import 'package:cep/src/core/utils/sollaris_text_field.dart';
 import 'package:cep/src/core/utils/sollaris_title.dart';
-import 'package:cep/src/features/cadastro/presentation/view/screen_cnpj.dart';
-import 'package:cep/src/features/login/domain/entities/login.dart';
 import 'package:cep/src/features/login/presentation/bloc/login_bloc.dart';
-import 'package:cep/src/features/login/presentation/bloc/login_event.dart';
 import 'package:cep/src/features/login/presentation/bloc/login_state.dart';
+import 'package:cep/src/dependency_assembly.dart' as di;
 import 'package:flutter/material.dart';
-
-import '../../../../core/utils/sollaris_text_field.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({super.key});
@@ -70,25 +67,25 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       }
                       return null;
                     },
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        context.read<LoginBloc>().add(
-                              LoginAccessEvent(
-                                credenciais: Login(
-                                  email: _controllerLogin.text,
-                                  password: _controllerSenha.text,
-                                ),
-                              ),
-                            );
-                      },
-                      child: const Text('Login'),
-                    ),
+                    // suffixIcon: IconButton(
+                    //   onPressed: () {
+                    //     context.read<LoginBloc>().add(
+                    //           LoginAccessEvent(
+                    //             credenciais: Login(
+                    //               email: _controllerLogin.text,
+                    //               password: _controllerSenha.text,
+                    //             ),
+                    //           ),
+                    //         );
+                    //   },
+                    //   child: const Text('Login'),
+                    // ),
                     controller: _controllerSenha),
-                Expanded(
+                const Expanded(
                     child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: SollarisTextButton(
-                      textButton: 'Acessar', function: () {}),
+                  // child: SollarisTextButton(
+                  //     textButton: 'Acessar', function: () {}),
                 )),
                 // Expanded(
                 //   child: Align(

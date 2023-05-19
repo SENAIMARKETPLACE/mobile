@@ -45,7 +45,7 @@ dependencies:
   brasil_fields: ^1.11.0
   font_awesome_flutter: ^10.4.0
   shared_preferences: ^2.1.0
-  connectivity_plus: ^3.0.6
+  connectivity_plus: ^4.0.0
 
 dev_dependencies:
   flutter_test:
