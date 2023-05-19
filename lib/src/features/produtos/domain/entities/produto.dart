@@ -12,7 +12,7 @@ class Produto extends Equatable {
   final String foto;
   final String publico;
   final Categoria categoria;
-  final Detalhe detalhes;
+  final List<Detalhe> detalhes;
 
   const Produto({
     required this.id,
@@ -34,7 +34,7 @@ class Produto extends Equatable {
       foto: '',
       publico: '',
       categoria: Categoria.instance(),
-      detalhes: Detalhe.instance(),
+      detalhes: const [],
     );
   }
 

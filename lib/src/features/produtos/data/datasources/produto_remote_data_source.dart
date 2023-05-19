@@ -39,11 +39,11 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
         final json = jsonDecode(const Utf8Decoder().convert(response.bodyBytes))
             as Map<String, dynamic>;
 
-        list.addAll((json['content'] as List).map(
-          (produto) {
-            return ProdutoModel.fromMap(produto as Map<String, dynamic>);
-          },
-        ));
+        list.addAll(
+          (json['content'] as List).map(
+            (produto) => ProdutoModel.fromMap(produto as Map<String, dynamic>),
+          ),
+        );
 
         return Future.value(list);
       } else if (response.statusCode == 404) {

@@ -12,14 +12,17 @@ class ScreenHome extends StatefulWidget {
 }
 
 class _ScreenHomeState extends State<ScreenHome> {
-  late final Access pref;
+  late Access pref;
   final int _selectedIndex = 0;
 
   Future<Access> getPreferences() async {
+    pref = Access.instance();
     await Future.delayed(const Duration(seconds: 2));
 
     return pref = await PreferencesActions.load();
   }
+
+  
 
   @override
   Widget build(BuildContext context) {

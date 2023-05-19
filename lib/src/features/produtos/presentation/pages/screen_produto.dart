@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cep/src/common/hive/preferences_actions.dart';
 
 import 'package:cep/src/common/hive/access.dart';
 import 'package:cep/src/core/utils/sollaris_error_snackbar.dart';
@@ -26,8 +27,14 @@ class _ScreenProdutoState extends State<ScreenProduto> {
   bool _exibeSearch = false;
   final TextEditingController _search = TextEditingController();
 
+  Future<Access> getPreferences() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    return pref = await PreferencesActions.load();
+  }
+
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     context.read<ProdutoBloc>().add(GetProdutosEvent(id: widget.id));
   }
@@ -130,10 +137,10 @@ class _ScreenProdutoState extends State<ScreenProduto> {
                     ),
                   );
                 case ProdutoStatus.success:
-                  if (state.produtosFiltro.isEmpty) {
+                  if (state.produtos.isEmpty) {
                     return const Center(
                       child: Text(
-                        '''Não existem categorias salvas!''',
+                        '''Não existem Produtos salvas!''',
                         textAlign: TextAlign.center,
                       ),
                     );

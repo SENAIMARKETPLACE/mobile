@@ -40,11 +40,13 @@ class CategoriaRemoteDataSourceImpl implements ICategoriaRemoteDataSource {
         final json = jsonDecode(const Utf8Decoder().convert(response.bodyBytes))
             as Map<String, dynamic>;
 
-        list.addAll((json['content'] as List).map(
-          (categoria) {
-            return CategoriaModel.fromMap(categoria as Map<String, dynamic>);
-          },
-        ));
+        list.addAll(
+          (json['content'] as List).map(
+            (categoria) {
+              return CategoriaModel.fromMap(categoria as Map<String, dynamic>);
+            },
+          ),
+        );
 
         return Future.value(list);
       }

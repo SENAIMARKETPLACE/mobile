@@ -38,7 +38,12 @@ class ProdutoModel extends Produto {
       foto: map['img'] ?? '',
       publico: map['publico'] ?? '',
       categoria: CategoriaModel.fromMap(map['categoria']),
-      detalhes: DetalheModel.fromMap(map['detalhes_dos_produtos']),
+      detalhes: (map['detalhes_dos_produtos'] as List)
+          .map(
+            (detalhes) =>
+                DetalheModel.fromMap(detalhes as Map<String, dynamic>),
+          )
+          .toList(),
     );
   }
 

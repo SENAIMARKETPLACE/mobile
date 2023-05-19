@@ -41,9 +41,9 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
       ),
       (produtos) => emit(
         state.copyWith(
-          status: ProdutoStatus.success,
-          produtos: produtos,
-        ),
+            status: ProdutoStatus.success,
+            produtos: produtos,
+            produtosFiltro: produtos),
       ),
     );
   }
@@ -56,7 +56,7 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
       state.copyWith(
         produtosFiltro: state.produtosFiltro
             .where(
-              (subCategoria) => subCategoria.nome.toLowerCase().contains(
+              (produto) => produto.nome.toLowerCase().contains(
                     event.value.toLowerCase(),
                   ),
             )
