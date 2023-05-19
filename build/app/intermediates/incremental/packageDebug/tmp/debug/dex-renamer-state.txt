@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 #Thu May 18 20:52:55 BRT 2023
 base.0=C\:\\Users\\Noite\\Desktop\\TCC - SOLLARIS\\mobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+=======
+#Thu May 11 21:00:05 BRT 2023
+base.0=C\:\\Users\\noite\\Desktop\\TCC - SOLLARIS\\mobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+>>>>>>> feature/isabela-login
 renamed.0=classes.dex
 path.0=classes.dex

@@ -7,8 +7,8 @@ import 'package:cep/src/features/login/presentation/bloc/login_bloc.dart';
 import 'package:cep/src/features/login/presentation/bloc/login_event.dart';
 import 'package:cep/src/features/login/presentation/bloc/login_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cep/src/dependency_assembly.dart' as di;
+
+import '../../../../core/utils/sollaris_text_field.dart';
 
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({super.key});
@@ -19,9 +19,9 @@ class ScreenLogin extends StatefulWidget {
 
 class _ScreenLoginState extends State<ScreenLogin> {
   final _formKey = GlobalKey<FormState>();
-  final _controllerLogin = TextEditingController();
+  final _controllerEmail = TextEditingController();
   final _controllerSenha = TextEditingController();
-  bool isLoading = false;
+  bool isExibe = true;
 
   @override
   Widget build(BuildContext context) {
@@ -41,40 +41,36 @@ class _ScreenLoginState extends State<ScreenLogin> {
             width: MediaQuery.of(context).size.height,
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SollarisTitle(
-                  title: 'Acesse',
+                Image.asset(
+                  'assets/image/logo.png',
+                  width: 110,
+                  height: 110,
                 ),
-                const SollarisTitle(
-                    title: "Use seu e-mail e senha para acessar"),
+                const SollarisTitle(title: 'Login'),
                 const SizedBox(height: 20),
                 SollarisTextField(
-                  label: 'E-mail',
-                  hint: 'Digite seu e-mail',
-                  controller: _controllerLogin,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'E-mail inválido. Digite novamente';
-                    }
-                    return null;
-                  },
-                ),
+                    label: 'E-mail',
+                    hint: 'Informe seu e-mail',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Valor inválido, digite novamente';
+                      }
+                      return null;
+                    },
+                    controller: _controllerEmail),
                 SollarisTextField(
-                  label: 'Senha',
-                  hint: 'Digite sua senha',
-                  controller: _controllerSenha,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Senha inválida. Digite novamente';
-                    }
-                    return null;
-                  },
-                ),
-                Row(children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ElevatedButton(
+                    isExibPassword: isExibe,
+                    label: 'Senha',
+                    hint: 'Informe sua Senha',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Valor inválido, digite novamente';
+                      }
+                      return null;
+                    },
+                    suffixIcon: IconButton(
                       onPressed: () {
                         context.read<LoginBloc>().add(
                               LoginAccessEvent(
@@ -87,28 +83,25 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       },
                       child: const Text('Login'),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 25,
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ScreenCnpj()));
-                      },
-                      child: const Text('Cadastrar'),
-                    ),
-                  ),
-                ])
+                    controller: _controllerSenha),
+                Expanded(
+                    child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SollarisTextButton(
+                      textButton: 'Acessar', function: () {}),
+                )),
+                // Expanded(
+                //   child: Align(
+                //   alignment: Alignment.bottomCenter,
+                //   child: SollarisTextButton(
+                //       textButton: 'Cadastro', function: () {}),
+                // )),
               ],
             ),
           ),
         ),
       ),
+      // ),
     );
   }
 }
