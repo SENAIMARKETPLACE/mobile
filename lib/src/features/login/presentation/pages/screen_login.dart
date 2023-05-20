@@ -1,11 +1,6 @@
-import 'package:cep/src/core/utils/app_routes.dart';
 import 'package:cep/src/core/utils/sollaris_text_button.dart';
 import 'package:cep/src/core/utils/sollaris_text_field.dart';
-import 'package:cep/src/features/login/presentation/bloc/login_bloc.dart';
-import 'package:cep/src/features/login/presentation/bloc/login_state.dart';
-import 'package:cep/src/dependency_assembly.dart' as di;
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({super.key});
@@ -24,35 +19,29 @@ class _ScreenLoginState extends State<ScreenLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => di.dependency<LoginBloc>(),
-      child: BlocConsumer<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state.status == LoginStatus.success) {
-            Navigator.of(context).pushReplacementNamed(AppRoutes.home);
-          } else if (state.status == LoginStatus.failure) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message)));
-          }
-        },
-        builder: (context, state) => SafeArea(
-          child: Scaffold(
-            body: Container(
-              width: MediaQuery.of(context).size.height,
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color.fromARGB(255, 198, 146, 243),
-                  Color.fromARGB(255, 167, 222, 222)
-                ],
-              )),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        body: Container(
+          padding: const EdgeInsets.all(25),
+          width: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(255, 198, 146, 243),
+              Color.fromARGB(255, 167, 222, 222)
+            ],
+          )),
+          child: SizedBox(
+            height: 800,
+            width: double.infinity,
+            child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
+                    padding: const EdgeInsets.symmetric(vertical: 200),
                     width: 160,
                     height: 160,
                     decoration: BoxDecoration(
@@ -63,6 +52,9 @@ class _ScreenLoginState extends State<ScreenLogin> {
                         Radius.circular(15),
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 40,
                   ),
                   const Text(
                     'Login',
@@ -76,6 +68,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                   SollarisTextField(
                       label: 'E-mail',
                       hint: 'Informe seu e-mail',
+                      prefixIcon: Icons.alternate_email,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Valor inválido, digite novamente';
@@ -84,48 +77,63 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       },
                       controller: _controllerEmail),
                   SollarisTextField(
-                      isExibPassword: isExibe,
-                      label: 'Senha',
-                      hint: 'Informe sua Senha',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Valor inválido, digite novamente';
-                        }
-                        return null;
-                      },
-                      // suffixIcon: IconButton(
-                      //   onPressed: () {
-                      //     context.read<LoginBloc>().add(
-                      //           LoginAccessEvent(
-                      //             credenciais: Login(
-                      //               email: _controllerLogin.text,
-                      //               password: _controllerSenha.text,
-                      //             ),
-                      //           ),
-                      //         );
-                      //   },
-                      //   child: const Text('Login'),
-                      // ),
-                      controller: _controllerSenha),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: SollarisTextButton(
-                      textButton: 'Acessar',
-                      function: () {},
+                    prefixIcon: Icons.lock,
+                    isExibPassword: isExibe,
+                    label: 'Senha',
+                    hint: 'Informe sua senha',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Valor inválido, digite novamente';
+                      }
+                      return null;
+                    },
+                    // suffixIcon: IconButton(
+                    //   onPressed: () {
+                    //     context.read<LoginBloc>().add(
+                    //           LoginAccessEvent(
+                    //             credenciais: Login(
+                    //               email: _controllerLogin.text,
+                    //               password: _controllerSenha.text,
+                    //             ),
+                    //           ),
+                    //         );
+                    //   },
+                    //   child: const Text('Login'),
+                    // ),
+                    controller: _controllerSenha,
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  SizedBox(
+                    height: 40,
+                    // width: double.infinity,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SollarisTextButton(
+                            textButton: 'Acessar',
+                            function: () {},
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: SollarisTextButton(
+                            textButton: 'Cadastro',
+                            function: () {},
+                          ),
+                        )
+                      ],
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: SollarisTextButton(
-                        textButton: 'Cadastro', function: () {}),
-                  ),
+                  )
                 ],
               ),
             ),
           ),
         ),
       ),
-      // ),
     );
   }
 }

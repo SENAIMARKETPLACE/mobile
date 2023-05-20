@@ -14,17 +14,18 @@ class SollarisTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      // width: double.infinity,
       height: 45,
       child: TextButton(
         style: TextButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          backgroundColor: const Color(0xff14C871),
-          padding: const EdgeInsets.only(
-            left: 125,
-            right: 125,
-          ),
+          backgroundColor: const Color(0xff8F29C8),
+          
+          // padding: const EdgeInsets.only(
+          //   left: 125,
+          //   right: 125,
+          // ),
         ),
         onPressed: function,
         child: Text(

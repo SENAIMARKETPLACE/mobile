@@ -3,17 +3,19 @@ import 'package:flutter/services.dart';
 
 // ignore: must_be_immutable
 class SollarisTextField extends StatefulWidget {
-  SollarisTextField(
-      {super.key,
-      required this.label,
-      required this.hint,
-      this.inputFormatter,
-      this.typeKey,
-      required this.validator,
-      required this.controller,
-      this.suffixIcon,
-      this.isExibPassword = false,
-      this.onSaved});
+  SollarisTextField({
+    super.key,
+    required this.label,
+    required this.hint,
+    this.inputFormatter,
+    this.typeKey,
+    required this.validator,
+    required this.controller,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.isExibPassword = false,
+    this.onSaved,
+  });
 
   final String label;
   final String hint;
@@ -23,6 +25,7 @@ class SollarisTextField extends StatefulWidget {
   String? Function(String?) validator;
   void Function(String?)? onSaved;
   Widget? suffixIcon;
+  IconData? prefixIcon;
   bool isExibPassword;
 
   @override
@@ -40,7 +43,8 @@ class _SollarisTextFieldState extends State<SollarisTextField> {
         children: [
           Text(
             widget.label,
-            style: const TextStyle(fontSize: 13),
+            style: const TextStyle(
+                fontSize: 16, color: Color.fromARGB(255, 65, 12, 96)),
           ),
           const SizedBox(height: 7),
           TextFormField(
@@ -52,24 +56,29 @@ class _SollarisTextFieldState extends State<SollarisTextField> {
             inputFormatters: widget.inputFormatter,
             validator: widget.validator,
             decoration: InputDecoration(
+              hintStyle: const TextStyle(fontSize: 18),
               errorBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(10),
+                  Radius.circular(18),
                 ),
                 borderSide: BorderSide(color: Colors.red),
               ),
               focusedErrorBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(10),
+                  Radius.circular(18),
                 ),
                 borderSide: BorderSide(color: Colors.red),
               ),
+              prefixIcon: Icon(
+                widget.prefixIcon,
+                color: const Color(0xff8F29C8),
+              ),
               suffixIcon: widget.suffixIcon,
               filled: true,
-              fillColor: const Color.fromARGB(54, 158, 158, 158),
+              fillColor: const Color.fromARGB(212, 225, 223, 223),
               hintText: widget.hint,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(18),
                 borderSide: BorderSide.none,
               ),
             ),
