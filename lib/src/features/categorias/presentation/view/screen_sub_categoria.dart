@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:cep/src/core/utils/sollaris_error_snackbar.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_error_snackbar.dart';
 import 'package:cep/src/features/categorias/domain/entities/categoria.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';

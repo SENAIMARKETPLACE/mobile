@@ -1,5 +1,16 @@
+<<<<<<< HEAD
 import 'package:cep/src/core/utils/sollaris_text_button.dart';
 import 'package:cep/src/core/utils/sollaris_text_field.dart';
+=======
+import 'package:cep/src/core/utils/app_routes.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_text_field.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_title.dart';
+import 'package:cep/src/features/cadastro/presentation/view/screen_cnpj.dart';
+import 'package:cep/src/features/login/domain/entities/login.dart';
+import 'package:cep/src/features/login/presentation/bloc/login_bloc.dart';
+import 'package:cep/src/features/login/presentation/bloc/login_event.dart';
+import 'package:cep/src/features/login/presentation/bloc/login_state.dart';
+>>>>>>> development
 import 'package:flutter/material.dart';
 
 class ScreenLogin extends StatefulWidget {

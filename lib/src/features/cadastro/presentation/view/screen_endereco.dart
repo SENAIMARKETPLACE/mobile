@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 import 'package:cep/src/common/hive/register.dart';
 import 'package:cep/src/features/cadastro/presentation/widget/build_text_button.dart';
-import 'package:cep/src/core/utils/sollaris_text_field.dart';
-import 'package:cep/src/core/utils/sollaris_title.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_text_field.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_title.dart';
 
 class ScreenEndereco extends StatefulWidget {
   const ScreenEndereco({
