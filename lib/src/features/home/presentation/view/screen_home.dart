@@ -64,17 +64,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                         title: 'Minhas Categorias',
                         homeCards: list,
                       ),
-                      HomeListCard(
-                        title: 'Minhas Sub-Categorias',
-                        homeCards: list,
-                      ),
-                      HomeListCard(
-                        title: 'Meus Produtos',
-                        homeCards: list2,
-                        heigthCarousel: 180,
-                      ),
+                      
                     ],
-                  ),
+                  ),  
                 ),
               );
           }
