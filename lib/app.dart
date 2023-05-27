@@ -1,6 +1,6 @@
 import 'package:cep/src/core/utils/app_routes.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
-import 'package:cep/src/features/home/presentation/screen_home.dart';
+import 'package:cep/src/features/home/presentation/view/screen_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cep/src/dependency_assembly.dart' as di;
@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const ScreenLogin(),
+        home: const ScreenHome(),
         routes: {
           AppRoutes.login: (context) => const ScreenLogin(),
           AppRoutes.home: (context) => const ScreenHome(),

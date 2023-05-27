@@ -5,8 +5,8 @@ import 'package:cep/src/features/cadastro/presentation/bloc/register_company_blo
 import 'package:cep/src/features/cadastro/presentation/bloc/register_company_event.dart';
 import 'package:cep/src/features/cadastro/presentation/bloc/register_company_state.dart';
 import 'package:cep/src/features/cadastro/presentation/view/screen_endereco.dart';
-import 'package:cep/src/core/utils/sollaris_text_field.dart';
-import 'package:cep/src/core/utils/sollaris_title.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_text_field.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_title.dart';
 import 'package:cep/src/common/hive/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

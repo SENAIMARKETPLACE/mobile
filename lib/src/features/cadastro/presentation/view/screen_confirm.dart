@@ -1,5 +1,5 @@
 import 'package:cep/src/common/hive/register.dart';
-import 'package:cep/src/core/utils/sollaris_title.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_title.dart';
 import 'package:cep/src/features/cadastro/domain/entities/address.dart';
 import 'package:cep/src/features/cadastro/domain/entities/company.dart';
 import 'package:cep/src/features/cadastro/presentation/bloc/register_company_bloc.dart';

@@ -57,7 +57,7 @@
     },
     {
       "name": "collection",
-      "rootUri": "file:///C:/Users/flavi/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.17.1",
+      "rootUri": "file:///C:/Users/flavi/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.17.2",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -285,7 +285,7 @@
     },
     {
       "name": "material_color_utilities",
-      "rootUri": "file:///C:/Users/flavi/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.3.0",
+      "rootUri": "file:///C:/Users/flavi/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.5.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -596,7 +596,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-05-27T12:00:56.280824Z",
+  "generated": "2023-05-27T17:45:12.606799Z",
   "generator": "pub",
-  "generatorVersion": "3.1.0-28.0.dev"
+  "generatorVersion": "3.1.0-155.0.dev"
 }

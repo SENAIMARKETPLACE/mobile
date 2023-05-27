@@ -1,4 +1,4 @@
-import 'package:cep/src/core/utils/sollaris_error_snackbar.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_error_snackbar.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.dart';
