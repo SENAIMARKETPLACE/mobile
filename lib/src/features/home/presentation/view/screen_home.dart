@@ -2,11 +2,17 @@ import 'package:cep/src/common/hive/access.dart';
 import 'package:cep/src/common/hive/preferences_actions.dart';
 import 'package:cep/src/core/presentation/widgets/sollaris_app_bar.dart';
 import 'package:cep/src/core/utils/app_routes.dart';
+import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
+import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
+import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_banner.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_card.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_card_produto.dart';
-import 'package:cep/src/features/home/presentation/widgets/home_list_card.dart';
+import 'package:cep/src/features/home/presentation/widgets/home_list_categories.dart';
+import 'package:cep/src/features/home/presentation/widgets/home_list_product.dart';
+import 'package:cep/src/features/home/presentation/widgets/home_list_sub_categories.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
@@ -29,10 +35,15 @@ class _ScreenHomeState extends State<ScreenHome> {
     const HomeCard(name: 'Esporte'),
     const HomeCard(name: 'Ginástica'),
   ];
-  
 
   Future<Access> getPreferences() async {
     return pref = await PreferencesActions.load();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<CategoriaBloc>().add(GetCategoriasEvent());
   }
 
   @override
@@ -50,8 +61,8 @@ class _ScreenHomeState extends State<ScreenHome> {
                 child: CircularProgressIndicator(),
               );
             case ConnectionState.done:
-              return Padding(
-                padding: const EdgeInsets.only(
+              return const Padding(
+                padding: EdgeInsets.only(
                   top: 8,
                   left: 8,
                 ),
@@ -59,14 +70,13 @@ class _ScreenHomeState extends State<ScreenHome> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const HomeBanner(nameCompany: 'Sollaris'),
-                      HomeListCard(
-                        title: 'Minhas Categorias',
-                        homeCards: list,
-                      ),
-                      
+                      HomeBanner(nameCompany: 'Sollaris'),
+                      HomeListCategories(title: 'Minhas Categorias'),
+                      HomeListSubCategories(title: 'Minhas Sub-Categorias'),
+                      HomeListProducts(
+                          title: 'Meus Produtos', heigthCarousel: 180),
                     ],
-                  ),  
+                  ),
                 ),
               );
           }

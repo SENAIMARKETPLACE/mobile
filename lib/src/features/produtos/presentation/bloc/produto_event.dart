@@ -18,6 +18,11 @@ class GetProdutosEvent extends ProdutoEvent {
       ];
 }
 
+class GetAllProdutosEvent extends ProdutoEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class FiltroProdutoEvent extends ProdutoEvent {
   final String value;
 

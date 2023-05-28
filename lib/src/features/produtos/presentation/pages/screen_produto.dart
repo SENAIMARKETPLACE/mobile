@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cep/src/common/hive/preferences_actions.dart';
 
 import 'package:cep/src/common/hive/access.dart';
-import 'package:cep/src/core/utils/sollaris_error_snackbar.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_error_snackbar.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_event.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_state.dart';

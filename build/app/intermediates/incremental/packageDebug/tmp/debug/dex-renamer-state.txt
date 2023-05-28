@@ -1,20 +1,14 @@
-<<<<<<< HEAD
-#Fri May 19 20:48:45 BRT 2023
+#Sat May 27 21:09:16 BRT 2023
 path.4=4/classes.dex
 path.3=1/classes.dex
 path.2=0/classes.dex
 path.1=0/classes.dex
-=======
-#Sat May 27 13:24:04 BRT 2023
-base.0=C\:\\Sollaris\\Mobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-renamed.0=classes.dex
->>>>>>> development
 path.0=classes.dex
-base.4=C\:\\Users\\Noite\\Desktop\\TCC - SOLLARIS\\mobile\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\4\\classes.dex
-base.3=C\:\\Users\\Noite\\Desktop\\TCC - SOLLARIS\\mobile\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.2=C\:\\Users\\Noite\\Desktop\\TCC - SOLLARIS\\mobile\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.1=C\:\\Users\\Noite\\Desktop\\TCC - SOLLARIS\\mobile\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
-base.0=C\:\\Users\\Noite\\Desktop\\TCC - SOLLARIS\\mobile\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.4=C\:\\Sollaris\\Mobile\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\4\\classes.dex
+base.3=C\:\\Sollaris\\Mobile\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.2=C\:\\Sollaris\\Mobile\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.1=C\:\\Sollaris\\Mobile\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
+base.0=C\:\\Sollaris\\Mobile\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex

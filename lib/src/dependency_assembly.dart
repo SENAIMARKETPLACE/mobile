@@ -16,6 +16,7 @@ import 'package:cep/src/features/categorias/domain/entities/sub_categoria.dart';
 import 'package:cep/src/features/categorias/domain/repositories/categoria_repository.dart';
 import 'package:cep/src/features/categorias/domain/usecases/get_all_categorias_use_case.dart';
 import 'package:cep/src/features/categorias/domain/usecases/get_all_sub_categorias_use_case.dart';
+import 'package:cep/src/features/categorias/domain/usecases/get_sub_categorias_use_case.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/login/data/datasources/login_remote_data_source.dart';
 import 'package:cep/src/features/login/data/repositories/login_repository_impl.dart';
@@ -27,7 +28,8 @@ import 'package:cep/src/features/produtos/data/datasources/produto_remote_data_s
 import 'package:cep/src/features/produtos/data/repositories/produto_repository_impl.dart';
 import 'package:cep/src/features/produtos/domain/entities/produto.dart';
 import 'package:cep/src/features/produtos/domain/repositories/produto_repository.dart';
-import 'package:cep/src/features/produtos/domain/usecases/get_all_produto_use_case.dart';
+import 'package:cep/src/features/produtos/domain/usecases/get_all_produtos_use_case.dart';
+import 'package:cep/src/features/produtos/domain/usecases/get_produtos_use_case.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
@@ -43,7 +45,6 @@ Future<void> init() async {
   dependency.registerLazySingleton<NetworkInfo>(
     NetworkInfoImpl.new,
   );
-
 
   _setupSignup();
   _setupLogin();
@@ -114,6 +115,7 @@ void _setUpCategoria() {
       () => CategoriaBloc(
         getCategorias: dependency(),
         getSubCategorias: dependency(),
+        getAllSubCategorias: dependency(),
       ),
     )
 
@@ -124,6 +126,11 @@ void _setUpCategoria() {
       ),
     )
     ..registerLazySingleton<UseCase<List<SubCategoria>, Params>>(
+      () => GetSubCategoriasUseCase(
+        repository: dependency(),
+      ),
+    )
+    ..registerLazySingleton<UseCase<List<SubCategoria>, NoParams>>(
       () => GetAllSubCategoriasUseCase(
         repository: dependency(),
       ),
@@ -151,11 +158,17 @@ void _setUpProdutos() {
     // Bloc
     ..registerFactory<ProdutoBloc>(() => ProdutoBloc(
           getProdutos: dependency(),
+          getAllProdutos: dependency(),
         ))
 
     // Use Case
     ..registerLazySingleton<UseCase<List<Produto>, Params>>(
-      () => GetAllProdutoUseCase(
+      () => GetProdutosUseCase(
+        repository: dependency(),
+      ),
+    )
+    ..registerLazySingleton<UseCase<List<Produto>, NoParams>>(
+      () => GetAllProdutosUseCase(
         repository: dependency(),
       ),
     )

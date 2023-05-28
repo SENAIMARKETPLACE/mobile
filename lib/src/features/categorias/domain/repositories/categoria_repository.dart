@@ -5,5 +5,7 @@ import 'package:dartz/dartz.dart';
 
 abstract class CategoriaRepository {
   Future<Either<Failure, List<Categoria>>> getAllCategorias();
-  Future<Either<Failure, List<SubCategoria>>> getAllSubCategorias({required String id});
+  Future<Either<Failure, List<SubCategoria>>> getAllSubCategorias();
+  Future<Either<Failure, List<SubCategoria>>> getSubCategorias(
+      {required String id});
 }

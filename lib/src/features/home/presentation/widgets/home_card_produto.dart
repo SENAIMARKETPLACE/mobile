@@ -13,6 +13,11 @@ class HomeCardProduto extends StatelessWidget {
   final String urlImage;
   final double price;
 
+  bool isUrlValid(String url) {
+    Uri? uri = Uri.tryParse(url);
+    return uri!.hasScheme && uri.hasAuthority;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,9 +41,9 @@ class HomeCardProduto extends StatelessWidget {
                   color: Colors.transparent,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(
-                      urlImage,
-                    ),
+                    image: NetworkImage(isUrlValid(urlImage)
+                        ? urlImage
+                        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJzRGkvN9WVysP2_3AbXtdgTegy9mEELt2yFirxQymBg&s'),
                   ),
                 ),
               ),

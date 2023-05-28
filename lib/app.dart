@@ -1,11 +1,7 @@
 import 'package:cep/src/core/utils/app_routes.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
-<<<<<<< HEAD
-import 'package:cep/src/features/home/presentation/screen_home.dart';
-import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
-=======
 import 'package:cep/src/features/home/presentation/view/screen_home.dart';
->>>>>>> development
+import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cep/src/dependency_assembly.dart' as di;
