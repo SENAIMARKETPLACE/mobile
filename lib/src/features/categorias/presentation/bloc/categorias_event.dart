@@ -10,6 +10,11 @@ class GetCategoriasEvent extends CategoriaEvent {
   List<Object?> get props => [];
 }
 
+class GetAllSubCategoriasEvent extends CategoriaEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class FiltroCategoriaEvent extends CategoriaEvent {
   final String value;
 
@@ -30,11 +35,6 @@ class FiltroSubCategoriaEvent extends CategoriaEvent {
 
   @override
   List<Object?> get props => [value];
-}
-
-class GetAllSubCategoriasEvent extends CategoriaEvent {
-  @override
-  List<Object?> get props => [];
 }
 
 class GetSubCategoriasEvent extends CategoriaEvent {

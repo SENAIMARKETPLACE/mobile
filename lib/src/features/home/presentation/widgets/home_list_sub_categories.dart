@@ -1,15 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeListSubCategories extends StatelessWidget {
+class HomeListSubCategories extends StatefulWidget {
   const HomeListSubCategories({
     Key? key,
     required this.title,
+    required this.idEmpresa,
     this.heigthCarousel = 120,
     this.route,
   }) : super(key: key);
@@ -17,6 +19,20 @@ class HomeListSubCategories extends StatelessWidget {
   final String title;
   final Widget? route;
   final double heigthCarousel;
+  final String idEmpresa;
+
+  @override
+  State<HomeListSubCategories> createState() => _HomeListSubCategoriesState();
+}
+
+class _HomeListSubCategoriesState extends State<HomeListSubCategories> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CategoriaBloc>().add(
+          GetAllSubCategoriasEvent(),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +42,15 @@ class HomeListSubCategories extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              title,
+              widget.title,
               style: const TextStyle(fontSize: 20),
             ),
             IconButton(
-              onPressed: () {
-                // return MaterialPageRoute(builder: (context) => route!)
-              },
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => widget.route!,
+                ),
+              ),
               icon: const Icon(
                 Icons.arrow_forward_ios,
               ),
@@ -40,13 +58,12 @@ class HomeListSubCategories extends StatelessWidget {
           ],
         ),
         BlocBuilder<CategoriaBloc, CategoriaState>(
-          bloc: context.read<CategoriaBloc>()..add(GetAllSubCategoriasEvent()),
           builder: (context, state) {
             switch (state.status) {
               case CategoriaStatus.initial:
               case CategoriaStatus.loading:
                 return const Center(
-                  child: Text('Carregando..'),
+                  child: CircularProgressIndicator(),
                 );
               case CategoriaStatus.success:
                 List<HomeCard> mySubCategoriesCard = [];
@@ -61,7 +78,7 @@ class HomeListSubCategories extends StatelessWidget {
                   return const Text('Nenhuma Sub-Categoria cadastrada;');
                 } else {
                   return SizedBox(
-                    height: heigthCarousel,
+                    height: widget.heigthCarousel,
                     child: ListView.builder(
                       itemCount: mySubCategoriesCard.length,
                       scrollDirection: Axis.horizontal,

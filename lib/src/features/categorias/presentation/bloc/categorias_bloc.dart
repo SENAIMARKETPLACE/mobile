@@ -12,24 +12,24 @@ import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.d
 
 class CategoriaBloc extends Bloc<CategoriaEvent, CategoriaState> {
   final UseCase<List<Categoria>, NoParams> getCategorias;
+  final UseCase<List<SubCategoria>, NoParams> getAllCategorias;
   final UseCase<List<SubCategoria>, Params> getSubCategorias;
-  final UseCase<List<SubCategoria>, NoParams> getAllSubCategorias;
 
   CategoriaBloc({
     required this.getCategorias,
+    required this.getAllCategorias,
     required this.getSubCategorias,
-    required this.getAllSubCategorias,
   }) : super(
           CategoriaState.initial(),
         ) {
-    on<GetCategoriasEvent>(_getAllCategorias);
+    on<GetCategoriasEvent>(_getCategorias);
+    on<GetAllSubCategoriasEvent>(_getAllCategorias);
     on<GetSubCategoriasEvent>(_getSubCategorias);
-    on<GetAllSubCategoriasEvent>(_getAllSubCategorias);
     on<FiltroCategoriaEvent>(_getCategoriasFiltro);
     on<FiltroSubCategoriaEvent>(_getSubCategoriasFiltro);
   }
 
-  Future<void> _getAllCategorias(
+  Future<void> _getCategorias(
     GetCategoriasEvent event,
     Emitter<CategoriaState> emit,
   ) async {
@@ -112,11 +112,13 @@ class CategoriaBloc extends Bloc<CategoriaEvent, CategoriaState> {
     );
   }
 
-  Future<void> _getAllSubCategorias(
+  Future<void> _getAllCategorias(
     GetAllSubCategoriasEvent event,
     Emitter<CategoriaState> emit,
   ) async {
-    final getResult = await getAllSubCategorias(NoParams());
+    emit(state.copyWith(status: CategoriaStatus.loading));
+
+    final getResult = await getAllCategorias(NoParams());
 
     getResult.fold(
       (failure) => emit(
@@ -129,6 +131,7 @@ class CategoriaBloc extends Bloc<CategoriaEvent, CategoriaState> {
         state.copyWith(
           status: CategoriaStatus.success,
           subCategorias: subCategorias,
+          subCategoriasFiltro: subCategorias,
         ),
       ),
     );

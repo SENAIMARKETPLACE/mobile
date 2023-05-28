@@ -88,6 +88,7 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
         state.copyWith(
           status: ProdutoStatus.success,
           produtos: produtos,
+          produtosFiltro: produtos,
         ),
       ),
     );

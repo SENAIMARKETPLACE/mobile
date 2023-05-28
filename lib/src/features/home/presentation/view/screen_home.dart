@@ -5,12 +5,16 @@ import 'package:cep/src/core/utils/app_routes.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.dart';
+import 'package:cep/src/features/categorias/presentation/view/screen_categoria.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_banner.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_card.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_card_produto.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_list_categories.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_list_product.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_list_sub_categories.dart';
+import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
+import 'package:cep/src/features/produtos/presentation/bloc/produto_event.dart';
+import 'package:cep/src/features/produtos/presentation/pages/screen_produto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,47 +44,75 @@ class _ScreenHomeState extends State<ScreenHome> {
     return pref = await PreferencesActions.load();
   }
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   @override
   void initState() {
     super.initState();
-    context.read<CategoriaBloc>().add(GetCategoriasEvent());
+    // context.read<ProdutoBloc>().add(const GetProdutosEvent(id: '1'));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future<void> test() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      initState();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const SollarisAppBar(),
-      body: FutureBuilder(
-        future: getPreferences(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-            case ConnectionState.active:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            case ConnectionState.done:
-              return const Padding(
-                padding: EdgeInsets.only(
-                  top: 8,
-                  left: 8,
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: test,
+        child: FutureBuilder(
+          future: getPreferences(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+              case ConnectionState.active:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case ConnectionState.done:
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                    left: 8,
+                  ),
+                  child: ListView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
                       HomeBanner(nameCompany: 'Sollaris'),
-                      HomeListCategories(title: 'Minhas Categorias'),
-                      HomeListSubCategories(title: 'Minhas Sub-Categorias'),
+                      HomeListCategories(
+                        title: 'Minhas Categorias',
+                        route: ScreenCategoria(),
+                      ),
+                      HomeListSubCategories(
+                        title: 'Minhas Sub-Categorias',
+                        idEmpresa: '1',
+                      ),
                       HomeListProducts(
-                          title: 'Meus Produtos', heigthCarousel: 180),
+                          title: 'Meus Produtos',
+                          heigthCarousel: 180,
+                          idEmpresa: '1',
+                          route: ScreenProduto(id: '1')),
                     ],
                   ),
-                ),
-              );
-          }
-        },
+                );
+            }
+          },
+        ),
       ),
       drawer: const Drawer(),
     );

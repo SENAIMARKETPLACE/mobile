@@ -1,4 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_card.dart';
@@ -7,20 +10,31 @@ import 'package:cep/src/features/produtos/domain/entities/produto.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_event.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_state.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeListProducts extends StatelessWidget {
+class HomeListProducts extends StatefulWidget {
   const HomeListProducts({
     Key? key,
     required this.title,
-    this.heigthCarousel = 120,
     this.route,
+    this.heigthCarousel = 120,
+    required this.idEmpresa,
   }) : super(key: key);
 
   final String title;
   final Widget? route;
   final double heigthCarousel;
+  final String idEmpresa;
+
+  @override
+  State<HomeListProducts> createState() => _HomeListProductsState();
+}
+
+class _HomeListProductsState extends State<HomeListProducts> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProdutoBloc>().add(GetProdutosEvent(id: widget.idEmpresa));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +44,14 @@ class HomeListProducts extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              title,
+              widget.title,
               style: const TextStyle(fontSize: 20),
             ),
             IconButton(
               onPressed: () {
-                // return MaterialPageRoute(builder: (context) => route!)
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => widget.route!),
+                );
               },
               icon: const Icon(
                 Icons.arrow_forward_ios,
@@ -44,11 +60,12 @@ class HomeListProducts extends StatelessWidget {
           ],
         ),
         BlocBuilder<ProdutoBloc, ProdutoState>(
-          bloc: context.read<ProdutoBloc>()..add(GetAllProdutosEvent()),
+          // bloc: ,
           builder: (context, state) {
             switch (state.status) {
               case ProdutoStatus.initial:
               case ProdutoStatus.loading:
+                Future.delayed(const Duration(seconds: 2));
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -69,7 +86,7 @@ class HomeListProducts extends StatelessWidget {
                   return const Text('Nenhuma Produto cadastrado;');
                 } else {
                   return SizedBox(
-                    height: heigthCarousel,
+                    height: widget.heigthCarousel,
                     child: ListView.builder(
                       itemCount: myProductCard.length,
                       scrollDirection: Axis.horizontal,

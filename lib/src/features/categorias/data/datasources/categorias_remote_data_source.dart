@@ -11,8 +11,8 @@ import 'package:cep/src/features/categorias/data/models/sub_categoria_model.dart
 
 abstract class ICategoriaRemoteDataSource {
   Future<List<CategoriaModel>> getAllCategorias();
-  Future<List<SubCategoriaModel>> getSubCategorias({required String id});
   Future<List<SubCategoriaModel>> getAllSubCategorias();
+  Future<List<SubCategoriaModel>> getSubCategorias({required String id});
 }
 
 class CategoriaRemoteDataSourceImpl implements ICategoriaRemoteDataSource {
@@ -57,6 +57,38 @@ class CategoriaRemoteDataSourceImpl implements ICategoriaRemoteDataSource {
   }
 
   @override
+  Future<List<SubCategoriaModel>> getAllSubCategorias() async {
+    var url = '${baseUrl}api/sub_categories';
+    final response = await client.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    final isConnected = await network.isConnected;
+    final list = <SubCategoriaModel>[];
+
+    if (isConnected) {
+      if (response.statusCode == 200) {
+        final json = jsonDecode(const Utf8Decoder().convert(response.bodyBytes))
+            as Map<String, dynamic>;
+
+        list.addAll(
+          (json['content'] as List).map(
+            (subCategoria) {
+              return SubCategoriaModel.fromMap(subCategoria as Map<String, dynamic>);
+            },
+          ),
+        );
+
+        return Future.value(list);
+      }
+      throw ServerException();
+    }
+    throw ConnectionOffline();
+  }
+
+  @override
   Future<List<SubCategoriaModel>> getSubCategorias({required String id}) async {
     var url = '${baseUrl}api/sub_categories/categories/$id';
     final isConnected = await network.isConnected;
@@ -88,35 +120,7 @@ class CategoriaRemoteDataSourceImpl implements ICategoriaRemoteDataSource {
     throw ConnectionOffline();
   }
   
-  @override
-  Future<List<SubCategoriaModel>> getAllSubCategorias() async {
-    var url = '${baseUrl}api/sub_categories';
-    final isConnected = await network.isConnected;
-    final response = await client.get(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
-    final List<SubCategoriaModel> list = [];
-
-    if (isConnected) {
-      if (response.statusCode == 200) {
-        final json = jsonDecode(const Utf8Decoder().convert(response.bodyBytes))
-            as Map<String, dynamic>;
-
-        list.addAll((json['content'] as List).map(
-          (categoria) {
-            return SubCategoriaModel.fromMap(categoria as Map<String, dynamic>);
-          },
-        ));
-
-        return Future.value(list);
-      } else if (response.statusCode == 404) {
-        return Future.value(list);
-      }
-      throw ServerException();
-    }
-    throw ConnectionOffline();
-  }
+  
+  
+  
 }

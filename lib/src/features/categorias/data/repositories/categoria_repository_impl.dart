@@ -25,6 +25,19 @@ class CategoriaRepositoryImpl implements CategoriaRepository {
   }
 
   @override
+  Future<Either<Failure, List<SubCategoria>>> getAllSubCategorias() async {
+    try {
+      final listSubCategorias = await categoriaRemoteDataSource.getAllSubCategorias();
+
+      return Right(listSubCategorias);
+    } on ServerException {
+      return const Left(ServerFailure());
+    } on ConnectionOffline {
+      return const Left(ConnectionOfflineFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, List<SubCategoria>>> getSubCategorias(
       {required String id}) async {
     try {
@@ -39,17 +52,7 @@ class CategoriaRepositoryImpl implements CategoriaRepository {
     }
   }
   
-  @override
-  Future<Either<Failure, List<SubCategoria>>> getAllSubCategorias() async {
-    try {
-      final listSubCategoria =
-          await categoriaRemoteDataSource.getAllSubCategorias();
-
-      return Right(listSubCategoria);
-    } on ServerException {
-      return const Left(ServerFailure());
-    } on ConnectionOffline {
-      return const Left(ConnectionOfflineFailure());
-    }
-  }
+  
+  
+  
 }

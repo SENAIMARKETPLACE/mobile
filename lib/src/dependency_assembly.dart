@@ -115,7 +115,7 @@ void _setUpCategoria() {
       () => CategoriaBloc(
         getCategorias: dependency(),
         getSubCategorias: dependency(),
-        getAllSubCategorias: dependency(),
+        getAllCategorias: dependency(),
       ),
     )
 
@@ -131,9 +131,7 @@ void _setUpCategoria() {
       ),
     )
     ..registerLazySingleton<UseCase<List<SubCategoria>, NoParams>>(
-      () => GetAllSubCategoriasUseCase(
-        repository: dependency(),
-      ),
+      () => GetAllSubCategoriasUseCase(repository: dependency())
     )
 
     // Repository
