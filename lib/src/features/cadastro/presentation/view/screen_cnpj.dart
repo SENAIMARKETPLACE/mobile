@@ -26,6 +26,7 @@ class ScreenCnpj extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           SollarisTextField(
+            prefixIcon: Icons.domain_disabled,
             onSaved: (value) {
               value != null ? Register().setCnpj(value) : null;
             },

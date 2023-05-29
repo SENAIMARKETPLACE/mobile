@@ -5,6 +5,7 @@ enum LoginStatus {
   success,
   failure,
   loading,
+  initial,
 }
 
 class LoginState extends Equatable {
@@ -16,9 +17,9 @@ class LoginState extends Equatable {
     required this.status,
   });
 
-  factory LoginState.loading() => const LoginState(
+  factory LoginState.initial() => const LoginState(
         message: '',
-        status: LoginStatus.loading,
+        status: LoginStatus.initial,
       );
 
   LoginState copyWith({

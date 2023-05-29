@@ -10,9 +10,9 @@ class SollarisTitle extends StatelessWidget {
     return Text(
       title,
       style: const TextStyle(
-        fontSize: 27,
-        fontWeight: FontWeight.bold,
-      ),
+          fontSize: 27,
+          fontWeight: FontWeight.bold,
+          color: Color.fromARGB(255, 86, 9, 153)),
     );
   }
 }

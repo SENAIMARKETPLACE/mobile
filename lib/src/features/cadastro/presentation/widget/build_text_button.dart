@@ -37,7 +37,7 @@ class _BuildTextButtonState extends State<BuildTextButton> {
         style: TextButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          backgroundColor: const Color(0xff14C871),
+          backgroundColor: const Color(0xff8F29C8),
           padding: const EdgeInsets.only(
             left: 125,
             right: 125,

@@ -6,6 +6,7 @@ import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.da
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.dart';
 import 'package:cep/src/features/categorias/presentation/view/screen_categoria.dart';
+import 'package:cep/src/features/categorias/presentation/view/screen_sub_categoria_all.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_banner.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_card.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_card_produto.dart';
@@ -27,18 +28,6 @@ class ScreenHome extends StatefulWidget {
 
 class _ScreenHomeState extends State<ScreenHome> {
   late final Access pref;
-  final int _selectedIndex = 0;
-
-  final List<HomeCard> list = [
-    const HomeCard(name: 'Esporte'),
-    const HomeCard(name: 'Ginástica'),
-    const HomeCard(name: 'Esporte'),
-    const HomeCard(name: 'Ginástica'),
-    const HomeCard(name: 'Esporte'),
-    const HomeCard(name: 'Ginástica'),
-    const HomeCard(name: 'Esporte'),
-    const HomeCard(name: 'Ginástica'),
-  ];
 
   Future<Access> getPreferences() async {
     return pref = await PreferencesActions.load();
@@ -46,17 +35,6 @@ class _ScreenHomeState extends State<ScreenHome> {
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
-
-  @override
-  void initState() {
-    super.initState();
-    // context.read<ProdutoBloc>().add(const GetProdutosEvent(id: '1'));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   Future<void> test() async {
     await Future.delayed(const Duration(seconds: 2));
@@ -92,21 +70,22 @@ class _ScreenHomeState extends State<ScreenHome> {
                   child: ListView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      HomeBanner(nameCompany: 'Sollaris'),
-                      HomeListCategories(
+                    children: [
+                      HomeBanner(nameCompany: pref.nome),
+                      const HomeListCategories(
                         title: 'Minhas Categorias',
                         route: ScreenCategoria(),
                       ),
                       HomeListSubCategories(
                         title: 'Minhas Sub-Categorias',
-                        idEmpresa: '1',
+                        idEmpresa: pref.id,
+                        route: const ScreenSubCategoriaAll(),
                       ),
                       HomeListProducts(
                           title: 'Meus Produtos',
                           heigthCarousel: 180,
-                          idEmpresa: '1',
-                          route: ScreenProduto(id: '1')),
+                          idEmpresa: pref.id,
+                          route: ScreenProduto(id: pref.id)),
                     ],
                   ),
                 );

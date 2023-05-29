@@ -19,19 +19,43 @@ class BuildForm extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color.fromARGB(255, 198, 146, 243),
+                  Color.fromARGB(255, 198, 166, 243),
+                ],
+              ),
+            ),
+          ),
           elevation: 0,
           leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: Color(0XFF14C871),
+              color: Color.fromARGB(255, 39, 77, 109),
             ),
           ),
         ),
         body: Container(
           width: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(255, 198, 146, 243),
+              Color.fromARGB(255, 167, 222, 222),
+            ],
+          )),
           child: SingleChildScrollView(
             child: Form(
               key: formKey,

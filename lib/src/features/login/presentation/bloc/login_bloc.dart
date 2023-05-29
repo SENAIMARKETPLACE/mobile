@@ -14,7 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc({
     required this.getLogin,
-  }) : super(LoginState.loading()) {
+  }) : super(LoginState.initial()) {
     on<LoginAccessEvent>(_onLogin);
   }
 
@@ -22,6 +22,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginAccessEvent event,
     Emitter<LoginState> emit,
   ) async {
+    emit(state.copyWith(status: LoginStatus.loading));
+
     final result = await getLogin(event.credenciais);
 
     result.fold(
