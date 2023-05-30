@@ -53,7 +53,7 @@ class _ScreenEnderecoState extends State<ScreenEndereco> {
             onPressed: () => Navigator.of(context).pop(),
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: Color(0XFF14C871),
+              color: Color(0xff8F29C8),
             ),
           ),
         ),

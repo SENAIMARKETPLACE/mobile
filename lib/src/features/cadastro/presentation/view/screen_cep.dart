@@ -41,7 +41,7 @@ class _ScreenCepState extends State<ScreenCep> {
               onPressed: () => Navigator.of(context).pop(),
               icon: const Icon(
                 Icons.arrow_back_ios,
-                color: Color(0XFF14C871),
+                color: Color(0xff8F29C8),
               ),
             ),
           ),
@@ -110,7 +110,7 @@ class _ScreenCepState extends State<ScreenCep> {
                               style: TextButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                backgroundColor: const Color(0xff14C871),
+                                backgroundColor: const Color(0xff8F29C8),
                                 padding: const EdgeInsets.only(
                                   left: 125,
                                   right: 125,
