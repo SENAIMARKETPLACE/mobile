@@ -21,6 +21,15 @@ class DetalheModel extends Detalhe {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      "tamanho": tamanho,
+      "peso": peso,
+      "cor": cor,
+      "quantidade": double.parse(quantidade),
+    };
+  }
+
   factory DetalheModel.fromMap(Map<String, dynamic> map) {
     return DetalheModel(
       id: map['id'].toString(),
@@ -34,4 +43,6 @@ class DetalheModel extends Detalhe {
   factory DetalheModel.fromJson(String source) {
     return DetalheModel.fromMap(json.decode(source) as Map<String, dynamic>);
   }
+
+  String toJson() => json.encode(toMap());
 }

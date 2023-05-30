@@ -7,6 +7,10 @@ import 'package:cep/src/features/produtos/domain/entities/produto.dart';
 class ProdutoModel extends Produto {
   const ProdutoModel({
     required super.id,
+    super.idCategoria,
+    super.idSubCategoria,
+    super.idEmpresa,
+    super.detalhe,
     required super.nome,
     required super.descricao,
     required super.preco,
@@ -19,6 +23,10 @@ class ProdutoModel extends Produto {
   factory ProdutoModel.fromEntity(Produto entity) {
     return ProdutoModel(
       id: entity.id,
+      idCategoria: entity.idCategoria,
+      idEmpresa: entity.idEmpresa,
+      idSubCategoria: entity.idSubCategoria,
+      detalhe: entity.detalhe,
       nome: entity.nome,
       descricao: entity.descricao,
       preco: entity.preco,
@@ -27,6 +35,20 @@ class ProdutoModel extends Produto {
       categoria: entity.categoria,
       detalhes: entity.detalhes,
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "empresa_id": idEmpresa,
+      "categoria_id": idCategoria,
+      "sub_categoria_id": idSubCategoria,
+      "nome": nome,
+      "descricao": descricao,
+      "preco": double.parse(preco),
+      "img": foto,
+      "publico": publico,
+      "detalhes_do_produto": detalhe,
+    };
   }
 
   factory ProdutoModel.fromMap(Map<String, dynamic> map) {
@@ -50,4 +72,6 @@ class ProdutoModel extends Produto {
   factory ProdutoModel.fromJson(String source) {
     return ProdutoModel.fromMap(json.decode(source) as Map<String, dynamic>);
   }
+
+  String toJson() => json.encode(toMap());
 }

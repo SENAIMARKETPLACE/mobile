@@ -6,6 +6,10 @@ import 'package:cep/src/features/produtos/domain/entities/detalhes.dart';
 
 class Produto extends Equatable {
   final String id;
+  final String? idCategoria;
+  final String? idSubCategoria;
+  final String? idEmpresa;
+  final Detalhe? detalhe;
   final String nome;
   final String descricao;
   final String preco;
@@ -16,6 +20,10 @@ class Produto extends Equatable {
 
   const Produto({
     required this.id,
+    this.idCategoria,
+    this.idSubCategoria,
+    this.idEmpresa,
+    this.detalhe,
     required this.nome,
     required this.descricao,
     required this.preco,

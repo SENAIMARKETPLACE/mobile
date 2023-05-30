@@ -7,4 +7,5 @@ import 'package:dartz/dartz.dart';
 abstract class ProdutoRepository {
   Future<Either<Failure, List<Produto>>> getProdutos({required String id});
   Future<Either<Failure, List<Produto>>> getAllProdutos();
+  Future<Either<Failure, Unit>> createProduto({required Produto produto});
 }
