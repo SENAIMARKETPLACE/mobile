@@ -56,4 +56,17 @@ class ProdutoRepositoryImpl implements ProdutoRepository {
       return const Left(ConnectionOfflineFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteProduto({required String id}) async {
+    try {
+      await produtoRemoteDataSource.deleteProduto(id: id);
+
+      return const Right(unit);
+    } on ServerException {
+      return const Left(ServerFailure());
+    } on ConnectionOffline {
+      return const Left(ConnectionOfflineFailure());
+    }
+  }
 }

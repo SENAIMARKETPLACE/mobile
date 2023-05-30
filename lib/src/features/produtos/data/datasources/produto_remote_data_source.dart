@@ -13,7 +13,8 @@ import 'package:cep/src/core/network/network_info.dart';
 abstract class IProdutoRemoteDataSource {
   Future<List<ProdutoModel>> getProdutos({required String id});
   Future<List<ProdutoModel>> getAllProdutos();
-  Future<Unit> createProduto({required produto});
+  Future<Unit> createProduto({required ProdutoModel produto});
+  Future<Unit> deleteProduto({required String id});
 }
 
 class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
@@ -101,22 +102,30 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
         'Content-Type': 'application/json',
       },
     );
-    final List<ProdutoModel> list = [];
 
     if (isConnected) {
       if (response.statusCode == 200) {
-        final json = jsonDecode(const Utf8Decoder().convert(response.bodyBytes))
-            as Map<String, dynamic>;
+        return Future.value(unit);
+      }
+      throw ServerException();
+    }
+    throw ConnectionOffline();
+  }
 
-        list.addAll(
-          (json['content'] as List).map(
-            (produto) => ProdutoModel.fromMap(produto as Map<String, dynamic>),
-          ),
-        );
+  @override
+  Future<Unit> deleteProduto({required String id}) async {
+    var url = 'minha url';
+    final isConnected = await network.isConnected;
+    final response = await client.delete(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
 
-        return Future.value(list);
-      } else if (response.statusCode == 404) {
-        return Future.value(list);
+    if (isConnected) {
+      if (response.statusCode == 200) {
+        return Future.value(unit);
       }
       throw ServerException();
     }
