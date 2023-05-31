@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cep/src/features/produtos/domain/entities/produto.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class ProdutoEvent extends Equatable {
@@ -43,4 +44,17 @@ class ExibSearchEvent extends ProdutoEvent {
 
   @override
   List<Object?> get props => [isSearch];
+}
+
+class CreateProdutoEvent extends ProdutoEvent {
+  final Produto produto;
+  
+  CreateProdutoEvent({
+    required this.produto,
+  });
+  
+  @override
+  List<Object?> get props => [produto];
+
+
 }

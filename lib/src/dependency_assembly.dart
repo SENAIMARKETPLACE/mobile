@@ -28,13 +28,13 @@ import 'package:cep/src/features/produtos/data/datasources/produto_remote_data_s
 import 'package:cep/src/features/produtos/data/repositories/produto_repository_impl.dart';
 import 'package:cep/src/features/produtos/domain/entities/produto.dart';
 import 'package:cep/src/features/produtos/domain/repositories/produto_repository.dart';
+import 'package:cep/src/features/produtos/domain/usecases/create_produto_use_case.dart';
 import 'package:cep/src/features/produtos/domain/usecases/get_all_produtos_use_case.dart';
 import 'package:cep/src/features/produtos/domain/usecases/get_produtos_use_case.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/cadastro/domain/entities/address.dart';
 
@@ -131,8 +131,7 @@ void _setUpCategoria() {
       ),
     )
     ..registerLazySingleton<UseCase<List<SubCategoria>, NoParams>>(
-      () => GetAllSubCategoriasUseCase(repository: dependency())
-    )
+        () => GetAllSubCategoriasUseCase(repository: dependency()))
 
     // Repository
     ..registerLazySingleton<CategoriaRepository>(
@@ -157,6 +156,7 @@ void _setUpProdutos() {
     ..registerFactory<ProdutoBloc>(() => ProdutoBloc(
           getProdutos: dependency(),
           getAllProdutos: dependency(),
+          createProduto: dependency(),
         ))
 
     // Use Case
@@ -167,6 +167,11 @@ void _setUpProdutos() {
     )
     ..registerLazySingleton<UseCase<List<Produto>, NoParams>>(
       () => GetAllProdutosUseCase(
+        repository: dependency(),
+      ),
+    )
+    ..registerLazySingleton<UseCase<Unit, Produto>>(
+      () => CreateProdutoUseCase(
         repository: dependency(),
       ),
     )

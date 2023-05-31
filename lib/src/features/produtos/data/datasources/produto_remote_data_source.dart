@@ -92,7 +92,8 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
 
   @override
   Future<Unit> createProduto({required ProdutoModel produto}) async {
-    var url = '$baseUrl/api/products';
+    // var url = '${baseUrl}api/products';
+    var url = 'http://172.21.144.1:8100/api/products';
     final isConnected = await network.isConnected;
     final body = produto.toJson();
     final response = await client.post(

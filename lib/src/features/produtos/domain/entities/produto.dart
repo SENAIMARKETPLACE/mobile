@@ -10,13 +10,13 @@ class Produto extends Equatable {
   final String? idSubCategoria;
   final String? idEmpresa;
   final Detalhe? detalhe;
+  final Categoria? categoria;
+  final List<Detalhe>? detalhes;
   final String nome;
   final String descricao;
   final String preco;
   final String foto;
   final String publico;
-  final Categoria categoria;
-  final List<Detalhe> detalhes;
 
   const Produto({
     required this.id,
@@ -24,13 +24,13 @@ class Produto extends Equatable {
     this.idSubCategoria,
     this.idEmpresa,
     this.detalhe,
+    this.detalhes,
+    this.categoria,
     required this.nome,
     required this.descricao,
     required this.preco,
     required this.foto,
     required this.publico,
-    required this.categoria,
-    required this.detalhes,
   });
 
   factory Produto.instance() {
@@ -55,8 +55,6 @@ class Produto extends Equatable {
       preco,
       foto,
       publico,
-      categoria,
-      detalhes,
     ];
   }
 }
