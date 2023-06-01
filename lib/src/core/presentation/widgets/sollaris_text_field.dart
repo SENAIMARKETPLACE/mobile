@@ -17,6 +17,7 @@ class SollarisTextField extends StatefulWidget {
     this.onTap,
     this.isExibPassword = false,
     this.onSaved,
+    this.alignText = TextAlign.start,
   });
 
   final String label;
@@ -31,6 +32,7 @@ class SollarisTextField extends StatefulWidget {
   bool isExibPassword;
   bool isReadOnly;
   VoidCallback? onTap;
+  TextAlign alignText;
 
   @override
   State<SollarisTextField> createState() => _SollarisTextFieldState();
@@ -61,6 +63,7 @@ class _SollarisTextFieldState extends State<SollarisTextField> {
             validator: widget.validator,
             readOnly: widget.isReadOnly,
             onTap: widget.onTap,
+            textAlign: widget.alignText,
             decoration: InputDecoration(
               hintStyle: const TextStyle(fontSize: 18),
               errorBorder: const OutlineInputBorder(
@@ -75,10 +78,12 @@ class _SollarisTextFieldState extends State<SollarisTextField> {
                 ),
                 borderSide: BorderSide(color: Colors.red),
               ),
-              prefixIcon: Icon(
-                widget.prefixIcon,
-                color: const Color(0xff8F29C8),
-              ),
+              prefixIcon: widget.prefixIcon != null
+                  ? Icon(
+                      widget.prefixIcon,
+                      color: const Color(0xff8F29C8),
+                    )
+                  : null,
               suffixIcon: widget.suffixIcon,
               filled: true,
               fillColor: const Color.fromARGB(212, 225, 223, 223),
@@ -87,7 +92,6 @@ class _SollarisTextFieldState extends State<SollarisTextField> {
                 borderRadius: BorderRadius.circular(18),
                 borderSide: BorderSide.none,
               ),
-              
             ),
           ),
         ],
