@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SollarisAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const SollarisAppBar({super.key});
+  const SollarisAppBar({
+    Key? key,
+    this.bottomBar,
+  }) : super(key: key);
+
+  final Widget? bottomBar;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,7 @@ class SollarisAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       centerTitle: true,
+      flexibleSpace: bottomBar!,
     );
   }
 
