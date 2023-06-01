@@ -7,12 +7,14 @@ class SollarisTextField extends StatefulWidget {
     super.key,
     required this.label,
     required this.hint,
-    this.inputFormatter,
-    this.typeKey,
     required this.validator,
     required this.controller,
+    this.inputFormatter,
+    this.typeKey,
     this.suffixIcon,
     this.prefixIcon,
+    this.isReadOnly = false,
+    this.onTap,
     this.isExibPassword = false,
     this.onSaved,
   });
@@ -27,6 +29,8 @@ class SollarisTextField extends StatefulWidget {
   Widget? suffixIcon;
   IconData? prefixIcon;
   bool isExibPassword;
+  bool isReadOnly;
+  VoidCallback? onTap;
 
   @override
   State<SollarisTextField> createState() => _SollarisTextFieldState();
@@ -55,6 +59,8 @@ class _SollarisTextFieldState extends State<SollarisTextField> {
             keyboardType: widget.typeKey,
             inputFormatters: widget.inputFormatter,
             validator: widget.validator,
+            readOnly: widget.isReadOnly,
+            onTap: widget.onTap,
             decoration: InputDecoration(
               hintStyle: const TextStyle(fontSize: 18),
               errorBorder: const OutlineInputBorder(
@@ -81,6 +87,7 @@ class _SollarisTextFieldState extends State<SollarisTextField> {
                 borderRadius: BorderRadius.circular(18),
                 borderSide: BorderSide.none,
               ),
+              
             ),
           ),
         ],
