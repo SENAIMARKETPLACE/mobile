@@ -21,6 +21,10 @@ class BuildFormProduto extends StatefulWidget {
 
 class _BuildFormProdutoState extends State<BuildFormProduto> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final List<String> _publico = ['Masculino', 'Feminino'];
+  List<bool> isSelectedList = List.generate(2, (index) => false);
+
+  String? itemSelected;
 
   final Map<String, TextEditingController> _controllers = {
     'nome': TextEditingController(),
@@ -63,122 +67,131 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                     controller: _controllers['categoria']!,
                     isReadOnly: true,
                     onTap: () => showModalBottomSheet<List<Categoria>>(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
                         ),
-                      ),
-                      context: context,
-                      builder: (context) => Container(
-          height: MediaQuery.of(context).size.height * 0.65,
-          padding: const EdgeInsets.all(16),
-          child: Flex(
-            direction: Axis.vertical,
-            children: [
-              TextField(
-                onChanged: (String? value) {
-                  context.read<CategoriaBloc>().add(
-                        FiltroCategoriaEvent(value: value ?? '')
-                      );
-                },
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    FontAwesomeIcons.magnifyingGlass,
-                    size: 16,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Expanded(
-                child: ListView.builder(
-                  // itemCount: teamsState.filteredList.length,
-                  itemBuilder: (context, index) {
+                        context: context,
+                        builder: (context) => Container(
+                              height: MediaQuery.of(context).size.height * 0.65,
+                              padding: const EdgeInsets.all(16),
+                              child: Flex(
+                                direction: Axis.vertical,
+                                children: [
+                                  TextField(
+                                    onChanged: (String? value) {
+                                      context.read<CategoriaBloc>().add(
+                                          FiltroCategoriaEvent(
+                                              value: value ?? ''));
+                                    },
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        FontAwesomeIcons.magnifyingGlass,
+                                        size: 16,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Expanded(
+                                    child: ListView.builder(
+                                      // itemCount: teamsState.filteredList.length,
+                                      itemBuilder: (context, index) {
+                                        return null;
 
-                    // return Column(
-                    //   children: [
-                    //     CheckboxListTile(
-                    //       key: Key(team.teamId),
-                    //       title: Text(
-                    //         teams[index].name,
-                    //         overflow: TextOverflow.fade,
-                    //         softWrap: false,
-                    //       ),
-                    //       onChanged: (value) {
-                    //         if (value == null) {
-                    //           return;
-                    //         }
+                                        // return Column(
+                                        //   children: [
+                                        //     CheckboxListTile(
+                                        //       key: Key(team.teamId),
+                                        //       title: Text(
+                                        //         teams[index].name,
+                                        //         overflow: TextOverflow.fade,
+                                        //         softWrap: false,
+                                        //       ),
+                                        //       onChanged: (value) {
+                                        //         if (value == null) {
+                                        //           return;
+                                        //         }
 
-                    //         if (value) {
-                    //           setState(() {
-                    //             selectedTeams.add(teamSubscriber[index]);
-                    //           });
-                    //         } else {
-                    //           setState(() {
-                    //             selectedTeams.removeWhere(
-                    //               (unselectedTeam) =>
-                    //                   unselectedTeam.teamId == team.teamId,
-                    //             );
-                    //           });
-                    //         }
-                    //       },
-                    //       value: selectedTeams.any(
-                    //         (selectedTeam) =>
-                    //             selectedTeam.teamId == team.teamId,
-                    //       ),
-                    //       checkboxShape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(4),
-                    //       ),
-                    //       activeColor: Theme.of(context).colorScheme.primary,
-                    //     ),
-                    //   ],
-                    // );
-                  },
-                ),
-              ),
-              const SizedBox(height: 8),
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                  ),
-                  onPressed: () {
-                    // Navigator.of(context).pop(selectedTeams);
-                  },
-                  child: const Text(
-                    'Escolher',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )
-                    ),
+                                        //         if (value) {
+                                        //           setState(() {
+                                        //             selectedTeams.add(teamSubscriber[index]);
+                                        //           });
+                                        //         } else {
+                                        //           setState(() {
+                                        //             selectedTeams.removeWhere(
+                                        //               (unselectedTeam) =>
+                                        //                   unselectedTeam.teamId == team.teamId,
+                                        //             );
+                                        //           });
+                                        //         }
+                                        //       },
+                                        //       value: selectedTeams.any(
+                                        //         (selectedTeam) =>
+                                        //             selectedTeam.teamId == team.teamId,
+                                        //       ),
+                                        //       checkboxShape: RoundedRectangleBorder(
+                                        //         borderRadius: BorderRadius.circular(4),
+                                        //       ),
+                                        //       activeColor: Theme.of(context).colorScheme.primary,
+                                        //     ),
+                                        //   ],
+                                        // );
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 56,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        // Navigator.of(context).pop(selectedTeams);
+                                      },
+                                      child: const Text(
+                                        'Escolher',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )),
                     // ).then(
                     //   (value) {
                     //     if (value != null) {
@@ -219,7 +232,126 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                     },
                     controller: _controllers['sub-categoria']!,
                     isReadOnly: true,
-                    onTap: () {},
+                    onTap: () => showModalBottomSheet<List<Categoria>>(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) => Container(
+                        height: MediaQuery.of(context).size.height * 0.65,
+                        padding: const EdgeInsets.all(16),
+                        child: Flex(
+                          direction: Axis.vertical,
+                          children: [
+                            TextField(
+                              onChanged: (String? value) {
+                                context.read<CategoriaBloc>().add(
+                                    FiltroCategoriaEvent(value: value ?? ''));
+                              },
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.magnifyingGlass,
+                                  size: 16,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Expanded(
+                              child: ListView.builder(
+                                // itemCount: teamsState.filteredList.length,
+                                itemBuilder: (context, index) {
+                                  return null;
+
+                                  // return Column(
+                                  //   children: [
+                                  //     CheckboxListTile(
+                                  //       key: Key(team.teamId),
+                                  //       title: Text(
+                                  //         teams[index].name,
+                                  //         overflow: TextOverflow.fade,
+                                  //         softWrap: false,
+                                  //       ),
+                                  //       onChanged: (value) {
+                                  //         if (value == null) {
+                                  //           return;
+                                  //         }
+
+                                  //         if (value) {
+                                  //           setState(() {
+                                  //             selectedTeams.add(teamSubscriber[index]);
+                                  //           });
+                                  //         } else {
+                                  //           setState(() {
+                                  //             selectedTeams.removeWhere(
+                                  //               (unselectedTeam) =>
+                                  //                   unselectedTeam.teamId == team.teamId,
+                                  //             );
+                                  //           });
+                                  //         }
+                                  //       },
+                                  //       value: selectedTeams.any(
+                                  //         (selectedTeam) =>
+                                  //             selectedTeam.teamId == team.teamId,
+                                  //       ),
+                                  //       checkboxShape: RoundedRectangleBorder(
+                                  //         borderRadius: BorderRadius.circular(4),
+                                  //       ),
+                                  //       activeColor: Theme.of(context).colorScheme.primary,
+                                  //     ),
+                                  //   ],
+                                  // );
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 56,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.primary,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  // Navigator.of(context).pop(selectedTeams);
+                                },
+                                child: const Text(
+                                  'Escolher',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                   SollarisTextField(
                     label: 'Público',
@@ -234,7 +366,50 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                     },
                     controller: _controllers['publico']!,
                     isReadOnly: true,
-                    onTap: () {},
+                    onTap: () => showModalBottomSheet<List<Categoria>>(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) => Container(
+                        height: MediaQuery.of(context).size.height * 0.18,
+                        padding: const EdgeInsets.all(16),
+                        child: Flex(
+                          direction: Axis.vertical,
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: _publico.length,
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        leading: Icon(index == 1
+                                            ? Icons.female
+                                            : Icons.male),
+                                        title: Text(
+                                          _publico[index],
+                                          overflow: TextOverflow.fade,
+                                          softWrap: false,
+                                        ),
+                                        onTap: () {
+                                          _controllers['publico']!.text =
+                                              _publico[index];
+                                          return Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                   SollarisTextField(
                     label: 'Título',
