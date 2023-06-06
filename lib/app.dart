@@ -8,7 +8,6 @@ import 'package:cep/src/dependency_assembly.dart' as di;
 
 import 'src/features/categorias/presentation/view/screen_categoria.dart';
 import 'src/features/login/presentation/pages/screen_login.dart';
-import 'src/features/produtos/presentation/pages/screen_form_produto.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -31,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const ScreenFormProduto(),
+        home: const ScreenLogin(),
         routes: {
           AppRoutes.login: (context) => const ScreenLogin(),
           AppRoutes.home: (context) => const ScreenHome(),

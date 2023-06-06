@@ -45,6 +45,7 @@ class _ScreenDataAcessState extends State<ScreenDataAcess> {
               }
               return null;
             },
+            prefixIcon: Icons.mail,
             typeKey: TextInputType.emailAddress,
           ),
           SollarisTextField(
@@ -52,6 +53,7 @@ class _ScreenDataAcessState extends State<ScreenDataAcess> {
             label: "Telefone",
             hint: "(99) 99999-9999",
             controller: controllerTelefone,
+            prefixIcon: Icons.phone,
             onSaved: (value) =>
                 value != null ? Register().setTelefone(value) : null,
             validator: (p0) {
@@ -67,6 +69,7 @@ class _ScreenDataAcessState extends State<ScreenDataAcess> {
           ),
           SollarisTextField(
             isExibPassword: isExibe,
+            prefixIcon: Icons.lock,
             label: "Senha",
             hint: "Digite sua senha",
             controller: controllerPassoword,
@@ -87,6 +90,7 @@ class _ScreenDataAcessState extends State<ScreenDataAcess> {
           ),
           SollarisTextField(
             isExibPassword: isExibe,
+            prefixIcon: Icons.lock,
             label: "Confirme sua senha",
             hint: "Repita sua senha",
             controller: controllerRepeatPassword,

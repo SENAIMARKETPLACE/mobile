@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:cep/src/core/network/base_data_source_info.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
@@ -22,7 +23,7 @@ class CompanyRemoteDataSourceImpl implements ICompanyRemoteDataSource {
 
   @override
   Future<Unit> register({required CompanyModel company}) async {
-    var url = 'http://172.27.160.1:8000/api/business';
+    var url = '${baseUrlLogin}api/business';
     final requestBody = company.toJson();
     final isConnected = await network.isConnected;
 

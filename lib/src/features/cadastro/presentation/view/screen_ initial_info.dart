@@ -32,6 +32,7 @@ class _ScreenInitialInfoState extends State<ScreenInitialInfo> {
           ),
           const SizedBox(height: 20),
           SollarisTextField(
+            prefixIcon: Icons.domain_disabled,
             label: 'Razão social',
             hint: 'Digite a razão social da empresa',
             controller: controllerRazaoSocial,
@@ -46,6 +47,7 @@ class _ScreenInitialInfoState extends State<ScreenInitialInfo> {
           ),
           SollarisTextField(
             label: 'Nome fantasia',
+            prefixIcon: Icons.domain_disabled,
             hint: 'Digite o nome fantasia da empresa',
             controller: controllerNomeFan,
             onSaved: (value) =>
@@ -59,6 +61,7 @@ class _ScreenInitialInfoState extends State<ScreenInitialInfo> {
           ),
           SollarisTextField(
             label: 'Nome Responsável',
+            prefixIcon: Icons.domain_disabled,
             hint: 'Digite o nome do responsável',
             controller: controllerResponsavel,
             onSaved: (value) =>

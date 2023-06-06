@@ -32,7 +32,7 @@ class SollarisAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       centerTitle: true,
-      flexibleSpace: bottomBar!,
+      flexibleSpace: bottomBar,
     );
   }
 

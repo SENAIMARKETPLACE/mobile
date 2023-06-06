@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:cep/src/core/presentation/widgets/sollaris_text_button.dart';
 import 'package:cep/src/features/cadastro/domain/entities/address.dart';
 import 'package:cep/src/features/cadastro/presentation/view/screen_confirm.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cep/src/common/hive/register.dart';
-import 'package:cep/src/features/cadastro/presentation/widget/build_text_button.dart';
 import 'package:cep/src/core/presentation/widgets/sollaris_text_field.dart';
 import 'package:cep/src/core/presentation/widgets/sollaris_title.dart';
 
@@ -39,6 +39,22 @@ class _ScreenEnderecoState extends State<ScreenEndereco> {
     super.initState();
   }
 
+  void _showSnackbar(String message) {
+    final snackbar = SnackBar(
+      duration: const Duration(seconds: 1),
+      content: Text(
+        message,
+        style: const TextStyle(color: Colors.white),
+      ),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+      backgroundColor: Colors.red,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -47,31 +63,51 @@ class _ScreenEnderecoState extends State<ScreenEndereco> {
       },
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color.fromARGB(255, 198, 146, 243),
+                  Color.fromARGB(255, 198, 166, 243),
+                ],
+              ),
+            ),
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: Color(0XFF14C871),
+              color: Color.fromARGB(255, 39, 77, 109),
             ),
           ),
         ),
         body: Container(
-          width: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-          child: SingleChildScrollView(
-            child: Form(
-              key: chave5,
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SollarisTitle(title: "Complete os dados"),
-                    const SizedBox(height: 20),
-                    Column(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(255, 198, 146, 243),
+              Color.fromARGB(255, 167, 222, 222),
+            ],
+          )),
+          child: Stack(
+            children: [
+              Form(
+                key: chave5,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 70),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const SollarisTitle(title: "Complete os dados"),
+                        const SizedBox(height: 10),
                         SollarisTextField(
                           label: "Rua",
                           hint: "Digite o nome da rua",
@@ -155,20 +191,34 @@ class _ScreenEnderecoState extends State<ScreenEndereco> {
                         ),
                       ],
                     ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: BuildTextButton(
-                          keyButton: chave5,
-                          widget: const ScreenConfirm(),
-                          textButton: 'Próximo',
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  width: double.infinity,
+                  child: SollarisTextButton(
+                    textButton: 'Próximo',
+                    function: () {
+                      if (chave5.currentState!.validate()) {
+                        chave5.currentState!.save();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ScreenConfirm(),
+                          ),
+                        );
+                      } else {
+                        _showSnackbar('Verifique os campos');
+                      }
+                    },
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ),
