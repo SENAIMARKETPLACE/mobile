@@ -7,7 +7,6 @@ import 'package:cep/src/features/cadastro/domain/entities/company.dart';
 import 'package:cep/src/features/cadastro/presentation/bloc/register_company_bloc.dart';
 import 'package:cep/src/features/cadastro/presentation/bloc/register_company_event.dart';
 import 'package:cep/src/features/cadastro/presentation/bloc/register_company_state.dart';
-import 'package:cep/src/features/login/presentation/bloc/login_state.dart';
 import 'package:cep/src/features/login/presentation/pages/screen_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,6 +57,25 @@ class _ScreenConfirmState extends State<ScreenConfirm> {
   void initState() {
     loadData();
     super.initState();
+  }
+
+  void _showSnackbarPositive(String message) {
+    final snackbar = SnackBar(
+      duration: const Duration(seconds: 5),
+      content: Text(
+        message,
+        style: const TextStyle(color: Colors.white),
+      ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+      backgroundColor: Colors.green,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
   void _showSnackbar(String message) {
@@ -196,54 +214,81 @@ class _ScreenConfirmState extends State<ScreenConfirm> {
                       Expanded(
                         child: Align(
                           alignment: Alignment.bottomCenter,
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(vertical: 10),
-                            width: double.infinity,
-                            height: 45,
-                            child: SollarisTextButton(
-                                textButton: 'Registrar',
-                                function: () {
-                                  final company = Company(
-                                    id: '',
-                                    cnpj: map['cnpj'],
-                                    email: map['email'],
-                                    telefone: map['telefone'],
-                                    senha: map['senha'],
-                                    razaoSocial: map['razaoSocial'],
-                                    nomeProprietario: map['responsavel'],
-                                    nomeFantasia: map['nomeFantasia'],
-                                    endereco: Address(
-                                      cep: map['cep'],
-                                      numero: map['numero'],
-                                      estado: map['estado'],
-                                      bairro: map['bairro'],
-                                      cidade: map['cidade'],
-                                      logradouro: map['rua'],
-                                    ),
-                                    logo: 'Minha Imagem',
-                                  );
+                          child: BlocConsumer<RegisterCompanyBloc,
+                              RegisterCompanyState>(
+                            listener: (context, state) {
+                              if (state.status ==
+                                  RegisterCompanyStatus.sucess) {
+                                Navigator.of(context)
+                                    .pushReplacementNamed(AppRoutes.login);
+                              } else if (state.status ==
+                                  RegisterCompanyStatus.error) {
+                                _showSnackbar('Erro ao cadastrar!');
+                              }
+                            },
+                            builder: (context, state) {
+                              if (state.status ==
+                                  RegisterCompanyStatus.loading) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                _showSnackbarPositive(
+                                    'Cadastrado realizado com sucesso');
+                                return Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  width: double.infinity,
+                                  height: 45,
+                                  child: SollarisTextButton(
+                                      textButton: 'Registrar',
+                                      function: () {
+                                        final company = Company(
+                                          id: '',
+                                          cnpj: map['cnpj'],
+                                          email: map['email'],
+                                          telefone: map['telefone'],
+                                          senha: map['senha'],
+                                          razaoSocial: map['razaoSocial'],
+                                          nomeProprietario: map['responsavel'],
+                                          nomeFantasia: map['nomeFantasia'],
+                                          endereco: Address(
+                                            cep: map['cep'],
+                                            numero: map['numero'],
+                                            estado: map['estado'],
+                                            bairro: map['bairro'],
+                                            cidade: map['cidade'],
+                                            logradouro: map['rua'],
+                                          ),
+                                          logo: 'Minha Imagem',
+                                        );
 
-                                  final state =
-                                      context.read<RegisterCompanyBloc>().state;
+                                        final state = context
+                                            .read<RegisterCompanyBloc>()
+                                            .state;
 
-                                  context
-                                      .read<RegisterCompanyBloc>()
-                                      .add(SetCompanyEvent(company: company));
+                                        context.read<RegisterCompanyBloc>().add(
+                                            SetCompanyEvent(company: company));
 
-                                  if (state.status ==
-                                      RegisterCompanyStatus.sucess) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackbarSucess);
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ScreenLogin()));
-                                  } else if (state.status ==
-                                      RegisterCompanyStatus.error) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackbarError);
-                                  }
-                                }),
+                                        if (state.status ==
+                                            RegisterCompanyStatus.sucess) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackbarSucess);
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ScreenLogin(),
+                                            ),
+                                          );
+                                        } else if (state.status ==
+                                            RegisterCompanyStatus.error) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackbarError);
+                                        }
+                                      }),
+                                );
+                              }
+                            },
                           ),
                         ),
                       ),
