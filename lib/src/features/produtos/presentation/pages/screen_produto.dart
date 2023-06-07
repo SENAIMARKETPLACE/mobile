@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cep/src/core/presentation/widgets/solaris_bottom_app_bar.dart';
+import 'package:cep/src/features/produtos/domain/entities/produto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cep/src/common/hive/preferences_actions.dart';
@@ -39,45 +41,99 @@ class _ScreenProdutoState extends State<ScreenProduto> {
     context.read<ProdutoBloc>().add(GetProdutosEvent(id: widget.id));
   }
 
+  List<Produto> example = [
+    const Produto(
+        id: '',
+        nome: 'Produto 1',
+        descricao: 'Exemplp',
+        preco: '100',
+        foto: 'teste',
+        publico: 'Masculino'),
+    const Produto(
+        id: '',
+        nome: 'Produto 1',
+        descricao: 'Exemplp',
+        preco: '100',
+        foto: 'teste',
+        publico: 'Masculino'),
+    const Produto(
+        id: '',
+        nome: 'Produto 1',
+        descricao: 'Exemplp',
+        preco: '100',
+        foto: 'teste',
+        publico: 'Masculino'),
+    const Produto(
+        id: '',
+        nome: 'Produto 1',
+        descricao: 'Exemplp',
+        preco: '100',
+        foto: 'teste',
+        publico: 'Masculino'),
+    const Produto(
+        id: '',
+        nome: 'Produto 1',
+        descricao: 'Exemplp',
+        preco: '100',
+        foto: 'teste',
+        publico: 'Masculino'),
+    const Produto(
+        id: '',
+        nome: 'Produto 1',
+        descricao: 'Exemplp',
+        preco: '100',
+        foto: 'teste',
+        publico: 'Masculino'),
+    const Produto(
+        id: '',
+        nome: 'Produto 1',
+        descricao: 'Exemplp',
+        preco: '100',
+        foto: 'teste',
+        publico: 'Masculino'),
+    const Produto(
+        id: '',
+        nome: 'Produto 1',
+        descricao: 'Exemplp',
+        preco: '100',
+        foto: 'teste',
+        publico: 'Masculino'),
+    const Produto(
+        id: '',
+        nome: 'Produto 1',
+        descricao: 'Exemplp',
+        preco: '100',
+        foto: 'teste',
+        publico: 'Masculino'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sollaris'),
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: Size(
-            double.infinity,
-            AppBar().preferredSize.height,
-          ),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back_sharp),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            title: const Text(
-              'Meus Produtos',
-              style: TextStyle(fontSize: 16),
-            ),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {
-                  setState(() {
-                    _exibeSearch = !_exibeSearch;
-                  });
-                },
-              ),
-            ],
-            elevation: 0,
-          ),
+      appBar: SollarisBottomAppBar(
+        subTitle: 'Meus Produtos',
+        search: IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {
+            setState(() {
+              _exibeSearch = !_exibeSearch;
+            });
+          },
         ),
       ),
-      body: Padding(
+      drawer: const Drawer(),
+      body: Container(
         padding: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(255, 220, 195, 243),
+              Color.fromARGB(255, 167, 222, 222)
+            ],
+          ),
+        ),
         child: _buildBody(),
       ),
     );
@@ -87,34 +143,43 @@ class _ScreenProdutoState extends State<ScreenProduto> {
     return Column(
       children: <Widget>[
         if (_exibeSearch)
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Card(
-              child: ListTile(
-                leading: const Icon(Icons.search),
-                title: TextField(
-                  onChanged: (value) {
-                    context.read<ProdutoBloc>().add(
-                          FiltroProdutoEvent(value: value),
-                        );
-                  },
-                  controller: _search,
-                  decoration: const InputDecoration(
-                    hintText: 'Pesquisar',
-                    border: InputBorder.none,
-                  ),
+          Card(
+            margin: const EdgeInsets.only(bottom: 15),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+            ),
+            child: ListTile(
+              leading: const Icon(
+                Icons.search,
+                color: Color.fromARGB(255, 189, 66, 201),
+              ),
+              title: TextField(
+                onChanged: (value) {
+                  context.read<ProdutoBloc>().add(
+                        FiltroProdutoEvent(value: value),
+                      );
+                },
+                controller: _search,
+                decoration: const InputDecoration(
+                  hintText: 'Pesquisar',
+                  border: InputBorder.none,
+                ),
 
-                  // onChanged: onValueChanged,
+                // onChanged: onValueChanged,
+              ),
+              trailing: IconButton(
+                icon: const Icon(
+                  Icons.cancel,
+                  color: Color.fromARGB(255, 189, 66, 201),
                 ),
-                trailing: IconButton(
-                  icon: const Icon(Icons.cancel),
-                  onPressed: () {
-                    _search.clear();
-                    context.read<ProdutoBloc>().add(
-                          const FiltroProdutoEvent(value: ''),
-                        );
-                  },
-                ),
+                onPressed: () {
+                  _search.clear();
+                  context.read<ProdutoBloc>().add(
+                        const FiltroProdutoEvent(value: ''),
+                      );
+                },
               ),
             ),
           ),
@@ -131,64 +196,167 @@ class _ScreenProdutoState extends State<ScreenProduto> {
               switch (state.status) {
                 case ProdutoStatus.initial:
                 case ProdutoStatus.loading:
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  );
+                // return Center(
+                //   child: CircularProgressIndicator(
+                //     color: Theme.of(context).colorScheme.primary,
+                //   ),
+                // );
                 case ProdutoStatus.success:
-                  if (state.produtos.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        '''Não existem Produtos salvas!''',
-                        textAlign: TextAlign.center,
-                      ),
-                    );
-                  }
+                  // if (state.produtos.isEmpty) {
+                  //   return const Center(
+                  //     child: Text(
+                  //       '''Não existem Produtos salvas!''',
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //   );
+                  // }
 
                   return RefreshIndicator(
-                    onRefresh: () async => context
-                        .read<ProdutoBloc>()
-                        .add(GetProdutosEvent(id: widget.id)),
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 8),
-                      itemCount: state.produtosFiltro.length,
+                    onRefresh: () async {},
+                    child: GridView.builder(
+                      itemCount: example.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: 220,
+                      ),
                       itemBuilder: (context, index) {
-                        final categoria = state.produtosFiltro[index];
-                        return DecoratedBox(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blue),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: ListTile(
-                            // onTap: () => Navigator.of(context).push(
-                            //   MaterialPageRoute<void>(
-                            //     builder: (_) =>
-                            //         ScreenSubCategoria(categoria: categoria),
-                            //     fullscreenDialog: true,
-                            //   ),
-                            // ),
-                            leading: Padding(
-                              padding: const EdgeInsets.only(top: 4),
-                              child: SizedBox.square(
-                                dimension: 16,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 2, color: Colors.blue),
-                                    borderRadius: BorderRadius.circular(2),
-                                  ),
+                        return Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              margin: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 245, 235, 242),
+                                border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 189, 66, 201),
                                 ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    height: 80,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.transparent,
+                                      image: const DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJzRGkvN9WVysP2_3AbXtdgTegy9mEELt2yFirxQymBg&s'),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 18,
+                                  ),
+                                  Text(
+                                    example[index].nome,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text('R\$ ${example[index].preco}')
+                                ],
                               ),
                             ),
-                            horizontalTitleGap: 0,
-                            title: Text(categoria.nome),
-                          ),
+                            Positioned(
+                                child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: IconButton(
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          child: Wrap(
+                                            children: [
+                                              ListTile(
+                                                leading: const Icon(Icons.edit),
+                                                title: const Text('Editar'),
+                                                onTap: () {
+                                                  // Lógica para a opção de editar
+                                                  Navigator.pop(
+                                                      context); // Fechar o bottom sheet
+                                                },
+                                              ),
+                                              ListTile(
+                                                leading:
+                                                    const Icon(Icons.delete),
+                                                title: const Text('Excluir'),
+                                                onTap: () {
+                                                  // Lógica para a opção de excluir
+                                                  Navigator.pop(
+                                                      context); // Fechar o bottom sheet
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  icon: const Icon(Icons.edit)),
+                            ))
+                          ],
                         );
                       },
                     ),
                   );
+
+                // return RefreshIndicator(
+                //   onRefresh: () async => context
+                //       .read<ProdutoBloc>()
+                //       .add(GetProdutosEvent(id: widget.id)),
+                //   child: ListView.separated(
+                //     separatorBuilder: (context, index) =>
+                //         const SizedBox(height: 8),
+                //     itemCount: state.produtosFiltro.length,
+                //     itemBuilder: (context, index) {
+                //       final categoria = state.produtosFiltro[index];
+                //       return DecoratedBox(
+                //         decoration: BoxDecoration(
+                //           border: Border.all(color: Colors.blue),
+                //           borderRadius: BorderRadius.circular(8),
+                //         ),
+                //         child: ListTile(
+                //           // onTap: () => Navigator.of(context).push(
+                //           //   MaterialPageRoute<void>(
+                //           //     builder: (_) =>
+                //           //         ScreenSubCategoria(categoria: categoria),
+                //           //     fullscreenDialog: true,
+                //           //   ),
+                //           // ),
+                //           leading: Padding(
+                //             padding: const EdgeInsets.only(top: 4),
+                //             child: SizedBox.square(
+                //               dimension: 16,
+                //               child: DecoratedBox(
+                //                 decoration: BoxDecoration(
+                //                   border: Border.all(
+                //                       width: 2, color: Colors.blue),
+                //                   borderRadius: BorderRadius.circular(2),
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //           horizontalTitleGap: 0,
+                //           title: Text(categoria.nome),
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // );
                 case ProdutoStatus.error:
                   return const Icon(Icons.add);
               }

@@ -1,3 +1,4 @@
+import 'package:cep/src/core/presentation/widgets/solaris_bottom_app_bar.dart';
 import 'package:cep/src/core/presentation/widgets/sollaris_error_snackbar.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
@@ -23,53 +24,35 @@ class _ScreenCategoriaState extends State<ScreenCategoria> {
     context.read<CategoriaBloc>().add(GetCategoriasEvent());
   }
 
+  List<String> example = ['Categoria 1', 'Categoria 2', 'Categoria 3'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // title: SizedBox(
-        //   height: 24,
-        //   child: Image.asset(
-        //     'assets/images/logo_neotriad.png',
-        //     fit: BoxFit.scaleDown,
-        //   ),
-        // ),
-        title: const Text('Sollaris'),
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: Size(
-            double.infinity,
-            AppBar().preferredSize.height,
-          ),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back_sharp),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            title: const Text(
-              'Categorias',
-              style: TextStyle(fontSize: 16),
-            ),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {
-                  setState(() {
-                    _exibeSearch = !_exibeSearch;
-                  });
-                },
-              ),
-            ],
-            elevation: 0,
-          ),
+      appBar: SollarisBottomAppBar(
+        subTitle: 'Categorias',
+        search: IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {
+            setState(() {
+              _exibeSearch = !_exibeSearch;
+            });
+          },
         ),
       ),
-      // drawer: const NeotriadDrawer(),
-      body: Padding(
+      drawer: const Drawer(),
+      body: Container(
         padding: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(255, 220, 195, 243),
+              Color.fromARGB(255, 167, 222, 222)
+            ],
+          ),
+        ),
         child: _buildBody(),
       ),
     );
@@ -79,34 +62,40 @@ class _ScreenCategoriaState extends State<ScreenCategoria> {
     return Column(
       children: <Widget>[
         if (_exibeSearch)
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Card(
-              child: ListTile(
-                leading: const Icon(Icons.search),
-                title: TextField(
-                  onChanged: (value) {
-                    context.read<CategoriaBloc>().add(
-                          FiltroCategoriaEvent(value: value),
-                        );
-                  },
-                  controller: _search,
-                  decoration: const InputDecoration(
-                    hintText: 'Pesquisar',
-                    border: InputBorder.none,
-                  ),
+          Card(
+            margin: const EdgeInsets.only(bottom: 15),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            child: ListTile(
+              leading: const Icon(
+                Icons.search,
+                color: Color.fromARGB(255, 189, 66, 201),
+              ),
+              title: TextField(
+                onChanged: (value) {
+                  context.read<CategoriaBloc>().add(
+                        FiltroCategoriaEvent(value: value),
+                      );
+                },
+                controller: _search,
+                decoration: const InputDecoration(
+                  hintText: 'Pesquisar',
+                  border: InputBorder.none,
+                ),
 
-                  // onChanged: onValueChanged,
+                // onChanged: onValueChanged,
+              ),
+              trailing: IconButton(
+                icon: const Icon(
+                  Icons.cancel,
+                  color: Color.fromARGB(255, 189, 66, 201),
                 ),
-                trailing: IconButton(
-                  icon: const Icon(Icons.cancel),
-                  onPressed: () {
-                    _search.clear();
-                    context.read<CategoriaBloc>().add(
-                          const FiltroCategoriaEvent(value: ''),
-                        );
-                  },
-                ),
+                onPressed: () {
+                  _search.clear();
+                  context.read<CategoriaBloc>().add(
+                        const FiltroCategoriaEvent(value: ''),
+                      );
+                },
               ),
             ),
           ),
@@ -123,43 +112,38 @@ class _ScreenCategoriaState extends State<ScreenCategoria> {
               switch (state.status) {
                 case CategoriaStatus.initial:
                 case CategoriaStatus.loading:
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  );
+                // return const Center(child: Text('Teste')
+                //     // child: CircularProgressIndicator(
+                //     //   color: Theme.of(context).colorScheme.primary,
+                //     // ),
+                //     );
                 case CategoriaStatus.success:
-                  if (state.categoriasFiltro.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        '''Não existem categorias salvas!''',
-                        textAlign: TextAlign.center,
-                      ),
-                    );
-                  }
+                  // if (state.categoriasFiltro.isEmpty) {
+                  //   return const Center(
+                  //     child: Text(
+                  //       '''Não existem categorias salvas!''',
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //   );
+                  // }
 
                   return RefreshIndicator(
-                    onRefresh: () async =>
-                        context.read<CategoriaBloc>().add(GetCategoriasEvent()),
+                    onRefresh: () async {},
                     child: ListView.separated(
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 8),
-                      itemCount: state.categoriasFiltro.length,
+                      itemCount: example.length,
                       itemBuilder: (context, index) {
-                        final categoria = state.categoriasFiltro[index];
-                        return DecoratedBox(
+                        return Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blue),
-                            borderRadius: BorderRadius.circular(8),
+                            color: const Color.fromARGB(255, 245, 235, 242),
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 189, 66, 201),
+                            ),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           child: ListTile(
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                builder: (_) =>
-                                    ScreenSubCategoriaId(categoria: categoria),
-                                fullscreenDialog: true,
-                              ),
-                            ),
+                            onTap: () {},
                             leading: Padding(
                               padding: const EdgeInsets.only(top: 4),
                               child: SizedBox.square(
@@ -167,19 +151,65 @@ class _ScreenCategoriaState extends State<ScreenCategoria> {
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        width: 2, color: Colors.blue),
+                                      width: 2,
+                                      color: Colors.blue,
+                                      style: BorderStyle.solid,
+                                    ),
                                     borderRadius: BorderRadius.circular(2),
                                   ),
                                 ),
                               ),
                             ),
                             horizontalTitleGap: 0,
-                            title: Text(categoria.nome),
+                            title: Text(example[index]),
                           ),
                         );
                       },
                     ),
                   );
+
+                // return RefreshIndicator(
+                //   onRefresh: () async =>
+                //       context.read<CategoriaBloc>().add(GetCategoriasEvent()),
+                //   child: ListView.separated(
+                //     separatorBuilder: (context, index) =>
+                //         const SizedBox(height: 8),
+                //     itemCount: state.categoriasFiltro.length,
+                //     itemBuilder: (context, index) {
+                //       final categoria = state.categoriasFiltro[index];
+                //       return DecoratedBox(
+                //         decoration: BoxDecoration(
+                //           border: Border.all(color: Colors.blue),
+                //           borderRadius: BorderRadius.circular(8),
+                //         ),
+                //         child: ListTile(
+                //           onTap: () => Navigator.of(context).push(
+                //             MaterialPageRoute<void>(
+                //               builder: (_) =>
+                //                   ScreenSubCategoriaId(categoria: categoria),
+                //               fullscreenDialog: true,
+                //             ),
+                //           ),
+                //           leading: Padding(
+                //             padding: const EdgeInsets.only(top: 4),
+                //             child: SizedBox.square(
+                //               dimension: 16,
+                //               child: DecoratedBox(
+                //                 decoration: BoxDecoration(
+                //                   border: Border.all(
+                //                       width: 2, color: Colors.blue),
+                //                   borderRadius: BorderRadius.circular(2),
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //           horizontalTitleGap: 0,
+                //           title: Text(categoria.nome),
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // );
                 case CategoriaStatus.error:
                   return const Icon(Icons.add);
               }
