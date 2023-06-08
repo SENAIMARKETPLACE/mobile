@@ -112,28 +112,51 @@ class _ScreenCategoriaState extends State<ScreenCategoria> {
               switch (state.status) {
                 case CategoriaStatus.initial:
                 case CategoriaStatus.loading:
-                // return const Center(child: Text('Teste')
-                //     // child: CircularProgressIndicator(
-                //     //   color: Theme.of(context).colorScheme.primary,
-                //     // ),
-                //     );
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  );
                 case CategoriaStatus.success:
-                  // if (state.categoriasFiltro.isEmpty) {
-                  //   return const Center(
-                  //     child: Text(
-                  //       '''Não existem categorias salvas!''',
-                  //       textAlign: TextAlign.center,
-                  //     ),
-                  //   );
-                  // }
+                  if (state.categoriasFiltro.isEmpty) {
+                    return Center(
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 200,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text(
+                              '''Não existem categorias salvas!''',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            GestureDetector(
+                              onTap: () async => context
+                                  .read<CategoriaBloc>()
+                                  .add(GetCategoriasEvent()),
+                              child: const Icon(
+                                Icons.refresh,
+                                size: 70,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
 
                   return RefreshIndicator(
-                    onRefresh: () async {},
+                    onRefresh: () async =>
+                        context.read<CategoriaBloc>().add(GetCategoriasEvent()),
                     child: ListView.separated(
+                      itemCount: state.categoriasFiltro.length,
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 8),
-                      itemCount: example.length,
                       itemBuilder: (context, index) {
+                        final categoria = state.categoriasFiltro[index];
+
                         return Container(
                           decoration: BoxDecoration(
                             color: const Color.fromARGB(255, 245, 235, 242),
@@ -143,7 +166,13 @@ class _ScreenCategoriaState extends State<ScreenCategoria> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: ListTile(
-                            onTap: () {},
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (_) =>
+                                    ScreenSubCategoriaId(categoria: categoria),
+                                fullscreenDialog: true,
+                              ),
+                            ),
                             leading: Padding(
                               padding: const EdgeInsets.only(top: 4),
                               child: SizedBox.square(
@@ -161,55 +190,13 @@ class _ScreenCategoriaState extends State<ScreenCategoria> {
                               ),
                             ),
                             horizontalTitleGap: 0,
-                            title: Text(example[index]),
+                            title: Text(categoria.nome),
                           ),
                         );
                       },
                     ),
                   );
 
-                // return RefreshIndicator(
-                //   onRefresh: () async =>
-                //       context.read<CategoriaBloc>().add(GetCategoriasEvent()),
-                //   child: ListView.separated(
-                //     separatorBuilder: (context, index) =>
-                //         const SizedBox(height: 8),
-                //     itemCount: state.categoriasFiltro.length,
-                //     itemBuilder: (context, index) {
-                //       final categoria = state.categoriasFiltro[index];
-                //       return DecoratedBox(
-                //         decoration: BoxDecoration(
-                //           border: Border.all(color: Colors.blue),
-                //           borderRadius: BorderRadius.circular(8),
-                //         ),
-                //         child: ListTile(
-                //           onTap: () => Navigator.of(context).push(
-                //             MaterialPageRoute<void>(
-                //               builder: (_) =>
-                //                   ScreenSubCategoriaId(categoria: categoria),
-                //               fullscreenDialog: true,
-                //             ),
-                //           ),
-                //           leading: Padding(
-                //             padding: const EdgeInsets.only(top: 4),
-                //             child: SizedBox.square(
-                //               dimension: 16,
-                //               child: DecoratedBox(
-                //                 decoration: BoxDecoration(
-                //                   border: Border.all(
-                //                       width: 2, color: Colors.blue),
-                //                   borderRadius: BorderRadius.circular(2),
-                //                 ),
-                //               ),
-                //             ),
-                //           ),
-                //           horizontalTitleGap: 0,
-                //           title: Text(categoria.nome),
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // );
                 case CategoriaStatus.error:
                   return const Icon(Icons.add);
               }
