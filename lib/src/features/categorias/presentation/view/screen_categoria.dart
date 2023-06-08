@@ -3,6 +3,7 @@ import 'package:cep/src/core/presentation/widgets/sollaris_error_snackbar.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.dart';
+import 'package:cep/src/features/categorias/presentation/view/screen_sub_categoria_all.dart';
 import 'package:cep/src/features/categorias/presentation/view/screen_sub_categoria_id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -168,8 +169,10 @@ class _ScreenCategoriaState extends State<ScreenCategoria> {
                           child: ListTile(
                             onTap: () => Navigator.of(context).push(
                               MaterialPageRoute<void>(
-                                builder: (_) =>
-                                    ScreenSubCategoriaId(categoria: categoria),
+                                builder: (_) => ScreenSubCategoriaId(
+                                    categoria: categoria,
+                                    categorieTitle: categoria.nome),
+                                // const ScreenSubCategoriaAll(),
                                 fullscreenDialog: true,
                               ),
                             ),

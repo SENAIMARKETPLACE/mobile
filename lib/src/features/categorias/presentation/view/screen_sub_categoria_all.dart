@@ -3,7 +3,6 @@ import 'package:cep/src/core/presentation/widgets/sollaris_error_snackbar.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.dart';
-import 'package:cep/src/features/categorias/presentation/view/screen_sub_categoria_id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,8 +22,6 @@ class _ScreenSubCategoriaAllState extends State<ScreenSubCategoriaAll> {
     super.initState();
     context.read<CategoriaBloc>().add(GetAllSubCategoriasEvent());
   }
-
-  List<String> example = ['Categoria 1', 'Categoria 2', 'Categoria 3'];
 
   @override
   Widget build(BuildContext context) {
@@ -115,28 +112,32 @@ class _ScreenSubCategoriaAllState extends State<ScreenSubCategoriaAll> {
               switch (state.status) {
                 case CategoriaStatus.initial:
                 case CategoriaStatus.loading:
-                // return Center(
-                //   child: CircularProgressIndicator(
-                //     color: Theme.of(context).colorScheme.primary,
-                //   ),
-                // );
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  );
                 case CategoriaStatus.success:
-                  // if (state.subCategoriasFiltro.isEmpty) {
-                  //   return const Center(
-                  //     child: Text(
-                  //       '''Não existem sub-categorias salvas!''',
-                  //       textAlign: TextAlign.center,
-                  //     ),
-                  //   );
-                  // }
+                  if (state.subCategoriasFiltro.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        '''Não existem sub-categorias salvas!''',
+                        textAlign: TextAlign.center,
+                      ),
+                    );
+                  }
 
                   return RefreshIndicator(
-                    onRefresh: () async {},
+                    onRefresh: () async => context
+                        .read<CategoriaBloc>()
+                        .add(GetAllSubCategoriasEvent()),
                     child: ListView.separated(
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 8),
-                      itemCount: example.length,
+                      itemCount: state.categoriasFiltro.length,
                       itemBuilder: (context, index) {
+                        final subCategoria = state.categoriasFiltro[index];
+
                         return Container(
                           decoration: BoxDecoration(
                             color: const Color.fromARGB(255, 245, 235, 242),
@@ -164,56 +165,12 @@ class _ScreenSubCategoriaAllState extends State<ScreenSubCategoriaAll> {
                               ),
                             ),
                             horizontalTitleGap: 0,
-                            title: Text(example[index]),
+                            title: Text(subCategoria.nome),
                           ),
                         );
                       },
                     ),
                   );
-
-                // return RefreshIndicator(
-                //   onRefresh: () async => context
-                //       .read<CategoriaBloc>()
-                //       .add(GetAllSubCategoriasEvent()),
-                //   child: ListView.separated(
-                //     separatorBuilder: (context, index) =>
-                //         const SizedBox(height: 8),
-                //     itemCount: state.categoriasFiltro.length,
-                //     itemBuilder: (context, index) {
-                //       final subCategoria = state.categoriasFiltro[index];
-                //       return DecoratedBox(
-                //         decoration: BoxDecoration(
-                //           border: Border.all(color: Colors.blue),
-                //           borderRadius: BorderRadius.circular(8),
-                //         ),
-                //         child: ListTile(
-                //           // onTap: () => Navigator.of(context).push(
-                //           //   MaterialPageRoute<void>(
-                //           //     builder: (_) =>
-                //           //         ScreenSubCategoriaId(categoria: categoria),
-                //           //     fullscreenDialog: true,
-                //           //   ),
-                //           // ),
-                //           leading: Padding(
-                //             padding: const EdgeInsets.only(top: 4),
-                //             child: SizedBox.square(
-                //               dimension: 16,
-                //               child: DecoratedBox(
-                //                 decoration: BoxDecoration(
-                //                   border: Border.all(
-                //                       width: 2, color: Colors.blue),
-                //                   borderRadius: BorderRadius.circular(2),
-                //                 ),
-                //               ),
-                //             ),
-                //           ),
-                //           horizontalTitleGap: 0,
-                //           title: Text(subCategoria.nome),
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // );
                 case CategoriaStatus.error:
                   return const Icon(Icons.add);
               }
