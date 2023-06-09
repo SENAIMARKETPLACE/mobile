@@ -33,7 +33,9 @@ class _HomeListProductsState extends State<HomeListProducts> {
   @override
   void initState() {
     super.initState();
-    context.read<ProdutoBloc>().add(GetProdutosEvent(id: widget.idEmpresa));
+    // context
+    //     .read<ProdutoBloc>()
+    //     .add(GetProdutosEvent(idSubCategoria: widget.idEmpresa));
   }
 
   @override

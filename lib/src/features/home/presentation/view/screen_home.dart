@@ -15,7 +15,7 @@ import 'package:cep/src/features/home/presentation/widgets/home_list_product.dar
 import 'package:cep/src/features/home/presentation/widgets/home_list_sub_categories.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_event.dart';
-import 'package:cep/src/features/produtos/presentation/pages/screen_produto.dart';
+import 'package:cep/src/features/produtos/presentation/pages/screen_produto_all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -85,7 +85,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                           title: 'Meus Produtos',
                           heigthCarousel: 180,
                           idEmpresa: pref.id,
-                          route: ScreenProduto(id: pref.id)),
+                          route: const ScreenProdutoAll()),
                     ],
                   ),
                 );

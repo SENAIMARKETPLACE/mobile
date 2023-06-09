@@ -25,8 +25,6 @@ class _ScreenCategoriaState extends State<ScreenCategoria> {
     context.read<CategoriaBloc>().add(GetCategoriasEvent());
   }
 
-  List<String> example = ['Categoria 1', 'Categoria 2', 'Categoria 3'];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

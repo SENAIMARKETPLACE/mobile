@@ -119,10 +119,30 @@ class _ScreenSubCategoriaAllState extends State<ScreenSubCategoriaAll> {
                   );
                 case CategoriaStatus.success:
                   if (state.subCategoriasFiltro.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        '''Não existem sub-categorias salvas!''',
-                        textAlign: TextAlign.center,
+                    return Center(
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 200,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text(
+                              '''Não existem sub-categorias salvas!''',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            GestureDetector(
+                              onTap: () async => context
+                        .read<CategoriaBloc>()
+                        .add(GetAllSubCategoriasEvent()),
+                              child: const Icon(
+                                Icons.refresh,
+                                size: 70,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   }
@@ -134,9 +154,9 @@ class _ScreenSubCategoriaAllState extends State<ScreenSubCategoriaAll> {
                     child: ListView.separated(
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 8),
-                      itemCount: state.categoriasFiltro.length,
+                      itemCount: state.subCategoriasFiltro.length,
                       itemBuilder: (context, index) {
-                        final subCategoria = state.categoriasFiltro[index];
+                        final subCategoria = state.subCategoriasFiltro[index];
 
                         return Container(
                           decoration: BoxDecoration(

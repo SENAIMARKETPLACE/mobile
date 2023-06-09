@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cep/src/features/produtos/presentation/pages/screen_produto_id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -87,7 +88,7 @@ class _ScreenSubCategoriaIdState extends State<ScreenSubCategoriaId> {
               title: TextField(
                 onChanged: (value) {
                   context.read<CategoriaBloc>().add(
-                        FiltroCategoriaEvent(value: value),
+                        FiltroSubCategoriaEvent(value: value),
                       );
                 },
                 controller: _search,
@@ -132,10 +133,31 @@ class _ScreenSubCategoriaIdState extends State<ScreenSubCategoriaId> {
                   );
                 case CategoriaStatus.success:
                   if (state.subCategoriasFiltro.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        '''Não existem sub-categorias salvas!''',
-                        textAlign: TextAlign.center,
+                    return Center(
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 200,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              '''Não existem sub-categorias de ${widget.categorieTitle} salvas!''',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            GestureDetector(
+                              onTap: () async => context
+                                  .read<CategoriaBloc>()
+                                  .add(GetSubCategoriasEvent(
+                                      id: widget.categoria.id)),
+                              child: const Icon(
+                                Icons.refresh,
+                                size: 70,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   }
@@ -160,7 +182,16 @@ class _ScreenSubCategoriaIdState extends State<ScreenSubCategoriaId> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: ListTile(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ScreenProdutoId(
+                                    idSubCategoria: subCategoria.id,
+                                    nomeSubCategoria: subCategoria.nome,
+                                  ),
+                                ),
+                              );
+                            },
                             leading: Padding(
                               padding: const EdgeInsets.only(top: 4),
                               child: SizedBox.square(

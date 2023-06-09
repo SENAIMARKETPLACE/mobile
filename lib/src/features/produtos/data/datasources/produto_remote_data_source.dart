@@ -11,9 +11,16 @@ import 'package:cep/src/core/error/exceptions.dart';
 import 'package:cep/src/core/network/network_info.dart';
 
 abstract class IProdutoRemoteDataSource {
-  Future<List<ProdutoModel>> getProdutos({required String id});
-  Future<List<ProdutoModel>> getAllProdutos();
-  Future<Unit> createProduto({required ProdutoModel produto});
+  Future<List<ProdutoModel>> getAllProdutosSubCategoria({
+    required String idEmpresa,
+    required String idSubCategoria,
+  });
+  Future<List<ProdutoModel>> getAllProdutosCompany({
+    required String idEmpresa,
+  });
+  Future<Unit> createProduto({
+    required ProdutoModel produto,
+  });
   Future<Unit> deleteProduto({required String id});
 }
 
@@ -27,8 +34,12 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
   });
 
   @override
-  Future<List<ProdutoModel>> getProdutos({required String id}) async {
-    var url = '$baseUrl/api/products/my_products/$id';
+  Future<List<ProdutoModel>> getAllProdutosSubCategoria({
+    required String idEmpresa,
+    required String idSubCategoria,
+  }) async {
+    var url =
+        '${baseUrl}api/products/my_products_subCategories?empresa=$idEmpresa&subCategoria=$idSubCategoria';
     final isConnected = await network.isConnected;
     final response = await client.get(
       Uri.parse(url),
@@ -59,8 +70,9 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
   }
 
   @override
-  Future<List<ProdutoModel>> getAllProdutos() async {
-    var url = '$baseUrl/api/products';
+  Future<List<ProdutoModel>> getAllProdutosCompany(
+      {required String idEmpresa}) async {
+    var url = '$baseUrl/api/products/my_products/$idEmpresa';
     final isConnected = await network.isConnected;
     final response = await client.get(
       Uri.parse(url),

@@ -16,10 +16,16 @@ class ProdutoRepositoryImpl implements ProdutoRepository {
   });
 
   @override
-  Future<Either<Failure, List<Produto>>> getProdutos(
-      {required String id}) async {
+  Future<Either<Failure, List<Produto>>> getAllProdutosSubCategoria({
+    required String idEmpresa,
+    required String idSubCategoria,
+  }) async {
     try {
-      final listProduto = await produtoRemoteDataSource.getProdutos(id: id);
+      final listProduto =
+          await produtoRemoteDataSource.getAllProdutosSubCategoria(
+        idEmpresa: idEmpresa,
+        idSubCategoria: idSubCategoria,
+      );
 
       return Right(listProduto);
     } on ServerException {
@@ -30,9 +36,11 @@ class ProdutoRepositoryImpl implements ProdutoRepository {
   }
 
   @override
-  Future<Either<Failure, List<Produto>>> getAllProdutos() async {
+  Future<Either<Failure, List<Produto>>> getAllProdutosCompany(
+      {required String idEmpresa}) async {
     try {
-      final listProduto = await produtoRemoteDataSource.getAllProdutos();
+      final listProduto = await produtoRemoteDataSource.getAllProdutosCompany(
+          idEmpresa: idEmpresa);
 
       return Right(listProduto);
     } on ServerException {
