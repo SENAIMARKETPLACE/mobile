@@ -12,10 +12,12 @@ class ScreenFormProduto extends StatefulWidget {
 class _ScreenFormProdutoState extends State<ScreenFormProduto> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: SollarisBottomAppBar(subTitle: 'Adicionar Produto'),
-      drawer: Drawer(),
-      body: BuildFormProduto(),
+    return const SafeArea(
+      child: Scaffold(
+        appBar: SollarisBottomAppBar(subTitle: 'Adicionar Produto'),
+        drawer: Drawer(),
+        body: BuildFormProduto(),
+      ),
     );
   }
 }

@@ -34,7 +34,7 @@ class SollarisBottomAppBar extends StatelessWidget
                 ),
               ),
               actions: [
-                search!,
+                search ?? const SizedBox.shrink(),
               ],
             ),
           ],

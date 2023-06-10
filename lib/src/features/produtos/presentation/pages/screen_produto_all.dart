@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cep/src/core/presentation/widgets/solaris_bottom_app_bar.dart';
+import 'package:cep/src/features/produtos/presentation/pages/screen_form_produto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cep/src/common/hive/preferences_actions.dart';
@@ -67,6 +68,16 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
           ),
         ),
         child: _buildBody(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) {
+              return const ScreenFormProduto();
+            },
+          ));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

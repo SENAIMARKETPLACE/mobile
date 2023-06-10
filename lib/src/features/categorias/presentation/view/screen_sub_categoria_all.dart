@@ -52,6 +52,7 @@ class _ScreenSubCategoriaAllState extends State<ScreenSubCategoriaAll> {
         ),
         child: _buildBody(),
       ),
+      
     );
   }
 
