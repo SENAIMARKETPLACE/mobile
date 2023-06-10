@@ -894,18 +894,28 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                               function: () {
                                 if (formKey.currentState!.validate()) {
                                   final produto = Produto(
-                                    id: '',
+                                    id: widget.product.id.isNotEmpty
+                                        ? widget.product.id
+                                        : '',
                                     nome: _controllers['nome']!.text,
                                     descricao: _controllers['observacao']!.text,
                                     preco: _controllers['preco']!.text,
                                     foto: _controllers['img']!.text,
                                     publico: _controllers['publico']!.text,
-                                    categoria: categoriaSelected,
-                                    idCategoria: idCategoriaSelected,
-                                    idSubCategoria: idSubCategoriaSelected,
+                                    categoria: widget.product.id.isEmpty
+                                        ? categoriaSelected
+                                        : widget.product.categoria,
+                                    idCategoria: widget.product.id.isEmpty
+                                        ? idCategoriaSelected
+                                        : widget.product.idCategoria,
+                                    idSubCategoria: widget.product.id.isEmpty
+                                        ? idSubCategoriaSelected
+                                        : widget.product.idSubCategoria,
                                     idEmpresa: idEmpresa,
                                     detalhe: Detalhe(
-                                      id: '',
+                                      id: widget.product.id.isNotEmpty
+                                          ? widget.product.detalhes![0].id
+                                          : '',
                                       tamanho: _controllers['tamanho']!.text,
                                       peso: _controllers['peso']!.text,
                                       cor: _controllers['cor']!.text,
@@ -919,7 +929,7 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
 
                                   if (stateT.status == ProdutoStatus.success) {
                                     context.read<ProdutoBloc>().add(
-                                          CreateProdutoEvent(
+                                          UpdateProdutoEvent(
                                             produto: produto,
                                           ),
                                         );

@@ -34,6 +34,7 @@ import 'package:cep/src/features/produtos/domain/usecases/delete_produto_use_cas
 import 'package:cep/src/features/produtos/domain/usecases/get_all_produtos_company_use_case.dart';
 import 'package:cep/src/features/produtos/domain/usecases/get_all_produtos_sub_categoria_use_case.dart';
 import 'package:cep/src/features/produtos/domain/usecases/get_product_use_case.dart';
+import 'package:cep/src/features/produtos/domain/usecases/update_produto_use_case.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
@@ -160,13 +161,20 @@ void _setUpProdutos() {
           getProdutos: dependency(),
           getAllProdutos: dependency(instanceName: 'GetAll'),
           createProduto: dependency(instanceName: 'Create'),
-          getProduct: dependency(instanceName: 'Get')
+          getProduct: dependency(instanceName: 'Get'),
+          updateProduto: dependency(instanceName: 'Update'),
         ))
 
     // Use Case
     ..registerLazySingleton<UseCase<Unit, Produto>>(
       instanceName: 'Create',
       () => CreateProdutoUseCase(
+        repository: dependency(),
+      ),
+    )
+    ..registerLazySingleton<UseCase<Unit, Produto>>(
+      instanceName: 'Update',
+      () => UpdateProdutoUseCase(
         repository: dependency(),
       ),
     )

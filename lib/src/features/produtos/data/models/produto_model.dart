@@ -40,14 +40,19 @@ class ProdutoModel extends Produto {
   Map<String, dynamic> toMap() {
     return {
       "empresa_id": int.tryParse(idEmpresa!),
-      "categoria_id": int.parse(idCategoria!),
-      "sub_categoria_id": int.parse(idSubCategoria!),
+      "categoria_id": idCategoria != null
+          ? int.parse(idCategoria!)
+          : int.parse(categoria!.id),
+      "sub_categoria_id": idSubCategoria != null
+          ? int.parse(idSubCategoria!)
+          : int.parse(categoria!.subCategoria!.id),
       "nome": nome,
       "descricao": descricao,
       "preco": 300,
       "img": foto,
       "publico": publico.toUpperCase(),
       "detalhes_do_produto": {
+        "id": detalhe!.id.isNotEmpty ? int.parse(detalhe!.id) : '',
         "tamanho": detalhe!.tamanho,
         "peso": detalhe!.peso,
         "cor": detalhe!.cor,

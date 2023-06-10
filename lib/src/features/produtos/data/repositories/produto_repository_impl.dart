@@ -91,4 +91,18 @@ class ProdutoRepositoryImpl implements ProdutoRepository {
       return const Left(ConnectionOfflineFailure());
     }
   }
+  
+  @override
+  Future<Either<Failure, Unit>> updateProduto({required Produto produto}) async {
+    try {
+      final product = ProdutoModel.fromEntity(produto);
+      await produtoRemoteDataSource.updateProduto(model: product);
+
+      return const Right(unit);
+    } on ServerException {
+      return const Left(ServerFailure());
+    } on ConnectionOffline {
+      return const Left(ConnectionOfflineFailure());
+    }
+  }
 }

@@ -26,6 +26,7 @@ abstract class IProdutoRemoteDataSource {
     required ProdutoModel produto,
   });
   Future<Unit> deleteProduto({required String id});
+  Future<Unit> updateProduto({required ProdutoModel model});
 }
 
 class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
@@ -170,6 +171,29 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
 
     if (isConnected) {
       if (response.statusCode == 200) {
+        return Future.value(unit);
+      }
+      throw ServerException();
+    }
+    throw ConnectionOffline();
+  }
+
+  @override
+  Future<Unit> updateProduto({required ProdutoModel model}) async {
+    var url = '${baseUrl}api/products/${model.id}';
+    final isConnected = await network.isConnected;
+    final body = model.toJson();
+    log(body);
+    final response = await client.put(
+      Uri.parse(url),
+      body: body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (isConnected) {
+      if (response.statusCode == 201) {
         return Future.value(unit);
       }
       throw ServerException();

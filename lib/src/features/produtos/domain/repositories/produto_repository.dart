@@ -19,4 +19,7 @@ abstract class ProdutoRepository {
   Future<Either<Failure, Unit>> deleteProduto({
     required String id,
   });
+  Future<Either<Failure, Unit>> updateProduto({
+    required Produto produto,
+  });
 }

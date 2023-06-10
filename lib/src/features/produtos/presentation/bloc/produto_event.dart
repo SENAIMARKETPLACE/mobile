@@ -68,6 +68,16 @@ class CreateProdutoEvent extends ProdutoEvent {
   @override
   List<Object?> get props => [produto];
 }
+class UpdateProdutoEvent extends ProdutoEvent {
+  final Produto produto;
+
+  const UpdateProdutoEvent({
+    required this.produto,
+  });
+
+  @override
+  List<Object?> get props => [produto];
+}
 
 class GetProductEvent extends ProdutoEvent {
   final String id;
