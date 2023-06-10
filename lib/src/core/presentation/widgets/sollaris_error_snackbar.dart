@@ -4,8 +4,7 @@ class SollarisErrorSnackBar extends SnackBar {
   SollarisErrorSnackBar({super.key, required this.message})
       : super(
           content: Text(
-            message ??
-                '''Houve um erro ao realizar a solicitação! Se o erro persistir, entre em contato com o suporte para mais informações.''',
+            message!
           ),
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.red.shade800,

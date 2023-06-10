@@ -2,6 +2,7 @@ import 'package:cep/src/core/utils/app_routes.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/home/presentation/view/screen_home.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
+import 'package:cep/src/features/produtos/presentation/pages/screen_form_produto.dart';
 import 'package:cep/src/features/produtos/presentation/pages/screen_produto_all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const ScreenLogin(),
+        home: const ScreenFormProduto(),
         routes: {
           AppRoutes.login: (context) => const ScreenLogin(),
           AppRoutes.home: (context) => const ScreenHome(),

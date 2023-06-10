@@ -278,6 +278,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "mask_text_input_formatter",
+      "rootUri": "file:///C:/Users/flavi/AppData/Local/Pub/Cache/hosted/pub.dev/mask_text_input_formatter-2.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///C:/Users/flavi/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16",
       "packageUri": "lib/",
@@ -596,7 +602,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-06-09T23:51:45.776687Z",
+  "generated": "2023-06-10T02:27:28.392128Z",
   "generator": "pub",
   "generatorVersion": "3.1.0-182.0.dev"
 }

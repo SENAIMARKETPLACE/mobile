@@ -1,17 +1,21 @@
 import 'dart:developer';
 
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:cep/src/features/categorias/domain/entities/categoria.dart';
 import 'package:cep/src/features/categorias/domain/entities/sub_categoria.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
 import 'package:cep/src/features/produtos/presentation/widgets/build_categoria.dart';
+import 'package:cep/src/features/produtos/presentation/widgets/build_image.dart';
 import 'package:cep/src/features/produtos/presentation/widgets/build_sub_categoria.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cep/src/core/presentation/widgets/sollaris_text_button.dart';
 import 'package:cep/src/core/presentation/widgets/sollaris_text_field.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class BuildFormProduto extends StatefulWidget {
   const BuildFormProduto({
@@ -64,31 +68,78 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
     return null;
   }
 
+  var maskFormatter = MaskTextInputFormatter(
+      mask: 'R\$ ###.###,##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Form(
-          key: formKey,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-              child: Column(
-                children: [
-                  SollarisTextField(
-                    label: 'Categoria',
-                    hint: 'Selecione a Categoria',
-                    prefixIcon: Icons.category,
-                    suffixIcon: const Icon(Icons.search),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Por favor, informe uma categoria';
-                      }
-                      return null;
-                    },
-                    controller: _controllers['categoria']!,
-                    isReadOnly: true,
-                    onTap: () => showModalBottomSheet<Categoria>(
+        Container(
+          padding: const EdgeInsets.only(bottom: 50),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color.fromARGB(255, 220, 195, 243),
+                Color.fromARGB(255, 167, 222, 222)
+              ],
+            ),
+          ),
+          child: Form(
+            key: formKey,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                child: Column(
+                  children: [
+                    SollarisTextField(
+                      label: 'Categoria',
+                      hint: 'Selecione a Categoria',
+                      prefixIcon: Icons.category,
+                      suffixIcon: const Icon(Icons.search),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Por favor, informe uma categoria';
+                        }
+                        return null;
+                      },
+                      controller: _controllers['categoria']!,
+                      isReadOnly: true,
+                      onTap: () => showModalBottomSheet<Categoria>(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                            ),
+                          ),
+                          context: context,
+                          builder: (context) => const BuildCategoria()).then(
+                        (categoria) {
+                          _controllers['categoria']!.text = categoria!.nome;
+                          idCategoriaSelected = categoria.id;
+                        },
+                      ),
+                      //
+                    ),
+                    SollarisTextField(
+                      label: 'Sub-Categoria',
+                      hint: 'Selecione a Sub-Categoria',
+                      prefixIcon: Icons.category,
+                      suffixIcon: const Icon(Icons.search),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Por favor, informe uma sub-categoria';
+                        }
+                        return null;
+                      },
+                      controller: _controllers['sub-categoria']!,
+                      isReadOnly: true,
+                      onTap: () => showModalBottomSheet<SubCategoria>(
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(15),
@@ -96,293 +147,254 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                           ),
                         ),
                         context: context,
-                        builder: (context) => const BuildCategoria()).then(
-                      (categoria) {
-                        _controllers['categoria']!.text = categoria!.nome;
-                        idCategoriaSelected = categoria.id;
+                        builder: (context) => BuildSubCategoria(
+                            idCategoria: idCategoriaSelected!),
+                      ).then(
+                        (subCategoria) => _controllers['sub-categoria']!.text =
+                            subCategoria!.nome,
+                      ),
+                    ),
+                    SollarisTextField(
+                      label: 'Público',
+                      hint: 'Selecione o público',
+                      prefixIcon: Icons.category,
+                      suffixIcon: const Icon(Icons.search),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Por favor, informe um público';
+                        }
+                        return null;
                       },
-                    ),
-                    //
-                  ),
-                  SollarisTextField(
-                    label: 'Sub-Categoria',
-                    hint: 'Selecione a Sub-Categoria',
-                    prefixIcon: Icons.category,
-                    suffixIcon: const Icon(Icons.search),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Por favor, informe uma sub-categoria';
-                      }
-                      return null;
-                    },
-                    controller: _controllers['sub-categoria']!,
-                    isReadOnly: true,
-                    onTap: () => showModalBottomSheet<SubCategoria>(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
+                      controller: _controllers['publico']!,
+                      isReadOnly: true,
+                      onTap: () => showModalBottomSheet<List<Categoria>>(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
                         ),
-                      ),
-                      context: context,
-                      builder: (context) =>
-                          BuildSubCategoria(idCategoria: idCategoriaSelected!),
-                    ).then(
-                      (subCategoria) => _controllers['sub-categoria']!.text =
-                          subCategoria!.nome,
-                    ),
-                  ),
-                  SollarisTextField(
-                    label: 'Público',
-                    hint: 'Selecione o público',
-                    prefixIcon: Icons.category,
-                    suffixIcon: const Icon(Icons.search),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Por favor, informe um público';
-                      }
-                      return null;
-                    },
-                    controller: _controllers['publico']!,
-                    isReadOnly: true,
-                    onTap: () => showModalBottomSheet<List<Categoria>>(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
-                        ),
-                      ),
-                      context: context,
-                      builder: (context) => Container(
-                        height: MediaQuery.of(context).size.height * 0.33,
-                        padding: const EdgeInsets.all(16),
-                        child: Flex(
-                          direction: Axis.vertical,
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: _publico.length,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    children: [
-                                      ListTile(
-                                        leading: _iconLeading(_publico[index]),
-                                        title: Text(
-                                          _publico[index],
-                                          overflow: TextOverflow.fade,
-                                          softWrap: false,
+                        context: context,
+                        builder: (context) => Container(
+                          height: MediaQuery.of(context).size.height * 0.33,
+                          padding: const EdgeInsets.all(16),
+                          child: Flex(
+                            direction: Axis.vertical,
+                            children: [
+                              Expanded(
+                                child: ListView.builder(
+                                  itemCount: _publico.length,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: [
+                                        ListTile(
+                                          leading:
+                                              _iconLeading(_publico[index]),
+                                          title: Text(
+                                            _publico[index],
+                                            overflow: TextOverflow.fade,
+                                            softWrap: false,
+                                          ),
+                                          onTap: () {
+                                            _controllers['publico']!.text =
+                                                _publico[index];
+                                            return Navigator.of(context).pop();
+                                          },
                                         ),
-                                        onTap: () {
-                                          _controllers['publico']!.text =
-                                              _publico[index];
-                                          return Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
+                                      ],
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SollarisTextField(
-                    label: 'Título',
-                    hint: 'Informe o título do produto',
-                    prefixIcon: Icons.inventory,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Título de produto inválido, tente novamente';
-                      }
-                      return null;
-                    },
-                    controller: _controllers['nome']!,
-                  ),
-                  SollarisTextField(
-                    label: 'Preço',
-                    hint: 'Informe o preço do produto',
-                    prefixIcon: Icons.attach_money,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Preço de produto inválido, tente novamente';
-                      }
-                      return null;
-                    },
-                    controller: _controllers['preco']!,
-                  ),
-                  SizedBox(
-                    height: 130,
-                    child: Flex(
-                      direction: Axis.horizontal,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                    SollarisTextField(
+                      label: 'Título',
+                      hint: 'Informe o título do produto',
+                      prefixIcon: Icons.inventory,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Título de produto inválido, tente novamente';
+                        }
+                        return null;
+                      },
+                      controller: _controllers['nome']!,
+                    ),
+                    SollarisTextField(
+                      typeKey: TextInputType.number,
+                      inputFormatter: [maskFormatter],
+                      label: 'Preço',
+                      hint: 'Informe o preço do produto',
+                      prefixIcon: Icons.attach_money,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Preço de produto inválido, tente novamente';
+                        }
+                        return null;
+                      },
+                      controller: _controllers['preco']!,
+                    ),
+                    SollarisTextField(
+                      label: 'Url Imagem',
+                      hint: 'Informe a url da imagem',
+                      prefixIcon: Icons.image,
+                      controller: _controllers['img']!,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Url vazia';
+                        }
+                        return null;
+                      },
+                      isReadOnly: true,
+                      onTap: () => showModalBottomSheet<String>(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                            ),
+                          ),
+                          context: context,
+                          builder: (context) => const BuildImage()).then(
+                        (value) => _controllers['img']!.text = value!,
+                      ),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: SollarisTextField(
-                            label: 'Url Imagem',
-                            hint: 'Informe a url da imagem',
-                            prefixIcon: Icons.image,
+                            label: 'Tamanho',
+                            hint: '',
+                            maxLength: 5,
+                            alignText: TextAlign.center,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Url inválida, tente novamente';
+                                return 'Informe o tamanho';
                               }
                               return null;
                             },
-                            controller: _controllers['img']!,
+                            controller: _controllers['tamanho']!,
                           ),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 10),
-                          height: 60,
-                          width: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            border: Border.all(
-                                color: const Color.fromARGB(255, 65, 12, 96)),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            image: const DecorationImage(
-                              image:
-                                  AssetImage('assets/image/image_default.jpg'),
-                              fit: BoxFit.fill,
-                            ),
+                        Expanded(
+                          child: SollarisTextField(
+                            label: 'Peso',
+                            hint: '',
+                            maxLength: 5,
+                            suffixText: 'kg',
+                            typeKey: TextInputType.number,
+                            alignText: TextAlign.center,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Informe o peso';
+                              }
+                              return null;
+                            },
+                            controller: _controllers['peso']!,
                           ),
-                        )
+                        ),
                       ],
                     ),
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: SollarisTextField(
-                          label: 'Tamanho',
-                          hint: '',
-                          alignText: TextAlign.center,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Informe o tamanho';
-                            }
-                            return null;
-                          },
-                          controller: _controllers['tamanho']!,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: SollarisTextField(
-                          label: 'Peso',
-                          hint: '',
-                          alignText: TextAlign.center,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Informe o peso';
-                            }
-                            return null;
-                          },
-                          controller: _controllers['peso']!,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: SollarisTextField(
-                          label: 'Cor',
-                          hint: '',
-                          alignText: TextAlign.center,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Informe a cor';
-                            }
-                            return null;
-                          },
-                          controller: _controllers['cor']!,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: SollarisTextField(
-                          label: 'Quantidade',
-                          hint: '',
-                          alignText: TextAlign.center,
-                          validator: (value) {
-                            return 'Informe a quantidade';
-                          },
-                          controller: _controllers['quantidade']!,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 18),
-                    child: Column(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Descrição',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Color.fromARGB(255, 65, 12, 96))),
+                        Expanded(
+                          child: SollarisTextField(
+                            label: 'Cor',
+                            hint: '',
+                            alignText: TextAlign.center,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Informe a cor';
+                              }
+                              return null;
+                            },
+                            controller: _controllers['cor']!,
+                          ),
+                        ),
                         const SizedBox(
-                          height: 15,
+                          width: 10,
                         ),
-                        Container(
-                          width: double.infinity,
-                          height: 250,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(212, 225, 223, 223),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextFormField(
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _controllers['observacao']!,
-                              onChanged: (value) {
-                                if (value.isEmpty || value == '') {
-                                  setState(() {
-                                    isExibMessage = true;
-                                  });
-                                } else {
-                                  setState(() {
-                                    isExibMessage = false;
-                                  });
-                                }
-                              },
-                              style: const TextStyle(fontSize: 20),
-                              decoration: const InputDecoration(
-                                constraints:
-                                    BoxConstraints(maxHeight: double.infinity),
-                                border: InputBorder.none,
-                              ),
-                              maxLines: 13,
-                              maxLength: 500,
-                            ),
+                        Expanded(
+                          child: SollarisTextField(
+                            label: 'Quantidade',
+                            hint: '',
+                            maxLength: 5,
+                            typeKey: TextInputType.number,
+                            alignText: TextAlign.center,
+                            validator: (value) {
+                              return 'Informe a quantidade';
+                            },
+                            controller: _controllers['quantidade']!,
                           ),
                         ),
-                        isExibMessage
-                            ? const Text(
-                                '  Informe a descrição',
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 16),
-                              )
-                            : const SizedBox.shrink(),
                       ],
                     ),
-                  ),
-                ],
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Descrição',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 65, 12, 96))),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 250,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(212, 225, 223, 223),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                controller: _controllers['observacao']!,
+                                onChanged: (value) {
+                                  if (value.isEmpty || value == '') {
+                                    setState(() {
+                                      isExibMessage = true;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      isExibMessage = false;
+                                    });
+                                  }
+                                },
+                                style: const TextStyle(fontSize: 20),
+                                decoration: const InputDecoration(
+                                  constraints: BoxConstraints(
+                                      maxHeight: double.infinity),
+                                  border: InputBorder.none,
+                                ),
+                                maxLines: 13,
+                                maxLength: 500,
+                              ),
+                            ),
+                          ),
+                          isExibMessage
+                              ? const Text(
+                                  '  Informe a descrição',
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 16),
+                                )
+                              : const SizedBox.shrink(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
