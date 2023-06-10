@@ -16,6 +16,7 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
   final UseCase<List<Produto>, ParamsGlobal> getProdutos;
   final UseCase<List<Produto>, ParamsGlobal> getAllProdutos;
   final UseCase<Produto, Params> getProduct;
+  final UseCase<Unit, Params> deleteProduct;
   final UseCase<Unit, Produto> createProduto;
   final UseCase<Unit, Produto> updateProduto;
 
@@ -23,6 +24,7 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
     required this.getProdutos,
     required this.getAllProdutos,
     required this.getProduct,
+    required this.deleteProduct,
     required this.createProduto,
     required this.updateProduto,
   }) : super(
@@ -34,6 +36,7 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
     on<CreateProdutoEvent>(_createProduto);
     on<GetProductEvent>(_getProduct);
     on<UpdateProdutoEvent>(_updateProduct);
+    on<DeleteProductEvent>(_deleteProduct);
   }
 
   Future<void> _getProdutos(
@@ -159,6 +162,24 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
     Emitter<ProdutoState> emit,
   ) async {
     final result = await updateProduto(event.produto);
+    final pref = await PreferencesActions.load();
+
+    result.fold(
+      (failure) {
+        state.copyWith(
+          status: ProdutoStatus.error,
+          message: 'Erro ao cadastrar produto, tente novamente!',
+        );
+      },
+      (_) => add(GetAllProdutosEvent(idEmpresa: pref.id)),
+    );
+  }
+
+  Future<void> _deleteProduct(
+    DeleteProductEvent event,
+    Emitter<ProdutoState> emit,
+  ) async {
+    final result = await deleteProduct(Params(params: event.id));
     final pref = await PreferencesActions.load();
 
     result.fold(

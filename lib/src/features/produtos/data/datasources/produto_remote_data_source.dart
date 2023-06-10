@@ -160,7 +160,7 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
 
   @override
   Future<Unit> deleteProduto({required String id}) async {
-    var url = 'minha url';
+    var url = '${baseUrl}api/products/$id';
     final isConnected = await network.isConnected;
     final response = await client.delete(
       Uri.parse(url),
@@ -170,7 +170,7 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
     );
 
     if (isConnected) {
-      if (response.statusCode == 200) {
+      if (response.statusCode == 204) {
         return Future.value(unit);
       }
       throw ServerException();

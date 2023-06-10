@@ -249,7 +249,7 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
                                     showModalBottomSheet(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return BuildEdit(
+                                        return BuildOptions(
                                           produto: produto,
                                         );
                                       },

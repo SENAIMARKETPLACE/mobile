@@ -163,6 +163,7 @@ void _setUpProdutos() {
           createProduto: dependency(instanceName: 'Create'),
           getProduct: dependency(instanceName: 'Get'),
           updateProduto: dependency(instanceName: 'Update'),
+          deleteProduct: dependency(instanceName: 'Delete'),
         ))
 
     // Use Case
@@ -179,6 +180,7 @@ void _setUpProdutos() {
       ),
     )
     ..registerLazySingleton<UseCase<Unit, Params>>(
+      instanceName: 'Delete',
       () => DeleteProdutoUseCase(
         repository: dependency(),
       ),

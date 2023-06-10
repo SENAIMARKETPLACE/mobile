@@ -89,3 +89,13 @@ class GetProductEvent extends ProdutoEvent {
   @override
   List<Object?> get props => [id];
 }
+class DeleteProductEvent extends ProdutoEvent {
+  final String id;
+
+  const DeleteProductEvent({
+    required this.id,
+  });
+
+  @override
+  List<Object?> get props => [id];
+}
