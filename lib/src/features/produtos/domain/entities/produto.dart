@@ -57,4 +57,7 @@ class Produto extends Equatable {
       publico,
     ];
   }
+
+  @override
+  bool get stringify => true;
 }

@@ -51,7 +51,7 @@ class ProdutoModel extends Produto {
         "tamanho": detalhe!.tamanho,
         "peso": detalhe!.peso,
         "cor": detalhe!.cor,
-        "quantidade": 20
+        "quantidade": int.parse(detalhe!.quantidade)
       },
     };
   }

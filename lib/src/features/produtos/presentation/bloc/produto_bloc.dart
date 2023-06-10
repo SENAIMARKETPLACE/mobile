@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'package:cep/src/common/hive/preferences_actions.dart';
 import 'package:cep/src/core/params/params_global.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -104,12 +105,6 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
     CreateProdutoEvent event,
     Emitter<ProdutoState> emit,
   ) async {
-    emit(
-      state.copyWith(
-        status: ProdutoStatus.loading,
-      ),
-    );
-
     final result = await createProduto(event.produto);
 
     result.fold(
@@ -119,10 +114,8 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
           message: 'Erro ao cadastrar produto, tente novamente!',
         );
       },
-      (_) => state.copyWith(
-        status: ProdutoStatus.success,
-        message: 'Produto cadastrado com sucesso!',
-      ),
+      (_) => PreferencesActions.load()
+          .then((value) => add(GetAllProdutosEvent(idEmpresa: value.id))),
     );
   }
 }

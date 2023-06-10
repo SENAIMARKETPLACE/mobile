@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const ScreenFormProduto(),
+        home: const ScreenLogin(),
         routes: {
           AppRoutes.login: (context) => const ScreenLogin(),
           AppRoutes.home: (context) => const ScreenHome(),

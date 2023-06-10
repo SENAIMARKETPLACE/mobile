@@ -158,11 +158,12 @@ void _setUpProdutos() {
     ..registerFactory<ProdutoBloc>(() => ProdutoBloc(
           getProdutos: dependency(),
           getAllProdutos: dependency(instanceName: 'GetAll'),
-          createProduto: dependency(),
+          createProduto: dependency(instanceName: 'Create'),
         ))
 
     // Use Case
     ..registerLazySingleton<UseCase<Unit, Produto>>(
+      instanceName: 'Create',
       () => CreateProdutoUseCase(
         repository: dependency(),
       ),

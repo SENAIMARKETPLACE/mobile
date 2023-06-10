@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:cep/src/core/network/base_data_source_info.dart';
 import 'package:cep/src/features/produtos/data/models/produto_model.dart';
@@ -72,7 +73,7 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
   @override
   Future<List<ProdutoModel>> getAllProdutosCompany(
       {required String idEmpresa}) async {
-    var url = '$baseUrl/api/products/my_products/$idEmpresa';
+    var url = '${baseUrl}api/products/my_products/$idEmpresa';
     final isConnected = await network.isConnected;
     final response = await client.get(
       Uri.parse(url),
@@ -105,9 +106,10 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
   @override
   Future<Unit> createProduto({required ProdutoModel produto}) async {
     // var url = '${baseUrl}api/products';
-    var url = 'http://172.21.144.1:8100/api/products';
+    var url = '${baseUrl}api/products';
     final isConnected = await network.isConnected;
     final body = produto.toJson();
+    log(body);
     final response = await client.post(
       Uri.parse(url),
       body: body,
@@ -117,7 +119,7 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
     );
 
     if (isConnected) {
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return Future.value(unit);
       }
       throw ServerException();
