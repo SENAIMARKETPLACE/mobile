@@ -11,6 +11,7 @@ class ProdutoState extends Equatable {
   final bool isSearch;
   final List<Produto> produtos;
   final List<Produto> produtosFiltro;
+  final Produto product;
 
   const ProdutoState({
     required this.status,
@@ -18,14 +19,16 @@ class ProdutoState extends Equatable {
     required this.isSearch,
     required this.produtos,
     required this.produtosFiltro,
+    required this.product,
   });
 
-  factory ProdutoState.initial() => const ProdutoState(
+  factory ProdutoState.initial() => ProdutoState(
         status: ProdutoStatus.initial,
         message: '',
         isSearch: false,
-        produtos: [],
-        produtosFiltro: [],
+        produtos: const [],
+        produtosFiltro: const [],
+        product: Produto.instance(),
       );
 
   @override
@@ -36,6 +39,7 @@ class ProdutoState extends Equatable {
       isSearch,
       produtos,
       produtosFiltro,
+      product
     ];
   }
 
@@ -45,6 +49,7 @@ class ProdutoState extends Equatable {
     bool? isSearch,
     List<Produto>? produtos,
     List<Produto>? produtosFiltro,
+    Produto? product,
   }) {
     return ProdutoState(
       status: status ?? this.status,
@@ -52,6 +57,7 @@ class ProdutoState extends Equatable {
       isSearch: isSearch ?? this.isSearch,
       produtos: produtos ?? this.produtos,
       produtosFiltro: produtosFiltro ?? this.produtosFiltro,
+      product: product ?? this.product,
     );
   }
 }

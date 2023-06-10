@@ -10,6 +10,9 @@ abstract class ProdutoRepository {
   Future<Either<Failure, List<Produto>>> getAllProdutosCompany({
     required String idEmpresa,
   });
+  Future<Either<Failure, Produto>> getProduct({
+    required String idProduct,
+  });
   Future<Either<Failure, Unit>> createProduto({
     required Produto produto,
   });

@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
-import 'package:cep/src/common/hive/preferences_actions.dart';
-import 'package:cep/src/core/params/params_global.dart';
+import 'package:cep/src/core/params/params.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:cep/src/common/hive/preferences_actions.dart';
+import 'package:cep/src/core/params/params_global.dart';
 import 'package:cep/src/core/use_case/use_case.dart';
 import 'package:cep/src/features/produtos/domain/entities/produto.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_event.dart';
@@ -14,11 +15,13 @@ import 'package:cep/src/features/produtos/presentation/bloc/produto_state.dart';
 class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
   final UseCase<List<Produto>, ParamsGlobal> getProdutos;
   final UseCase<List<Produto>, ParamsGlobal> getAllProdutos;
+  final UseCase<Produto, Params> getProduct;
   final UseCase<Unit, Produto> createProduto;
 
   ProdutoBloc({
     required this.getProdutos,
     required this.getAllProdutos,
+    required this.getProduct,
     required this.createProduto,
   }) : super(
           ProdutoState.initial(),
@@ -27,6 +30,7 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
     on<GetAllProdutosEvent>(_getAllProdutos);
     on<FiltroProdutoEvent>(_filtroProdutos);
     on<CreateProdutoEvent>(_createProduto);
+    on<GetProductEvent>(_getProduct);
   }
 
   Future<void> _getProdutos(
@@ -106,6 +110,7 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
     Emitter<ProdutoState> emit,
   ) async {
     final result = await createProduto(event.produto);
+    final pref = await PreferencesActions.load();
 
     result.fold(
       (failure) {
@@ -114,8 +119,35 @@ class ProdutoBloc extends Bloc<ProdutoEvent, ProdutoState> {
           message: 'Erro ao cadastrar produto, tente novamente!',
         );
       },
-      (_) => PreferencesActions.load()
-          .then((value) => add(GetAllProdutosEvent(idEmpresa: value.id))),
+      (_) => add(GetAllProdutosEvent(idEmpresa: pref.id)),
     );
+  }
+
+  Future<void> _getProduct(
+    GetProductEvent event,
+    Emitter<ProdutoState> emit,
+  ) async {
+    if (event.id.isEmpty) {
+      emit(state.copyWith(status: ProdutoStatus.success));
+    } else {
+      emit(state.copyWith(
+        status: ProdutoStatus.loading,
+      ));
+
+      final result = await getProduct(Params(params: event.id));
+
+      result.fold(
+        (failure) {
+          state.copyWith(
+            status: ProdutoStatus.error,
+            message: 'Erro ao cadastrar produto, tente novamente!',
+          );
+        },
+        (produto) => emit(state.copyWith(
+          status: ProdutoStatus.success,
+          product: produto,
+        )),
+      );
+    }
   }
 }

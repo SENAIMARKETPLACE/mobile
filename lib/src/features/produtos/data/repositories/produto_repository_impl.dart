@@ -51,6 +51,20 @@ class ProdutoRepositoryImpl implements ProdutoRepository {
   }
 
   @override
+  Future<Either<Failure, Produto>> getProduct(
+      {required String idProduct}) async {
+    try {
+      final myProduct = await produtoRemoteDataSource.getProduct(id: idProduct);
+
+      return Right(myProduct);
+    } on ServerException {
+      return const Left(ServerFailure());
+    } on ConnectionOffline {
+      return const Left(ConnectionOfflineFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, Unit>> createProduto(
       {required Produto produto}) async {
     try {

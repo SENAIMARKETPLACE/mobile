@@ -19,6 +19,9 @@ abstract class IProdutoRemoteDataSource {
   Future<List<ProdutoModel>> getAllProdutosCompany({
     required String idEmpresa,
   });
+  Future<ProdutoModel> getProduct({
+    required String id,
+  });
   Future<Unit> createProduto({
     required ProdutoModel produto,
   });
@@ -64,6 +67,33 @@ class ProdutoRemoteDataSourceImpl implements IProdutoRemoteDataSource {
         return Future.value(list);
       } else if (response.statusCode == 404) {
         return Future.value(list);
+      }
+      throw ServerException();
+    }
+    throw ConnectionOffline();
+  }
+
+  @override
+  Future<ProdutoModel> getProduct({required String id}) async {
+    var url = '${baseUrl}api/products/$id';
+    final isConnected = await network.isConnected;
+    final response = await client.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (isConnected) {
+      if (response.statusCode == 200) {
+        final json = jsonDecode(const Utf8Decoder().convert(response.bodyBytes))
+            as Map<String, dynamic>;
+
+        final product = ProdutoModel.fromMap(json);
+
+        return Future.value(product);
+      } else if (response.statusCode == 404) {
+        throw ServerException();
       }
       throw ServerException();
     }

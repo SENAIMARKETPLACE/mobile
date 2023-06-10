@@ -64,7 +64,8 @@ class ProdutoModel extends Produto {
       preco: map['preco'].toString(),
       foto: map['img'] ?? '',
       publico: map['publico'] ?? '',
-      categoria: CategoriaModel.fromMap(map['categoria']),
+      categoria:
+          CategoriaModel.fromMap2(map['categoria'] as Map<String, dynamic>),
       detalhes: (map['detalhes_dos_produtos'] as List)
           .map(
             (detalhes) =>

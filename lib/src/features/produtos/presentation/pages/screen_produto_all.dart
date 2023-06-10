@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cep/src/core/presentation/widgets/solaris_bottom_app_bar.dart';
+import 'package:cep/src/features/produtos/domain/entities/produto.dart';
 import 'package:cep/src/features/produtos/presentation/pages/screen_form_produto.dart';
+import 'package:cep/src/features/produtos/presentation/widgets/build_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cep/src/common/hive/preferences_actions.dart';
@@ -73,7 +75,9 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) {
-              return const ScreenFormProduto();
+              return ScreenFormProduto(
+                product: Produto.instance(),
+              );
             },
           ));
         },
@@ -245,30 +249,8 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
                                     showModalBottomSheet(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return Container(
-                                          child: Wrap(
-                                            children: [
-                                              ListTile(
-                                                leading: const Icon(Icons.edit),
-                                                title: const Text('Editar'),
-                                                onTap: () {
-                                                  // Lógica para a opção de editar
-                                                  Navigator.pop(
-                                                      context); // Fechar o bottom sheet
-                                                },
-                                              ),
-                                              ListTile(
-                                                leading:
-                                                    const Icon(Icons.delete),
-                                                title: const Text('Excluir'),
-                                                onTap: () {
-                                                  // Lógica para a opção de excluir
-                                                  Navigator.pop(
-                                                      context); // Fechar o bottom sheet
-                                                },
-                                              ),
-                                            ],
-                                          ),
+                                        return BuildEdit(
+                                          produto: produto,
                                         );
                                       },
                                     );
