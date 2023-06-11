@@ -1,20 +1,13 @@
 import 'package:cep/src/common/hive/access.dart';
 import 'package:cep/src/common/hive/preferences_actions.dart';
 import 'package:cep/src/core/presentation/widgets/sollaris_app_bar.dart';
-import 'package:cep/src/core/utils/app_routes.dart';
-import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
-import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
-import 'package:cep/src/features/categorias/presentation/bloc/categorias_state.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_drawer.dart';
 import 'package:cep/src/features/categorias/presentation/view/screen_categoria.dart';
 import 'package:cep/src/features/categorias/presentation/view/screen_sub_categoria_all.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_banner.dart';
-import 'package:cep/src/features/home/presentation/widgets/home_card.dart';
-import 'package:cep/src/features/home/presentation/widgets/home_card_produto.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_list_categories.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_list_product.dart';
 import 'package:cep/src/features/home/presentation/widgets/home_list_sub_categories.dart';
-import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
-import 'package:cep/src/features/produtos/presentation/bloc/produto_event.dart';
 import 'package:cep/src/features/produtos/presentation/pages/screen_produto_all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,7 +47,7 @@ class _ScreenHomeState extends State<ScreenHome> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.fromARGB(255, 181, 140, 218),
+              Color.fromARGB(255, 207, 167, 241),
               Color.fromARGB(255, 167, 222, 222)
             ],
           ),
@@ -105,7 +98,7 @@ class _ScreenHomeState extends State<ScreenHome> {
           ),
         ),
       ),
-      drawer: const Drawer(),
+      drawer: const SollarisDrawer(),
     );
   }
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:cep/src/core/presentation/widgets/sollaris_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -394,7 +395,6 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                                   label: 'Peso',
                                   hint: '',
                                   maxLength: 5,
-                                  typeKey: TextInputType.number,
                                   alignText: TextAlign.center,
                                   validator: (value) {
                                     if (value!.isEmpty) {
@@ -581,7 +581,7 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
           return Material(
             child: Scaffold(
               appBar: const SollarisBottomAppBar(subTitle: 'Editar Produto'),
-              drawer: const Drawer(),
+              drawer: const SollarisDrawer(),
               body: Stack(
                 children: [
                   Container(
@@ -777,7 +777,6 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                                       label: 'Peso',
                                       hint: '',
                                       maxLength: 5,
-                                      typeKey: TextInputType.number,
                                       alignText: TextAlign.center,
                                       validator: (value) {
                                         if (value!.isEmpty) {

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cep/src/core/presentation/widgets/sollaris_drawer.dart';
 import 'package:cep/src/features/produtos/presentation/pages/screen_produto_id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +52,7 @@ class _ScreenSubCategoriaIdState extends State<ScreenSubCategoriaId> {
           },
         ),
       ),
-      drawer: const Drawer(),
+      drawer: const SollarisDrawer(),
       body: Container(
         padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(

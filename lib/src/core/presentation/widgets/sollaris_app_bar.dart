@@ -1,3 +1,4 @@
+import 'package:cep/src/core/presentation/widgets/sollaris_drawer.dart';
 import 'package:flutter/material.dart';
 
 class SollarisAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -19,7 +20,6 @@ class SollarisAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           SizedBox(
             width: 40,
-            // height: 80,
             child: Image.asset(
               'assets/image/logo.png',
               // fit: BoxFit.fill,

@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:developer';
+
 import 'package:cep/src/core/network/base_data_source_info.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -25,6 +27,7 @@ class CompanyRemoteDataSourceImpl implements ICompanyRemoteDataSource {
   Future<Unit> register({required CompanyModel company}) async {
     var url = '${baseUrlLogin}api/business';
     final requestBody = company.toJson();
+    log(requestBody);
     final isConnected = await network.isConnected;
 
     final response = await client.post(

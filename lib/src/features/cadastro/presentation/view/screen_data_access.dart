@@ -7,6 +7,7 @@ import 'package:cep/src/core/presentation/widgets/sollaris_title.dart';
 import 'package:cep/src/common/hive/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ScreenDataAcess extends StatefulWidget {
   const ScreenDataAcess({super.key});
@@ -22,6 +23,11 @@ class _ScreenDataAcessState extends State<ScreenDataAcess> {
   final controllerRepeatPassword = TextEditingController();
   final controllerTelefone = TextEditingController();
   bool isExibe = true;
+
+  var maskFormatter = MaskTextInputFormatter(
+      mask: '(##) #####-####',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +68,7 @@ class _ScreenDataAcessState extends State<ScreenDataAcess> {
               }
               return null;
             },
-            inputFormatter: [
-              TelefoneInputFormatter(),
-              FilteringTextInputFormatter.digitsOnly,
-            ],
+            inputFormatter: [maskFormatter],
           ),
           SollarisTextField(
             isExibPassword: isExibe,
@@ -85,7 +88,10 @@ class _ScreenDataAcessState extends State<ScreenDataAcess> {
                   isExibe = !isExibe;
                 });
               },
-              icon: Icon(isExibe ? Icons.visibility : Icons.visibility_off),
+              icon: Icon(
+                isExibe ? Icons.visibility : Icons.visibility_off,
+                color: const Color(0xff8F29C8),
+              ),
             ),
           ),
           SollarisTextField(
@@ -109,7 +115,10 @@ class _ScreenDataAcessState extends State<ScreenDataAcess> {
                   isExibe = !isExibe;
                 });
               },
-              icon: Icon(isExibe ? Icons.visibility : Icons.visibility_off),
+              icon: Icon(
+                isExibe ? Icons.visibility : Icons.visibility_off,
+                color: const Color(0xff8F29C8),
+              ),
             ),
           ),
           Expanded(

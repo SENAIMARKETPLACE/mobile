@@ -1,4 +1,5 @@
 import 'package:cep/src/core/presentation/widgets/solaris_bottom_app_bar.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_drawer.dart';
 import 'package:cep/src/core/presentation/widgets/sollaris_error_snackbar.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
@@ -39,7 +40,7 @@ class _ScreenCategoriaState extends State<ScreenCategoria> {
           },
         ),
       ),
-      drawer: const Drawer(),
+      drawer: const SollarisDrawer(),
       body: Container(
         padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(

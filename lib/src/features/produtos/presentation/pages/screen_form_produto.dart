@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cep/src/core/presentation/widgets/sollaris_drawer.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_bloc.dart';
 import 'package:cep/src/features/produtos/presentation/bloc/produto_state.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class _ScreenFormProdutoState extends State<ScreenFormProduto> {
     return SafeArea(
       child: Scaffold(
         appBar: const SollarisBottomAppBar(subTitle: 'Adicionar Produto'),
-        drawer: const Drawer(),
+        drawer: const SollarisDrawer(),
         body: BuildFormProduto(product: widget.product),
       ),
     );

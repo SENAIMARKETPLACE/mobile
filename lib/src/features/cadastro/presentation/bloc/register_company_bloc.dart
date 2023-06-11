@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cep/src/common/hive/register.dart';
 import 'package:cep/src/core/use_case/use_case.dart';
 import 'package:cep/src/features/cadastro/domain/entities/address.dart';
 import 'package:cep/src/features/cadastro/domain/entities/company.dart';
@@ -38,19 +39,22 @@ class RegisterCompanyBloc
           message: 'Erro ao pesquisar CEP',
         ),
       ),
-      (address) => emit(
-        state.copyWith(
-          status: RegisterCompanyStatus.sucess,
-          address: Address(
-            cep: address.cep,
-            numero: address.numero,
-            estado: address.estado,
-            bairro: address.bairro,
-            cidade: address.cidade,
-            logradouro: address.logradouro,
+      (address) {
+        Register().saveCep(address.cep);
+        return emit(
+          state.copyWith(
+            status: RegisterCompanyStatus.sucess,
+            address: Address(
+              cep: address.cep,
+              numero: address.numero,
+              estado: address.estado,
+              bairro: address.bairro,
+              cidade: address.cidade,
+              logradouro: address.logradouro,
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -64,7 +68,7 @@ class RegisterCompanyBloc
 
     result.fold(
       (failure) => emit(state.copyWith(
-        status: RegisterCompanyStatus.error, 
+        status: RegisterCompanyStatus.error,
         message: 'Erro ao cadastrar empresa',
       )),
       (_) => emit(

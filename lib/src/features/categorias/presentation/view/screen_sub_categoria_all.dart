@@ -1,4 +1,5 @@
 import 'package:cep/src/core/presentation/widgets/solaris_bottom_app_bar.dart';
+import 'package:cep/src/core/presentation/widgets/sollaris_drawer.dart';
 import 'package:cep/src/core/presentation/widgets/sollaris_error_snackbar.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_bloc.dart';
 import 'package:cep/src/features/categorias/presentation/bloc/categorias_event.dart';
@@ -37,7 +38,7 @@ class _ScreenSubCategoriaAllState extends State<ScreenSubCategoriaAll> {
           },
         ),
       ),
-      drawer: const Drawer(),
+      drawer: const SollarisDrawer(),
       body: Container(
         padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
@@ -52,7 +53,6 @@ class _ScreenSubCategoriaAllState extends State<ScreenSubCategoriaAll> {
         ),
         child: _buildBody(),
       ),
-      
     );
   }
 
@@ -135,8 +135,8 @@ class _ScreenSubCategoriaAllState extends State<ScreenSubCategoriaAll> {
                             ),
                             GestureDetector(
                               onTap: () async => context
-                        .read<CategoriaBloc>()
-                        .add(GetAllSubCategoriasEvent()),
+                                  .read<CategoriaBloc>()
+                                  .add(GetAllSubCategoriasEvent()),
                               child: const Icon(
                                 Icons.refresh,
                                 size: 70,

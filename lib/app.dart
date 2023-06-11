@@ -30,14 +30,16 @@ class _MyAppState extends State<MyApp> {
           create: (context) => di.dependency<ProdutoBloc>(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: const ScreenLogin(),
-        routes: {
-          AppRoutes.login: (context) => const ScreenLogin(),
-          AppRoutes.home: (context) => const ScreenHome(),
-          AppRoutes.categorias: (context) => const ScreenCategoria(),
-        },
+      child: SafeArea(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: const ScreenLogin(),
+          routes: {
+            AppRoutes.login: (context) => const ScreenLogin(),
+            AppRoutes.home: (context) => const ScreenHome(),
+            AppRoutes.categorias: (context) => const ScreenCategoria(),
+          },
+        ),
       ),
     );
   }

@@ -38,8 +38,10 @@ class Register {
   }
 
   Future setCnpj(String cnpj) async {
+    final String newCnpj =
+        cnpj.replaceAll('.', '').replaceAll('/', '').replaceAll('-', '');
     final prefs = await pref;
-    return prefs.setString('setCnpj', cnpj);
+    return prefs.setString('setCnpj', newCnpj);
   }
 
   Future setEmail(String email) async {
@@ -53,8 +55,13 @@ class Register {
   }
 
   Future setTelefone(String telefone) async {
+    final String newTelefone = telefone
+        .replaceAll('(', '')
+        .replaceAll(')', '')
+        .replaceAll('-', '')
+        .replaceAll(' ', '');
     final prefs = await pref;
-    return prefs.setString('setTelefone', telefone);
+    return prefs.setString('setTelefone', newTelefone);
   }
 
   Future setNomeFantasia(String nomeFant) async {
@@ -66,14 +73,16 @@ class Register {
     final prefs = await pref;
     return prefs.setString('setRazaoSocial', razao);
   }
+
   Future setResponsavel(String responsavel) async {
     final prefs = await pref;
     return prefs.setString('setResponsavel', responsavel);
   }
 
   Future saveCep(String cep) async {
+    
     final prefs = await pref;
-    prefs.setString('setCep', cep);
+    prefs.setString('setCep', cep.replaceAll('-', ''));
   }
 
   Future saveRua(String rua) async {

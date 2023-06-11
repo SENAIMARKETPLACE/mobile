@@ -90,7 +90,7 @@ class CompanyModel extends Company {
       'razao_social': razaoSocialModel,
       'cnpj': cnpjModel,
       'telefone': telefoneModel,
-      'url_logo': 'Minha Imagem',
+      'url_logo': 'default',
       'email': emailModel,
       'senha': senhaModel,
       'endereco': enderecoModel.toMap(),

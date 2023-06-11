@@ -219,6 +219,9 @@ class _ScreenConfirmState extends State<ScreenConfirm> {
                             listener: (context, state) {
                               if (state.status ==
                                   RegisterCompanyStatus.sucess) {
+                                _showSnackbarPositive(
+                                    'Cadastro realizado com sucesso');
+                                Future.delayed(const Duration(seconds: 5));
                                 Navigator.of(context)
                                     .pushReplacementNamed(AppRoutes.login);
                               } else if (state.status ==
@@ -233,8 +236,8 @@ class _ScreenConfirmState extends State<ScreenConfirm> {
                                   child: CircularProgressIndicator(),
                                 );
                               } else {
-                                _showSnackbarPositive(
-                                    'Cadastrado realizado com sucesso');
+                                // _showSnackbarPositive(
+                                //     'Cadastrado realizado com sucesso');
                                 return Container(
                                   margin:
                                       const EdgeInsets.symmetric(vertical: 10),

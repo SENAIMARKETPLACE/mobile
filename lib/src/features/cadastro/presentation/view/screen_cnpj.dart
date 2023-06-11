@@ -7,12 +7,18 @@ import 'package:cep/src/core/presentation/widgets/sollaris_title.dart';
 import 'package:cep/src/common/hive/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ScreenCnpj extends StatelessWidget {
   ScreenCnpj({super.key});
 
   final chave1 = GlobalKey<FormState>();
   final TextEditingController controllerCNPJ = TextEditingController();
+
+  var maskFormatter = MaskTextInputFormatter(
+      mask: '##.###.###/####-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +44,7 @@ class ScreenCnpj extends StatelessWidget {
               }
               return null;
             },
-            inputFormatter: [
-              CnpjInputFormatter(),
-              FilteringTextInputFormatter.digitsOnly,
-            ],
+            inputFormatter: [maskFormatter],
             label: 'CNPJ',
             hint: 'Informe o CNPJ',
           ),

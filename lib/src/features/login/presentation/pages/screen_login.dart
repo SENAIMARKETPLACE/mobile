@@ -42,7 +42,6 @@ class _ScreenLoginState extends State<ScreenLogin> {
 
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
- 
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +118,17 @@ class _ScreenLoginState extends State<ScreenLogin> {
                           return null;
                         },
                         controller: _controllerSenha,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isExibe = !isExibe;
+                            });
+                          },
+                          icon: Icon(
+                            isExibe ? Icons.visibility : Icons.visibility_off,
+                            color: const Color(0xff8F29C8),
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 40,
@@ -172,9 +182,11 @@ class _ScreenLoginState extends State<ScreenLogin> {
                                     textButton: 'Cadastro',
                                     function: () {
                                       Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ScreenCnpj(),),);
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ScreenCnpj(),
+                                        ),
+                                      );
                                     },
                                   ),
                                 )
