@@ -40,22 +40,22 @@ class _BuildCategoriaState extends State<BuildCategoria> {
                           .add(FiltroCategoriaEvent(value: value ?? ''));
                     },
                     decoration: InputDecoration(
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         FontAwesomeIcons.magnifyingGlass,
                         size: 16,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Color.fromARGB(255, 189, 66, 201),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           width: 2,
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Color.fromARGB(255, 189, 66, 201),
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           width: 2,
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Color.fromARGB(255, 189, 66, 201),
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -96,10 +96,12 @@ class _BuildCategoriaState extends State<BuildCategoria> {
                                     selectedTeam.id == categoria.id,
                               ),
                               checkboxShape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                    color: Color.fromARGB(255, 189, 66, 201)),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               activeColor:
-                                  Theme.of(context).colorScheme.primary,
+                                  const Color.fromARGB(255, 189, 66, 201),
                             ),
                           ],
                         );
@@ -112,10 +114,11 @@ class _BuildCategoriaState extends State<BuildCategoria> {
                     height: 56,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        backgroundColor:
+                            const Color.fromARGB(255, 189, 66, 201),
                         elevation: 0,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
+                          borderRadius: BorderRadius.circular(30),
                         ),
                       ),
                       onPressed: () {
@@ -137,7 +140,7 @@ class _BuildCategoriaState extends State<BuildCategoria> {
             );
           case CategoriaStatus.error:
             return const Center(
-              child: Text('Erro'),
+              child: Text('Erro ao carregar Categorias.'),
             );
         }
       },

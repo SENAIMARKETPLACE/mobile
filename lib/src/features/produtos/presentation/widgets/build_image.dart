@@ -10,10 +10,7 @@ class BuildImage extends StatefulWidget {
 }
 
 class _BuildImageState extends State<BuildImage> {
-  final TextEditingController _imageController = TextEditingController(
-    text:
-        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2FtaXNldGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=400&q=60',
-  );
+  final TextEditingController _imageController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? urlImage;
   bool isEnable = true;
@@ -34,7 +31,6 @@ class _BuildImageState extends State<BuildImage> {
           Form(
             key: _formKey,
             child: TextFormField(
-              // autovalidateMode: AutovalidateMode.onUserInteraction,
               onSaved: (valueSave) {
                 setState(() {
                   urlImage = valueSave;
@@ -62,20 +58,20 @@ class _BuildImageState extends State<BuildImage> {
                     icon: Icon(
                       FontAwesomeIcons.magnifyingGlass,
                       size: 16,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Color.fromARGB(255, 189, 66, 201),
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       width: 2,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Color.fromARGB(255, 189, 66, 201),
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       width: 2,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Color.fromARGB(255, 189, 66, 201),
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -93,7 +89,7 @@ class _BuildImageState extends State<BuildImage> {
             child: Container(
               margin: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.red),
+                border: Border.all(color: Color.fromARGB(255, 189, 66, 201)),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(30),
                 ),
@@ -113,11 +109,11 @@ class _BuildImageState extends State<BuildImage> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: isEnable
-                    ? Theme.of(context).colorScheme.primary
+                    ?  Color.fromARGB(255, 189, 66, 201)
                     : const Color.fromARGB(69, 244, 67, 54),
                 elevation: 0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(30),
                 ),
               ),
               onPressed: () {

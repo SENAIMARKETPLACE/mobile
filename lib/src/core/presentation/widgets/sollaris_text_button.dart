@@ -19,9 +19,9 @@ class SollarisTextButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          backgroundColor: const Color(0xff8F29C8),
-          
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          backgroundColor: const Color.fromARGB(255, 189, 66, 201),
+
           // padding: const EdgeInsets.only(
           //   left: 125,
           //   right: 125,

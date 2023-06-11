@@ -154,7 +154,7 @@ class _ScreenProdutoIdState extends State<ScreenProdutoId> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             const Text(
-                              '''Não existem categorias salvas!''',
+                              '''Não existem produtos adicionados!''',
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 18),
                             ),
@@ -166,10 +166,9 @@ class _ScreenProdutoIdState extends State<ScreenProdutoId> {
                                           idEmpresa: pref.id,
                                         ),
                                       ),
-                              child: const Icon(
-                                Icons.refresh,
-                                size: 70,
-                              ),
+                              child: const Icon(Icons.refresh,
+                                  size: 70,
+                                  color: Color.fromARGB(255, 189, 66, 201)),
                             ),
                           ],
                         ),
@@ -178,6 +177,7 @@ class _ScreenProdutoIdState extends State<ScreenProdutoId> {
                   }
 
                   return RefreshIndicator(
+                    color: const Color.fromARGB(255, 189, 66, 201),
                     onRefresh: () async => context.read<ProdutoBloc>().add(
                           GetProdutosEvent(
                             idSubCategoria: widget.idSubCategoria,
@@ -194,94 +194,59 @@ class _ScreenProdutoIdState extends State<ScreenProdutoId> {
                       itemBuilder: (context, index) {
                         final produto = state.produtosFiltro[index];
 
-                        return Stack(
-                          alignment: Alignment.topRight,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              margin: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 245, 235, 242),
-                                border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 189, 66, 201),
-                                ),
-                                borderRadius: BorderRadius.circular(20),
+                        return Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.9),
+                                spreadRadius: 2,
+                                blurRadius: 9,
+                                offset: const Offset(0,
+                                    3), // changes the shadow direction vertically
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 80,
-                                    height: 80,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.transparent,
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(produto.foto ??
-                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJzRGkvN9WVysP2_3AbXtdgTegy9mEELt2yFirxQymBg&s'),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 18,
-                                  ),
-                                  Text(
-                                    produto.nome,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text('R\$ ${produto.preco}')
-                                ],
-                              ),
+                            ],
+                            color: const Color.fromARGB(255, 245, 235, 242),
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 189, 66, 201),
                             ),
-                            Positioned(
-                                child: Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: IconButton(
-                                  onPressed: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          child: Wrap(
-                                            children: [
-                                              ListTile(
-                                                leading: const Icon(Icons.edit),
-                                                title: const Text('Editar'),
-                                                onTap: () {
-                                                  // Lógica para a opção de editar
-                                                  Navigator.pop(
-                                                      context); // Fechar o bottom sheet
-                                                },
-                                              ),
-                                              ListTile(
-                                                leading:
-                                                    const Icon(Icons.delete),
-                                                title: const Text('Excluir'),
-                                                onTap: () {
-                                                  // Lógica para a opção de excluir
-                                                  Navigator.pop(
-                                                      context); // Fechar o bottom sheet
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  icon: const Icon(Icons.edit)),
-                            ))
-                          ],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 80,
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.transparent,
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(produto.foto ??
+                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJzRGkvN9WVysP2_3AbXtdgTegy9mEELt2yFirxQymBg&s'),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 18,
+                              ),
+                              Text(
+                                produto.nome,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text('R\$ ${produto.preco}')
+                            ],
+                          ),
                         );
                       },
                     ),

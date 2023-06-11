@@ -72,6 +72,7 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
         child: _buildBody(),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromARGB(255, 189, 66, 201),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) {
@@ -159,7 +160,7 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             const Text(
-                              '''Não existem categorias salvas!''',
+                              '''Nenhum produto adicionado!''',
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 18),
                             ),
@@ -167,10 +168,9 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
                               onTap: () async => context
                                   .read<ProdutoBloc>()
                                   .add(GetAllProdutosEvent(idEmpresa: pref.id)),
-                              child: const Icon(
-                                Icons.refresh,
-                                size: 70,
-                              ),
+                              child: const Icon(Icons.refresh,
+                                  size: 70,
+                                  color: Color.fromARGB(255, 189, 66, 201)),
                             ),
                           ],
                         ),
@@ -179,6 +179,7 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
                   }
 
                   return RefreshIndicator(
+                    color: const Color.fromARGB(255, 189, 66, 201),
                     onRefresh: () async => context
                         .read<ProdutoBloc>()
                         .add(GetAllProdutosEvent(idEmpresa: pref.id)),
@@ -199,6 +200,15 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
                               width: double.infinity,
                               margin: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.9),
+                                    spreadRadius: 2,
+                                    blurRadius: 9,
+                                    offset: const Offset(0,
+                                        3), // changes the shadow direction vertically
+                                  ),
+                                ],
                                 color: const Color.fromARGB(255, 245, 235, 242),
                                 border: Border.all(
                                   color:
@@ -216,10 +226,12 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                       color: Colors.transparent,
-                                      image: const DecorationImage(
+                                      image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJzRGkvN9WVysP2_3AbXtdgTegy9mEELt2yFirxQymBg&s'),
+                                        image: NetworkImage(produto
+                                                .foto.isNotEmpty
+                                            ? produto.foto
+                                            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJzRGkvN9WVysP2_3AbXtdgTegy9mEELt2yFirxQymBg&s'),
                                       ),
                                     ),
                                   ),
@@ -247,6 +259,12 @@ class _ScreenProdutoAllState extends State<ScreenProdutoAll> {
                               child: IconButton(
                                   onPressed: () {
                                     showModalBottomSheet(
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
                                       context: context,
                                       builder: (BuildContext context) {
                                         return BuildOptions(

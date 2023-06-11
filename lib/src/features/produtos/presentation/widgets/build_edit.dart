@@ -22,12 +22,12 @@ class BuildOptions extends StatefulWidget {
 class _BuildOptionsState extends State<BuildOptions> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(),
+    return SizedBox(
       child: Wrap(
         children: [
           ListTile(
-            leading: const Icon(Icons.edit),
+            leading: const Icon(Icons.edit,
+                color: Color.fromARGB(255, 189, 66, 201)),
             title: const Text('Editar'),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -40,7 +40,8 @@ class _BuildOptionsState extends State<BuildOptions> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.delete),
+            leading: const Icon(Icons.delete,
+                color: Color.fromARGB(255, 189, 66, 201)),
             title: const Text('Excluir'),
             onTap: () {
               context

@@ -60,13 +60,16 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
   Widget? _iconLeading(String name) {
     switch (name) {
       case 'Masculino':
-        return const Icon(Icons.male);
+        return const Icon(Icons.male, color: Color.fromARGB(255, 189, 66, 201));
       case 'Feminino':
-        return const Icon(Icons.female);
+        return const Icon(Icons.female,
+            color: Color.fromARGB(255, 189, 66, 201));
       case 'Infantil':
-        return const FaIcon(Icons.gamepad_outlined);
+        return const FaIcon(Icons.gamepad_outlined,
+            color: Color.fromARGB(255, 189, 66, 201));
       case 'Unissex':
-        return const Icon(Icons.transgender);
+        return const Icon(Icons.transgender,
+            color: Color.fromARGB(255, 189, 66, 201));
     }
     return null;
   }
@@ -188,7 +191,10 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                             label: 'Categoria',
                             hint: 'Selecione a Categoria',
                             prefixIcon: Icons.category,
-                            suffixIcon: const Icon(Icons.search),
+                            suffixIcon: const Icon(
+                              Icons.search,
+                              color: Color.fromARGB(255, 189, 66, 201),
+                            ),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Por favor, informe uma categoria';
@@ -200,8 +206,8 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                             onTap: () => showModalBottomSheet<Categoria>(
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15),
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
                                   ),
                                 ),
                                 context: context,
@@ -220,7 +226,10 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                             label: 'Sub-Categoria',
                             hint: 'Selecione a Sub-Categoria',
                             prefixIcon: Icons.category,
-                            suffixIcon: const Icon(Icons.search),
+                            suffixIcon: const Icon(
+                              Icons.search,
+                              color: Color.fromARGB(255, 189, 66, 201),
+                            ),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Por favor, informe uma sub-categoria';
@@ -232,8 +241,8 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                             onTap: () => showModalBottomSheet<SubCategoria>(
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  topRight: Radius.circular(15),
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
                                 ),
                               ),
                               context: context,
@@ -249,7 +258,10 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                             label: 'Público',
                             hint: 'Selecione o público',
                             prefixIcon: Icons.category,
-                            suffixIcon: const Icon(Icons.search),
+                            suffixIcon: const Icon(
+                              Icons.search,
+                              color: Color.fromARGB(255, 189, 66, 201),
+                            ),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Por favor, informe um público';
@@ -261,8 +273,8 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                             onTap: () => showModalBottomSheet<List<Categoria>>(
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  topRight: Radius.circular(15),
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
                                 ),
                               ),
                               context: context,
@@ -318,7 +330,9 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                           ),
                           SollarisTextField(
                             typeKey: TextInputType.number,
-                            inputFormatter: [maskFormatter],
+                            inputFormatter: [
+                              maskFormatter,
+                            ],
                             label: 'Preço',
                             hint: 'Informe o preço do produto',
                             prefixIcon: Icons.attach_money,
@@ -345,8 +359,8 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                             onTap: () => showModalBottomSheet<String>(
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15),
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
                                   ),
                                 ),
                                 context: context,
@@ -380,7 +394,6 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                                   label: 'Peso',
                                   hint: '',
                                   maxLength: 5,
-                                  suffixText: 'kg',
                                   typeKey: TextInputType.number,
                                   alignText: TextAlign.center,
                                   validator: (value) {
@@ -595,7 +608,8 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                                 label: 'Categoria',
                                 hint: 'Selecione a Categoria',
                                 prefixIcon: Icons.category,
-                                suffixIcon: const Icon(Icons.search),
+                                suffixIcon: const Icon(Icons.search,
+                                    color: Color.fromARGB(255, 189, 66, 201)),
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Por favor, informe uma categoria';
@@ -611,7 +625,8 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                                 label: 'Sub-Categoria',
                                 hint: 'Selecione a Sub-Categoria',
                                 prefixIcon: Icons.category,
-                                suffixIcon: const Icon(Icons.search),
+                                suffixIcon: const Icon(Icons.search,
+                                    color: Color.fromARGB(255, 189, 66, 201)),
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Por favor, informe uma sub-categoria';
@@ -625,7 +640,8 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                                 label: 'Público',
                                 hint: 'Selecione o público',
                                 prefixIcon: Icons.category,
-                                suffixIcon: const Icon(Icons.search),
+                                suffixIcon: const Icon(Icons.search,
+                                    color: Color.fromARGB(255, 189, 66, 201)),
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Por favor, informe um público';
@@ -638,8 +654,8 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                                     showModalBottomSheet<List<Categoria>>(
                                   shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15),
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
                                     ),
                                   ),
                                   context: context,
@@ -725,8 +741,8 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                                 onTap: () => showModalBottomSheet<String>(
                                     shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
                                       ),
                                     ),
                                     context: context,
@@ -761,7 +777,6 @@ class _BuildFormProdutoState extends State<BuildFormProduto> {
                                       label: 'Peso',
                                       hint: '',
                                       maxLength: 5,
-                                      suffixText: 'kg',
                                       typeKey: TextInputType.number,
                                       alignText: TextAlign.center,
                                       validator: (value) {
