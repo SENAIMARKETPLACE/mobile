@@ -12,25 +12,35 @@ class HomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: 90,
-          height: 90,
-          decoration: BoxDecoration(
-            color: Colors.purple[600],
-            borderRadius: const BorderRadius.all(
+          width: 80,
+          height: 80,
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 53, 127, 187),
+            borderRadius: BorderRadius.all(
               Radius.circular(100),
             ),
           ),
           child: Center(
             child: Text(
               '${name[0]}${name[1].toUpperCase()}',
-              style: const TextStyle(fontSize: 18, color: Colors.white),
+              style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
         ),
-        Text(name),
+        const SizedBox(
+          height: 15,
+        ),
+        Text(
+          name,
+          style: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.normal,
+            color: Color.fromARGB(255, 4, 37, 65),
+          ),
+        ),
       ],
     );
   }

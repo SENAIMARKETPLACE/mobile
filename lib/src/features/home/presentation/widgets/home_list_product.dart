@@ -33,9 +33,9 @@ class _HomeListProductsState extends State<HomeListProducts> {
   @override
   void initState() {
     super.initState();
-    // context
-    //     .read<ProdutoBloc>()
-    //     .add(GetProdutosEvent(idSubCategoria: widget.idEmpresa));
+    context
+        .read<ProdutoBloc>()
+        .add(GetAllProdutosEvent(idEmpresa: widget.idEmpresa));
   }
 
   @override
@@ -44,6 +44,7 @@ class _HomeListProductsState extends State<HomeListProducts> {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               widget.title,
@@ -69,7 +70,9 @@ class _HomeListProductsState extends State<HomeListProducts> {
               case ProdutoStatus.loading:
                 Future.delayed(const Duration(seconds: 2));
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: Color.fromARGB(255, 189, 66, 201),
+                  ),
                 );
               case ProdutoStatus.success:
                 List<HomeCardProduto> myProductCard = [];
@@ -85,7 +88,13 @@ class _HomeListProductsState extends State<HomeListProducts> {
                 }
 
                 if (myProductCard.isEmpty) {
-                  return const Text('Nenhuma Produto cadastrado;');
+                  return const Padding(
+                    padding: EdgeInsets.all(30),
+                    child: Text('Nenhuma Produto adicionado',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 131, 68, 136))),
+                  );
                 } else {
                   return SizedBox(
                     height: widget.heigthCarousel,
@@ -104,7 +113,13 @@ class _HomeListProductsState extends State<HomeListProducts> {
                   );
                 }
               case ProdutoStatus.error:
-                return const Text('Erro');
+                return const Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Text('Erro ao carregar Produtos',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 131, 68, 136))),
+                );
             }
           },
         ),

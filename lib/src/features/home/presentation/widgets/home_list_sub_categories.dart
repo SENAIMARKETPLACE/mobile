@@ -43,7 +43,8 @@ class _HomeListSubCategoriesState extends State<HomeListSubCategories> {
           children: [
             Text(
               widget.title,
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(
+                  fontSize: 20, color: Color.fromARGB(255, 59, 30, 61)),
             ),
             IconButton(
               onPressed: () => Navigator.of(context).push(
@@ -51,9 +52,8 @@ class _HomeListSubCategoriesState extends State<HomeListSubCategories> {
                   builder: (_) => widget.route!,
                 ),
               ),
-              icon: const Icon(
-                Icons.arrow_forward_ios,
-              ),
+              icon: const Icon(Icons.arrow_forward_ios,
+                  color: Color.fromARGB(255, 59, 30, 61)),
             ),
           ],
         ),
@@ -63,7 +63,9 @@ class _HomeListSubCategoriesState extends State<HomeListSubCategories> {
               case CategoriaStatus.initial:
               case CategoriaStatus.loading:
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: Color.fromARGB(255, 189, 66, 201),
+                  ),
                 );
               case CategoriaStatus.success:
                 List<HomeCard> mySubCategoriesCard = [];
@@ -75,7 +77,13 @@ class _HomeListSubCategoriesState extends State<HomeListSubCategories> {
                 }
 
                 if (mySubCategoriesCard.isEmpty) {
-                  return const Text('Nenhuma Sub-Categoria cadastrada;');
+                  return const Padding(
+                    padding: EdgeInsets.all(30),
+                    child: Text('Nenhuma Sub-Categoria adicionada',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 131, 68, 136))),
+                  );
                 } else {
                   return SizedBox(
                     height: widget.heigthCarousel,
@@ -94,7 +102,13 @@ class _HomeListSubCategoriesState extends State<HomeListSubCategories> {
                   );
                 }
               case CategoriaStatus.error:
-                return const Text('Erro');
+                return const Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Text('Erro ao carregar Categorias',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 131, 68, 136))),
+                );
             }
           },
         ),

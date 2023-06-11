@@ -28,7 +28,7 @@ class HomeCardProduto extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
-            color: Color.fromARGB(255, 220, 197, 226),
+            color: Color.fromARGB(255, 53, 127, 187),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,14 +54,17 @@ class HomeCardProduto extends StatelessWidget {
                 titleProduct,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                ),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 5,
               ),
-              Text('R\$ $price')
+              Text(
+                'R\$ $price',
+                style: const TextStyle(color: Colors.white),
+              )
             ],
           ),
         ),

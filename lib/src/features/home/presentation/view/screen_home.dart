@@ -48,49 +48,61 @@ class _ScreenHomeState extends State<ScreenHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const SollarisAppBar(),
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: test,
-        child: FutureBuilder(
-          future: getPreferences(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-              case ConnectionState.waiting:
-              case ConnectionState.active:
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              case ConnectionState.done:
-                return Padding(
-                  padding: const EdgeInsets.only(
-                    top: 8,
-                    left: 8,
-                  ),
-                  child: ListView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      HomeBanner(nameCompany: pref.nome),
-                      const HomeListCategories(
-                        title: 'Minhas Categorias',
-                        route: ScreenCategoria(),
-                      ),
-                      HomeListSubCategories(
-                        title: 'Minhas Sub-Categorias',
-                        idEmpresa: pref.id,
-                        route: const ScreenSubCategoriaAll(),
-                      ),
-                      HomeListProducts(
-                          title: 'Meus Produtos',
-                          heigthCarousel: 180,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(255, 181, 140, 218),
+              Color.fromARGB(255, 167, 222, 222)
+            ],
+          ),
+        ),
+        child: RefreshIndicator(
+          key: _refreshIndicatorKey,
+          onRefresh: test,
+          child: FutureBuilder(
+            future: getPreferences(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                case ConnectionState.waiting:
+                case ConnectionState.active:
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                case ConnectionState.done:
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8,
+                      left: 8,
+                    ),
+                    child: ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        HomeBanner(nameCompany: pref.nome),
+                        const HomeListCategories(
+                          title: 'Minhas Categorias',
+                          route: ScreenCategoria(),
+                        ),
+                        HomeListSubCategories(
+                          title: 'Minhas Sub-Categorias',
                           idEmpresa: pref.id,
-                          route: const ScreenProdutoAll()),
-                    ],
-                  ),
-                );
-            }
-          },
+                          route: const ScreenSubCategoriaAll(),
+                        ),
+                        HomeListProducts(
+                            title: 'Meus Produtos',
+                            heigthCarousel: 180,
+                            idEmpresa: pref.id,
+                            route: const ScreenProdutoAll()),
+                      ],
+                    ),
+                  );
+              }
+            },
+          ),
         ),
       ),
       drawer: const Drawer(),
