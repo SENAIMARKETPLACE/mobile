@@ -1,16 +1,36 @@
-# sollaris_teste
+<img src="banner.png" alt="" width="100%" height="%">
 
-A new Flutter project.
+# 📌 Sobre o projeto
 
-## Getting Started
+ 📍 O aplicativo Sollaris nasceu com a ideia de otimizar e gerenciar os produtos das empresas que estarão na vitrine do nosso site.
 
-This project is a starting point for a Flutter application.
+ 📍 O objetivo deste trabalho é desenvolver um aplicativo móvel inovador que atenda às necessidades dos usuários empresas, proporcionando uma solução eficaz para cadastrar e gerenciar os seus produto. Além disso, o objetivo é avaliar a eficácia do aplicativo por meio de testes de usabilidade e feedback dos usuários, visando aprimorar continuamente sua experiência e funcionalidades.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# 📌 Tecnologias utilizadas
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📲 Mobile
+- Flutter
+- Dart
+
+
+# 📌  Como executar o projeto
+
+## 📲 Mobile
+
+
+```bash
+# clonar repositório
+git clone https://github.com/SENAIMARKETPLACE/
+
+# entrar na pasta do projeto back end
+cd mobile
+
+# instalar dependências
+flutter clean
+flutter pub get
+```
+
+
+
+
